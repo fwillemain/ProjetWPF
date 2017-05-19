@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace JobOverview.ViewModel
 {
-    public class VMTaskCreation : ViewModelBase
+    public class VMTaskManaging : ViewModelBase
     {
         public List<Employee> ListEmployee { get; set; }
-        public VMTaskCreation()
+        public VMTaskManaging()
         {
-            //ListEmployee = DAL.GetListEmployee(Properties.Settings.Default.EmployeId);
+            // ListEmployee = DAL.GetListEmployee(Properties.Settings.Default.EmployeId);
         }
     }
 }

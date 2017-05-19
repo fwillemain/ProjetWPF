@@ -14,7 +14,7 @@
         <DataTemplate DataType="{x:Type vm:VMConnection}">
             <vw:UCConnection/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VMTaskCreation}">
+        <DataTemplate DataType="{x:Type vm:VMTaskManaging}">
             <vw:UCTaskCreation/>
         </DataTemplate>
     </Application.Resources>
