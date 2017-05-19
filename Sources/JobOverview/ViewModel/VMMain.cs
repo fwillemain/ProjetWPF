@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JobOverview.Entity;
+using JobOverview.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -27,6 +29,11 @@ namespace JobOverview.ViewModel
 				SetProperty(ref _VMCourante, value);
 			}
 		}
+
+        public VMMain()
+        {
+            List<Employee> listEmployee = DAL.GetListEmployee("JROUSSET");
+        }
 
 		#region Commandes
 		private ICommand _cmdLogin;
