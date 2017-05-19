@@ -29,31 +29,31 @@
 
 		<!-- Boutons de commandes -->
 		<StackPanel>
-			<Button>
+            <Button Command="{Binding CmdVMTaskManaging}">
 				<StackPanel Orientation="Horizontal">
 					<fa:IconBlock Icon="Tasks"/>
 					<TextBlock Text="Gestion de tâches"/>
 				</StackPanel>
 			</Button>
-			<Button>
+            <Button Command="{Binding CmdVMTaskConsultation}">
 				<StackPanel Orientation="Horizontal">
 					<fa:IconBlock Icon="Users"/>
 					<TextBlock Text="Saisie des temps de travail"/>
 				</StackPanel>
 			</Button>
-			<Button>
+            <Button Command="{Binding CmdExportToXML}">
 				<StackPanel Orientation="Horizontal">
 					<fa:IconBlock Icon="ClockO"/>
 					<TextBlock Text="Exportation des données"/>
 				</StackPanel>
 			</Button>
-            <Button>
+            <Button Command="{Binding CmdVMVersion}">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="ClockO"/>
                     <TextBlock Text="Synthèse des versions"/>
                 </StackPanel>
             </Button>
-            <Button>
+            <Button Command="{Binding CmdVMABout}">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="ClockO"/>
                     <TextBlock Text="A propos"/>

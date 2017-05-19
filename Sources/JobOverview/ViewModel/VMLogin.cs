@@ -15,7 +15,7 @@ namespace JobOverview.ViewModel
 		public List<Employe> ListPeople { get; private set; }
         public Employe LastEmploye { get; set; }
 
-        public VMLogin()
+        public VMLogin(Habilitation habilitation)
 		{
             // TODO : à remplacer par un appel à une méthode de DAL
             ListPeople = new List<Employe>();
@@ -29,6 +29,7 @@ namespace JobOverview.ViewModel
         {
             Properties.Settings.Default.EmployeId = LastEmploye.Id;
             Properties.Settings.Default.Save();
+            
             return base.Validate();
         }
     }
