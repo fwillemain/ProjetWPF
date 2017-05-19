@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Entity\Employe.cs" />
     <Compile Include="View\UCButtonsBar.xaml.cs">
       <DependentUpon>UCButtonsBar.xaml</DependentUpon>
     </Compile>
@@ -129,7 +130,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entity\" />
     <Folder Include="Model\" />
     <Folder Include="ToolKit\" />
   </ItemGroup>
