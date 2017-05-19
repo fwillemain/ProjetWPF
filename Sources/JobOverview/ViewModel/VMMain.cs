@@ -37,9 +37,19 @@ namespace JobOverview.ViewModel
 					_cmdLogin = new RelayCommand(() => VMCourante = new VMLogin());
 				return _cmdLogin;
 			}
-		}
+        }
+        private ICommand _cmdTaskCreation;
+        public ICommand CmdTaskCreation
+        {
+            get
+            {
+                if (_cmdTaskCreation == null)
+                    _cmdTaskCreation = new RelayCommand(() => VMCourante = new VMTaskCreation());
+                return _cmdTaskCreation;
+            }
+        }
 
-		#endregion
+        #endregion
 
-	}
+    }
 }

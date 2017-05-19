@@ -29,7 +29,7 @@
 
 		<!-- Boutons de commandes -->
 		<StackPanel>
-			<Button>
+            <Button Command="{Binding CmdTaskCreation}">
 				<StackPanel Orientation="Horizontal">
 					<fa:IconBlock Icon="Tasks"/>
 					<TextBlock Text="Gestion de tâches"/>

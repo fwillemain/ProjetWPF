@@ -73,7 +73,9 @@
     <Compile Include="Entity\Version.cs" />
     <Compile Include="Entity\WorkTime.cs" />
     <Compile Include="Model\DAL.cs" />
+    <Compile Include="ToolKit\Converter.cs" />
     <Compile Include="ViewModel\VMConnection.cs" />
+    <Compile Include="ViewModel\VMTaskCreation.cs" />
     <Compile Include="View\UCButtonsBar.xaml.cs">
       <DependentUpon>UCButtonsBar.xaml</DependentUpon>
     </Compile>
@@ -85,6 +87,9 @@
     </Compile>
     <Compile Include="View\ModalWindow.xaml.cs">
       <DependentUpon>ModalWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UCTaskCreation.xaml.cs">
+      <DependentUpon>UCTaskCreation.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -118,6 +123,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UCTaskCreation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -146,8 +155,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ToolKit\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
