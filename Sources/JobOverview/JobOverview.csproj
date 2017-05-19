@@ -131,6 +131,7 @@
   <ItemGroup>
     <Folder Include="Entity\" />
     <Folder Include="Model\" />
+    <Folder Include="ToolKit\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
