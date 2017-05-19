@@ -25,8 +25,8 @@ namespace JobOverview.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FWILLEMAIN17-DE\\IP08R2;Initial Catalog=JobOverview;Integrated Securit" +
-            "y=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LMILBOR17-DE\\IP08R2;Initial Catalog=JobOverview;Integrated Security=T" +
+            "rue")]
         public string JobOverviewConnectionStringDefault {
             get {
                 return ((string)(this["JobOverviewConnectionStringDefault"]));
@@ -77,13 +77,13 @@ namespace JobOverview.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public int EmployeId {
+        [global::System.Configuration.DefaultSettingValueAttribute("JROUSSET")]
+        public string EmployeeId {
             get {
-                return ((int)(this["EmployeId"]));
+                return ((string)(this["EmployeeId"]));
             }
             set {
-                this["EmployeId"] = value;
+                this["EmployeeId"] = value;
             }
         }
     }
