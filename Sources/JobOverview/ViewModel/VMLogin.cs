@@ -29,6 +29,8 @@ namespace JobOverview.ViewModel
         {
             //Properties.Settings.Default.EmployeId = LastEmploye.Login;
             //Properties.Settings.Default.Save();
+
+            
             return base.Validate();
         }
     }

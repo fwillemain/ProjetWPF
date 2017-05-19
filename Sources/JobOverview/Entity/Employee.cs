@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobOverview.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace JobOverview.Entity
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public Job Job { get; set; }
-        public bool IsManager { get; set; }
+        public Habilitation Habilitation { get; set; }
         public float Productivity { get; set; }
         public List<Task> ListTask { get; set; }
     }
