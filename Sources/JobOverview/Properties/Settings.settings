@@ -9,7 +9,7 @@
       <Value Profile="(Default)">Data Source=FWILLEMAIN17-DE\IP08R2;Initial Catalog=JobOverview;Integrated Security=True</Value>
     </Setting>
     <Setting Name="JobOverviewConnectionStringGaetan" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Test2</Value>
+      <Value Profile="(Default)">Data Source=GLAVENDER17-DE\IP08R2;Initial Catalog="job overview";Integrated Security=True</Value>
     </Setting>
     <Setting Name="JobOverviewConnectionStringLeo" Type="System.String" Scope="User">
       <Value Profile="(Default)">Test3</Value>

@@ -32,22 +32,34 @@
 			<Button>
 				<StackPanel Orientation="Horizontal">
 					<fa:IconBlock Icon="Tasks"/>
-					<TextBlock Text="Ecran 1"/>
+					<TextBlock Text="Gestion de tâches"/>
 				</StackPanel>
 			</Button>
 			<Button>
 				<StackPanel Orientation="Horizontal">
 					<fa:IconBlock Icon="Users"/>
-					<TextBlock Text="Ecran 2"/>
+					<TextBlock Text="Saisie des temps de travail"/>
 				</StackPanel>
 			</Button>
 			<Button>
 				<StackPanel Orientation="Horizontal">
 					<fa:IconBlock Icon="ClockO"/>
-					<TextBlock Text="...etc"/>
+					<TextBlock Text="Exportation des données"/>
 				</StackPanel>
 			</Button>
-		</StackPanel>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconBlock Icon="ClockO"/>
+                    <TextBlock Text="Synthèse des versions"/>
+                </StackPanel>
+            </Button>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconBlock Icon="ClockO"/>
+                    <TextBlock Text="A propos"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
 
 		<!-- zone centrale -->
 		<!-- Les DataTemplates définis en ressources permettent de trouver
