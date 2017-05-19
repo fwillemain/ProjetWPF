@@ -63,7 +63,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Entity\Employe.cs" />
+    <Compile Include="Entity\Activity.cs" />
+    <Compile Include="Entity\Employee.cs" />
+    <Compile Include="Entity\Job.cs" />
+    <Compile Include="Entity\Module.cs" />
+    <Compile Include="Entity\Software.cs" />
+    <Compile Include="Entity\TaskProd.cs" />
+    <Compile Include="Entity\Task.cs" />
+    <Compile Include="Entity\Version.cs" />
+    <Compile Include="Entity\WorkTime.cs" />
+    <Compile Include="Model\DAL.cs" />
     <Compile Include="ViewModel\VMConnection.cs" />
     <Compile Include="View\UCButtonsBar.xaml.cs">
       <DependentUpon>UCButtonsBar.xaml</DependentUpon>
@@ -138,7 +147,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="ToolKit\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
