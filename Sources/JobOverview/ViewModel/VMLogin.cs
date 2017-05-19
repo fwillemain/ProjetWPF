@@ -12,24 +12,23 @@ namespace JobOverview.ViewModel
 	public class VMLogin : ViewModelBase
 	{
 		// TODO : à remplacer par une vraie liste de personnes
-		public List<Employe> ListPeople { get; private set; }
-        public Employe LastEmploye { get; set; }
+		public List<Employee> ListPeople { get; private set; }
+        public Employee LastEmploye { get; set; }
 
         public VMLogin(Habilitation habilitation)
 		{
-            // TODO : à remplacer par un appel à une méthode de DAL
-            ListPeople = new List<Employe>();
-            ListPeople.Add(new Employe { Id = 1, LastName = "Jean-Paul" });
-            ListPeople.Add(new Employe { Id = 2, LastName = "Bidule" });
-            if (ListPeople.Select(c => c.Id).Contains(Properties.Settings.Default.EmployeId))
-                LastEmploye = ListPeople.Where(c => c.Id == Properties.Settings.Default.EmployeId).FirstOrDefault();
-            else LastEmploye = ListPeople[0];
+            //// TODO : à remplacer par un appel à une méthode de DAL
+            //ListPeople = new List<Employee>();
+            //ListPeople.Add(new Employee { Login = "JP", LastName = "Jean-Paul" });
+            //ListPeople.Add(new Employee { Login = "BD", LastName = "Bidule" });
+            //if (ListPeople.Select(c => c.Login).Contains(Properties.Settings.Default.EmployeId))
+            //    LastEmploye = ListPeople.Where(c => c.Login == Properties.Settings.Default.EmployeId).FirstOrDefault();
+            //else LastEmploye = ListPeople[0];
         }
         public override ValidationResult Validate()
         {
-            Properties.Settings.Default.EmployeId = LastEmploye.Id;
-            Properties.Settings.Default.Save();
-            
+            //Properties.Settings.Default.EmployeId = LastEmploye.Login;
+            //Properties.Settings.Default.Save();
             return base.Validate();
         }
     }

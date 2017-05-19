@@ -28,7 +28,7 @@ namespace JobOverview.View
 
             if (!resCnx.Value) Close();
 #endif
-
+            // TODO : gérer la fermeture de la fenetre 
 
             // Affichage d'une fenêtre modale d'identification
             var dlgLog = new ModalWindow(new VMLogin());
