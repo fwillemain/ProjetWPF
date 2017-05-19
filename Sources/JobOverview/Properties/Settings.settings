@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="JobOverviewConnectionStringDefault" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Data Source=LMILBOR17-DE\IP08R2;Initial Catalog=JobOverview;Integrated Security=True</Value>
+      <Value Profile="(Default)">Data Source=FWILLEMAIN17-DE\IP08R2;Initial Catalog=JobOverview;Integrated Security=True</Value>
     </Setting>
     <Setting Name="JobOverviewConnectionStringFlo" Type="System.String" Scope="User">
       <Value Profile="(Default)">Data Source=FWILLEMAIN17-DE\IP08R2;Initial Catalog=JobOverview;Integrated Security=True</Value>
