@@ -8,101 +8,82 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace JobOverview.Properties
-{
-
-
+namespace JobOverview.Properties {
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
-    {
-
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-
-        public static Settings Default
-        {
-            get
-            {
+        
+        public static Settings Default {
+            get {
                 return defaultInstance;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FWILLEMAIN17-DE\\IP08R2;Initial Catalog=JobOverview;Integrated Securit" +
             "y=True")]
-        public string JobOverviewConnectionStringDefault
-        {
-            get
-            {
+        public string JobOverviewConnectionStringDefault {
+            get {
                 return ((string)(this["JobOverviewConnectionStringDefault"]));
             }
-            set
-            {
+            set {
                 this["JobOverviewConnectionStringDefault"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FWILLEMAIN17-DE\\IP08R2;Initial Catalog=JobOverview;Integrated Securit" +
             "y=True")]
-        public string JobOverviewConnectionStringFlo
-        {
-            get
-            {
+        public string JobOverviewConnectionStringFlo {
+            get {
                 return ((string)(this["JobOverviewConnectionStringFlo"]));
             }
-            set
-            {
+            set {
                 this["JobOverviewConnectionStringFlo"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Test2")]
-        public string JobOverviewConnectionStringGaetan
-        {
-            get
-            {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=GLAVENDER17-DE\\IP08R2;Initial Catalog=\"job overview\";Integrated Secur" +
+            "ity=True")]
+        public string JobOverviewConnectionStringGaetan {
+            get {
                 return ((string)(this["JobOverviewConnectionStringGaetan"]));
             }
-            set
-            {
+            set {
                 this["JobOverviewConnectionStringGaetan"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Test3")]
-        public string JobOverviewConnectionStringLeo
-        {
-            get
-            {
+        public string JobOverviewConnectionStringLeo {
+            get {
                 return ((string)(this["JobOverviewConnectionStringLeo"]));
             }
-            set
-            {
+            set {
                 this["JobOverviewConnectionStringLeo"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public int EmployeId
-        {
-            get
-            {
+        public int EmployeId {
+            get {
                 return ((int)(this["EmployeId"]));
             }
-            set
-            {
+            set {
                 this["EmployeId"] = value;
             }
         }
-
     }
 }
