@@ -8,5 +8,8 @@ namespace JobOverview.Entity
 {
     public class WorkTime
     {
+        public float Hours { get; set; }
+        public float Productivity { get; set; }
+        public DateTime WorkingDate { get; set; }
     }
 }
