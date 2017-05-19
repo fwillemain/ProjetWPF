@@ -2,6 +2,18 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JobOverview.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
+    <Setting Name="JobOverviewConnectionStringDefault" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Data Source=FWILLEMAIN17-DE\IP08R2;Initial Catalog=JobOverview;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="JobOverviewConnectionStringFlo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Data Source=FWILLEMAIN17-DE\IP08R2;Initial Catalog=JobOverview;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="JobOverviewConnectionStringGaetan" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Test2</Value>
+    </Setting>
+    <Setting Name="JobOverviewConnectionStringLeo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Test3</Value>
+    </Setting>
     <Setting Name="EmployeId" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
