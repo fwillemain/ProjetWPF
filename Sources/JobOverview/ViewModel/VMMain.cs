@@ -14,6 +14,7 @@ namespace JobOverview.ViewModel
     }
 	public class VMMain : ViewModelBase
 	{
+        
         private Habilitation _habilitation;
 		// Vue-modèle courante sur laquelle est liées le ContentControl
 		// de la zone principale
@@ -34,7 +35,7 @@ namespace JobOverview.ViewModel
 			get
 			{
 				if (_cmdLogin == null)
-					_cmdLogin = new RelayCommand(() => VMCourante = new VMLogin(_habilitation));
+					_cmdLogin = new RelayCommand(() => VMCourante = new VMLogin());
 				return _cmdLogin;
 			}
 		}
