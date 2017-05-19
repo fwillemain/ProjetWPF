@@ -20,9 +20,6 @@ namespace JobOverview.View
 		// Après chargement de la fenêtre
 		private void MainWindow_Loaded(object sender, RoutedEventArgs e)
 		{
-
-            // JobOverviewConnectionStringDefault
-
 #if DEBUG
             // Affichage d'une fenêtre modale de choix de chaine de connexion (seulement en mode debugg)
             var dlgCnx = new ModalWindow(new VMConnection());

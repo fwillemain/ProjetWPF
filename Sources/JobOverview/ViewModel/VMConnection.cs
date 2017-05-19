@@ -25,6 +25,7 @@ namespace JobOverview.ViewModel
 
         public override ValidationResult Validate()
         {
+            // Affecte à la propriété JobOverviewConnectionStringDefault la chaine de connexion sélectionnée
             Properties.Settings.Default.JobOverviewConnectionStringDefault = SelectedConnectionString;
             Properties.Settings.Default.Save();
 
