@@ -90,7 +90,8 @@ namespace JobOverview.Model
 
                 Entity.Task currentTask = currentEmployee.ListTask.Last();
 
-                if(!currentTask.ListWorkTime.Any() || currentTask.ListWorkTime.Last().WorkingDate != (DateTime)reader["DateTravail"])
+                if (reader["DateTravail"] != DBNull.Value && !currentTask.ListWorkTime.Any() || 
+                    currentTask.ListWorkTime.Last().WorkingDate != (DateTime)reader["DateTravail"])
                 {
                     WorkTime workTime = new WorkTime()
                     {
