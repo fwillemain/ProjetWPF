@@ -63,8 +63,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\VMConnection.cs" />
     <Compile Include="View\UCButtonsBar.xaml.cs">
       <DependentUpon>UCButtonsBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UCConnection.xaml.cs">
+      <DependentUpon>UCConnection.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UCLogin.xaml.cs">
       <DependentUpon>UCLogin.xaml</DependentUpon>
@@ -89,6 +93,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\UCButtonsBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UCConnection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
