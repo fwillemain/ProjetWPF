@@ -39,6 +39,7 @@ namespace JobOverview.Model
                     listEmployee.Add(employee);
                 }
 
+
                 Employee currentEmployee = listEmployee.Last();
 
                 // Si la liste des activités de l'employé courrant est vide ou si l'activité change ajouter une nouvelle activité
@@ -57,8 +58,10 @@ namespace JobOverview.Model
                 // Si il n'y a pas de tache à ajouter, lire la ligne suivante
                 if (reader["Annexe"] == DBNull.Value) continue;
 
+                // TODO : sélectionner la bonne tache si elle n'est pas à créer
+
                 // Si la liste des taches de l'employé courrant est vide ou si la tache est déjà dans la liste ajouter une nouvelle activité
-                if (!currentEmployee.ListTask.Any() || currentEmployee.ListTask.Where(t => t.Id == (Guid)reader["IdTache"]).Any())
+                if (!currentEmployee.ListTask.Any() || !currentEmployee.ListTask.Where(t => t.Id == (Guid)reader["IdTache"]).Any())
                 {
                     Entity.Task task;
                     if ((bool)reader["Annexe"])
@@ -94,7 +97,7 @@ namespace JobOverview.Model
                 // Si il n'y a pas de temps de travail à ajouter, passer à la ligne suivante
                 if (reader["DateTravail"] == DBNull.Value) continue;
 
-                Entity.Task currentTask = currentEmployee.ListTask.Last();
+                Entity.Task currentTask = currentEmployee.ListTask.Where(t => t.Id == (Guid)reader["IdTache"]).First();
 
                 if (!currentTask.ListWorkTime.Any() || 
                     currentTask.ListWorkTime.Last().WorkingDate != (DateTime)reader["DateTravail"])
@@ -136,7 +139,7 @@ namespace JobOverview.Model
                                 left outer join  jo.Travail tr on t.IdTache = tr.IdTache 
                                 left outer join jo.TacheProd tp on t.IdTache = tp.IdTache
                                 where p.Manager = @LoginManager
-                                order by p.Login, m.CodeMetier, act1.CodeActivite, t.IdTache, act2.CodeActivite, tr.IdTache";
+                                order by p.Login, m.CodeMetier, act1.CodeActivite, t.IdTache, act2.CodeActivite, tr.DateTravail";
 
                 SqlCommand cmd = new SqlCommand(query, cnx);
                 cmd.Parameters.Add(new SqlParameter("@LoginManager", SqlDbType.VarChar));
@@ -175,7 +178,7 @@ namespace JobOverview.Model
                                 left outer join  jo.Travail tr on t.IdTache = tr.IdTache 
                                 left outer join jo.TacheProd tp on t.IdTache = tp.IdTache
                                 where p.Login = @Login
-                                order by p.Login, m.CodeMetier, act1.CodeActivite, t.IdTache, act2.CodeActivite, tr.IdTache";
+                                order by p.Login, m.CodeMetier, act1.CodeActivite, t.IdTache, act2.CodeActivite, tr.DateTravail";
 
                 SqlCommand cmd = new SqlCommand(query, cnx);
                 cmd.Parameters.Add(new SqlParameter("@Login", SqlDbType.VarChar));

@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JobOverview.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="500">
+             d:DesignHeight="500" d:DesignWidth="900">
     <Grid>
-        <TabControl>
+        <TabControl DataContext="{Binding CurrentEmployee}">
             <TabItem Header="Taches annexes">
                 <Grid>
                     <!--2 lignes et 3 colonnes-->
@@ -29,7 +29,7 @@
                     </StackPanel>
                     
                     <!--Ligne 1-->
-                    <ListView Grid.Row="1" ItemsSource="{Binding CurrentEmployee.ListTask}">
+                    <ListView Grid.Row="1" ItemsSource="{Binding ListTask}" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}"/>
@@ -38,7 +38,39 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ListView Grid.Row="1" Grid.Column="1"></ListView>
+                    <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ListTask/ListWorkTime}" IsSynchronizedWithCurrentItem="True">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Hours" DisplayMemberBinding="{Binding Hours}"/>
+                                <GridViewColumn Header="Productivity" DisplayMemberBinding="{Binding Productivity}"/>
+                                <GridViewColumn Header="WorkingDate" DisplayMemberBinding="{Binding WorkingDate}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Expander Grid.Row="1" Grid.Column="2" ExpandDirection="Left" MaxWidth="300" BorderThickness="1" BorderBrush="Black" Padding="5">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Button Content="&#x2B;" />
+                                <Button Content="Modifier" />
+                                <Button Content="&#x2212;" />
+                                <Button Content="&#x2713;" />
+                                <Button Content="&#x21b6;" />
+                            </StackPanel>
+                            <DockPanel>
+                                <Label Content="Tâche " DockPanel.Dock="Left"/>
+                                <Label DockPanel.Dock="Left" Content="{Binding ListTask/Label}"/>
+                            </DockPanel>
+                            <DatePicker SelectedDate="{Binding ListTask/ListWorkTime/WorkingDate}"/>
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="0,10">
+                                    <Label Content="Productivité"/>
+                                    <TextBox VerticalContentAlignment="Center" Text="{Binding ListTask/ListWorkTime/Productivity}"/>
+                                </StackPanel>
+                            </DockPanel>
+                            <TextBlock Text="Nombre d'heures effectuées"/>
+                            <TextBox Height="30" Width="200" MaxLength="1" Text="{Binding ListTask/ListWorkTime/Hours}"/>
+                        </StackPanel>
+                    </Expander>
                 </Grid>
             </TabItem>
             <TabItem Header="Taches prod"></TabItem>
