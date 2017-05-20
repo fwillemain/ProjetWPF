@@ -73,8 +73,10 @@
     <Compile Include="Entity\Version.cs" />
     <Compile Include="Entity\WorkTime.cs" />
     <Compile Include="Model\DAL.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="ToolKit\Converter.cs" />
     <Compile Include="ViewModel\VMConnection.cs" />
+    <Compile Include="ViewModel\VMTaskConsultation.cs" />
     <Compile Include="ViewModel\VMTaskManaging.cs" />
     <Compile Include="View\UCButtonsBar.xaml.cs">
       <DependentUpon>UCButtonsBar.xaml</DependentUpon>
@@ -87,6 +89,9 @@
     </Compile>
     <Compile Include="View\ModalWindow.xaml.cs">
       <DependentUpon>ModalWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UCTaskConsultation.xaml.cs">
+      <DependentUpon>UCTaskConsultation.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UCTaskManaging.xaml.cs">
       <DependentUpon>UCTaskManaging.xaml</DependentUpon>
@@ -120,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ModalWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UCTaskConsultation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

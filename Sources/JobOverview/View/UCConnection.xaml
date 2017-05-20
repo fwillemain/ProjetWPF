@@ -9,7 +9,7 @@
     <StackPanel MinHeight="100" VerticalAlignment="Center">
         <Label Content="Connection string to select" HorizontalAlignment="Center" Margin="10"/>
         <ComboBox Height="30" Width="250" 
-					 ItemsSource="{Binding Path=ListConnectionString}" SelectedIndex="0" DisplayMemberPath="Nom" 
+					 ItemsSource="{Binding Path=ListConnectionString}" SelectedIndex="1" DisplayMemberPath="Nom" 
                      SelectedValuePath="Valeur" SelectedValue="{Binding SelectedConnectionString}"/>
     </StackPanel>
 </UserControl>

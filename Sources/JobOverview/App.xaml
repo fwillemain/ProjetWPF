@@ -17,5 +17,8 @@
         <DataTemplate DataType="{x:Type vm:VMTaskManaging}">
             <vw:UCTaskCreation/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VMTaskConsultation}">
+            <vw:UCTaskConsultation/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

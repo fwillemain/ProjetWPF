@@ -64,7 +64,7 @@ namespace JobOverview.ViewModel
             get
             {
                 if (_cmdVMTaskConsultation == null)
-                    _cmdVMTaskConsultation = new RelayCommand(() => { });
+                    _cmdVMTaskConsultation = new RelayCommand(() =>  VMCourante = new VMTaskConsultation());
                 return _cmdVMTaskConsultation;
             }
         }

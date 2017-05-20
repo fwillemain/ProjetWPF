@@ -54,8 +54,11 @@ namespace JobOverview.Model
                     currentEmployee.Job.ListActivity.Add(activity);
                 }
 
-                // Si la liste des taches de l'employé courrant est vide ou si la tache change ajouter une nouvelle activité
-                if (!currentEmployee.ListTask.Any() || currentEmployee.ListTask.Last().Id != (Guid)reader["IdTache"])
+                // Si il n'y a pas de tache à ajouter, lire la ligne suivante
+                if (reader["Annexe"] == DBNull.Value) continue;
+
+                // Si la liste des taches de l'employé courrant est vide ou si la tache est déjà dans la liste ajouter une nouvelle activité
+                if (!currentEmployee.ListTask.Any() || currentEmployee.ListTask.Where(t => t.Id == (Guid)reader["IdTache"]).Any())
                 {
                     Entity.Task task;
                     if ((bool)reader["Annexe"])
@@ -88,10 +91,13 @@ namespace JobOverview.Model
                     currentEmployee.ListTask.Add(task);
                 }
 
+                // Si il n'y a pas de temps de travail à ajouter, passer à la ligne suivante
+                if (reader["DateTravail"] == DBNull.Value) continue;
+
                 Entity.Task currentTask = currentEmployee.ListTask.Last();
 
-                if (reader["DateTravail"] != DBNull.Value && (!currentTask.ListWorkTime.Any() || 
-                    currentTask.ListWorkTime.Last().WorkingDate != (DateTime)reader["DateTravail"]))
+                if (!currentTask.ListWorkTime.Any() || 
+                    currentTask.ListWorkTime.Last().WorkingDate != (DateTime)reader["DateTravail"])
                 {
                     WorkTime workTime = new WorkTime()
                     {
@@ -112,7 +118,7 @@ namespace JobOverview.Model
         {
             List<Employee> listEmployee = new List<Employee>();
 
-            using (SqlConnection cnx = new SqlConnection(Properties.Settings.Default.JobOverviewConnectionStringDefault))
+            using (SqlConnection cnx = new SqlConnection(Properties.Settings.Default.JobOverviewConnectionStringFloMaison))
             {
                 string query = @"select p.Login, p.Nom, p.Prenom, p.Manager, p.TauxProductivite,
 	                                            m.CodeMetier, m.Libelle,
@@ -125,7 +131,7 @@ namespace JobOverview.Model
                                 inner join jo.Metier m on p.CodeMetier = m.CodeMetier
                                 inner join jo.ActiviteMetier am on m.CodeMetier = am.MetierCodeMetier
                                 inner join jo.Activite act1 on am.ActiviteCodeActivite = act1.CodeActivite
-                                inner join jo.Tache t on p.Login = t.Login
+                                left outer join jo.Tache t on p.Login = t.Login
                                 inner join jo.Activite act2 on t.CodeActivite = act2.CodeActivite
                                 left outer join  jo.Travail tr on t.IdTache = tr.IdTache 
                                 left outer join jo.TacheProd tp on t.IdTache = tp.IdTache
@@ -147,6 +153,44 @@ namespace JobOverview.Model
             return listEmployee;
         }
 
+        static public Employee GetEmployee(string login)
+        {
+            List<Employee> listEmployee = new List<Employee>();
+
+            using (SqlConnection cnx = new SqlConnection(Properties.Settings.Default.JobOverviewConnectionStringDefault))
+            {
+                string query = @"select p.Login, p.Nom, p.Prenom, p.Manager, p.TauxProductivite,
+	                                            m.CodeMetier, m.Libelle,
+	                                            act1.CodeActivite CodeActiviteMetier, act1.Libelle LibelleActiviteMetier, act1.Annexe AnnexeActiviteMetier,
+	                                            t.IdTache, t.Description, t.Libelle, t.Annexe, 
+	                                            act2.CodeActivite CodeActiviteTache, act2.Libelle LibelleActiviteTache, act2.Annexe AnnexeActiviteTache,
+	                                            tr.Heures, tr.TauxProductivite, tr.DateTravail,
+	                                            tp.Numero, tp.DureeRestanteEstimee, tp.DureePrevue, tp.CodeModule, tp.NumeroVersion
+                                from jo.Personne p 
+                                inner join jo.Metier m on p.CodeMetier = m.CodeMetier
+                                inner join jo.ActiviteMetier am on m.CodeMetier = am.MetierCodeMetier
+                                inner join jo.Activite act1 on am.ActiviteCodeActivite = act1.CodeActivite
+                                inner join jo.Tache t on p.Login = t.Login
+                                inner join jo.Activite act2 on t.CodeActivite = act2.CodeActivite
+                                left outer join  jo.Travail tr on t.IdTache = tr.IdTache 
+                                left outer join jo.TacheProd tp on t.IdTache = tp.IdTache
+                                where p.Login = @Login
+                                order by p.Login, m.CodeMetier, act1.CodeActivite, t.IdTache, act2.CodeActivite, tr.IdTache";
+
+                SqlCommand cmd = new SqlCommand(query, cnx);
+                cmd.Parameters.Add(new SqlParameter("@Login", SqlDbType.VarChar));
+                cmd.Parameters["@Login"].Value = login;
+
+                cnx.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    DataReaderToListEmployee(reader, listEmployee);
+                }
+            }
+
+            return listEmployee.FirstOrDefault();
+        }
         #endregion
     }
 }
