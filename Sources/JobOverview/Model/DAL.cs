@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using JobOverview.ViewModel;
 using System.Data;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace JobOverview.Model
 {
@@ -193,6 +195,42 @@ namespace JobOverview.Model
             }
 
             return listEmployee.FirstOrDefault();
+        }
+
+
+        /// <summary>
+        /// Exporte la liste donnée en paramètre sous forme xml et la stock au chemin spécifié.
+        /// </summary>
+        /// <param name="listTask">Liste à sauvegrder</param>
+        /// <param name="path">chemin du dossier et nom du fichier avec extension.</param>
+        static public void ExportListTaskToXML(List<Entity.Task> listTask, string path)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Entity.Task>),
+                                       new XmlRootAttribute("listTask"));
+
+            using (var sw = new StreamWriter(path))
+            {
+                serializer.Serialize(sw, listTask);
+            }
+        }
+        /// <summary>
+        /// Importe une liste dont le chemin est donné en paramètre.
+        /// </summary>
+        /// <param name="path">chemin du fichier xml à importer.</param>
+        /// <returns></returns>
+        static public List<Entity.Task> GetListTaskFromXml(string path)
+        {
+            List<Entity.Task> ListTask = null;
+
+            XmlSerializer deserializer = new XmlSerializer(typeof(List<Entity.Task>),
+               new XmlRootAttribute("listTask"));
+
+            using (var sr = new StreamReader(path))
+            {
+                ListTask = (List<Entity.Task>)deserializer.Deserialize(sr);
+            }
+
+            return ListTask;
         }
         #endregion
     }
