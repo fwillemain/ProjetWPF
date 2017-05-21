@@ -60,8 +60,6 @@ namespace JobOverview.Model
                 // Si il n'y a pas de tache à ajouter, lire la ligne suivante
                 if (reader["Annexe"] == DBNull.Value) continue;
 
-                // TODO : sélectionner la bonne tache si elle n'est pas à créer
-
                 // Si la liste des taches de l'employé courrant est vide ou si la tache est déjà dans la liste ajouter une nouvelle activité
                 if (!currentEmployee.ListTask.Any() || !currentEmployee.ListTask.Where(t => t.Id == (Guid)reader["IdTache"]).Any())
                 {
@@ -119,6 +117,11 @@ namespace JobOverview.Model
         #endregion
 
         #region Méthodes publiques
+        /// <summary>
+        /// Renvoi la liste des employés dont le login du manager est passé en paramètre.
+        /// </summary>
+        /// <param name="loginManager"></param>
+        /// <returns></returns>
         static public List<Employee> GetListEmployee(string loginManager)
         {
             List<Employee> listEmployee = new List<Employee>();
@@ -157,7 +160,11 @@ namespace JobOverview.Model
 
             return listEmployee;
         }
-
+        /// <summary>
+        /// Renvoi l'employé dont le login est passé passé en paramètre.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
         static public Employee GetEmployee(string login)
         {
             List<Employee> listEmployee = new List<Employee>();
@@ -195,6 +202,36 @@ namespace JobOverview.Model
             }
 
             return listEmployee.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Renvoi la liste des logiciels.
+        /// </summary>
+        /// <returns></returns>
+        static public List<Software> GetListSoftware()
+        {
+            List<Software> listSoftware = new List<Software>();
+
+            using (SqlConnection cnx = new SqlConnection(Properties.Settings.Default.JobOverviewConnectionStringFloMaison))
+            {
+                string query = @"";
+
+                SqlCommand cmd = new SqlCommand(query, cnx);
+
+                cnx.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    DataReaderToListSoftware(reader, listSoftware);
+                }
+            }
+
+            return listSoftware;
+        }
+
+        private static void DataReaderToListSoftware(SqlDataReader reader, List<Software> listSoftware)
+        {
+            throw new NotImplementedException();
         }
 
 

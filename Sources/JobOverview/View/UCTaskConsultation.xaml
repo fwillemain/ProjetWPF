@@ -7,6 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="900">
     <Grid>
+        <Grid.Resources>
+            <Style x:Key="RegularButtonStyle">
+                <Setter Property="Button.Width" Value="70"/>
+                <Setter Property="Button.Height" Value="20"/>
+            </Style>
+        </Grid.Resources>
         <TabControl>
             <TabItem Header="Taches prod" DataContext="{Binding CurrentEmployeeListTaskProd}">
                 <Grid>
@@ -23,9 +29,31 @@
                     </Grid.ColumnDefinitions>
                     <!--#endregion-->
                     <!--Ligne 0-->
-                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <DatePicker HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                    <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="Margin" Value="2,0"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <ComboBox Name="cbSortPerSoftware">
+                            <ComboBoxItem Content="Logiciel" IsSelected="True"/>
+                        </ComboBox>
+                        <ComboBox Name="cbSortPerVersion">
+                            <ComboBoxItem Content="Version" IsSelected="True"/>
+                        </ComboBox>
+                        <ComboBox Name="cbSortPerModule">
+                            <ComboBoxItem Content="Module" IsSelected="True"/>
+                        </ComboBox>
+                        <ComboBox Name="cbSortPerActivity">
+                            <ComboBoxItem Content="Activité" IsSelected="True"/>
+                        </ComboBox>
+                        <Button Name="btnSort" Content="Trier" Style="{StaticResource RegularButtonStyle}"/>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <DatePicker/>
+                    <DatePicker/>
                     </StackPanel>
                     
                     <!--Ligne 1-->
@@ -36,6 +64,7 @@
                                 <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}"/>
                                 <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version.Number}"/>
                                 <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Code}"/>
+                                <GridViewColumn Header="Module" DisplayMemberBinding="{Binding Module.Code}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

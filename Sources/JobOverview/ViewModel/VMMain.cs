@@ -63,8 +63,9 @@ namespace JobOverview.ViewModel
         {
             get
             {
+                // TODO VMMain::CmdVMTaskConsultation : utiliser l'employé courrant pour la création de chaque VM (à discuter)
                 if (_cmdVMTaskConsultation == null)
-                    _cmdVMTaskConsultation = new RelayCommand(() =>  VMCourante = new VMTaskConsultation());
+                    _cmdVMTaskConsultation = new RelayCommand(() =>  VMCourante = new VMTaskConsultation(DAL.GetEmployee("RBEAUMONT")));
                 return _cmdVMTaskConsultation;
             }
         }

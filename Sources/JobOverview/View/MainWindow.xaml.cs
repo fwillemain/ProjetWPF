@@ -28,7 +28,7 @@ namespace JobOverview.View
 
             if (!resCnx.Value) Close();
 #endif
-            // TODO : gérer la fermeture de la fenetre 
+            // TODO MainWindow : gérer la fermeture de la fenetre quand l'utilisateur appuie sur le bouton abort (X)
 
             // Affichage d'une fenêtre modale d'identification
             var dlgLog = new ModalWindow(new VMLogin());

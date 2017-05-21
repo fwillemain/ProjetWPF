@@ -13,5 +13,9 @@ namespace JobOverview.Entity
         public string Code { get; set; }
         [XmlAttribute]
         public string Label { get; set; }
+
+        // TODO Module : Voir pour la gestion des sous-modules (XML et choix archi)
+        [XmlIgnore]
+        public List<Module> ListSubModule { get; set; }
     }
 }
