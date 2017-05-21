@@ -19,7 +19,7 @@ namespace JobOverview.ViewModel
             CurrentEmployee = DAL.GetEmployee("RBEAUMONT");
             CurrentEmployeeListTaskProd = CurrentEmployee.ListTask.OfType<TaskProd>().ToList();
             CurrentEmployeeListTaskAnx = CurrentEmployee.ListTask.Where(t => t.Activity.IsAnnex).ToList();
-            // TODO : vérifier en détail si la ListWorkTime est correcte pour chaque tache
+            // TODO : débuger la méthode getEmployee 
         }
     }
 }

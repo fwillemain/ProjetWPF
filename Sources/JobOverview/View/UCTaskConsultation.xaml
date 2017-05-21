@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="900">
     <Grid>
-        <TabControl DataContext="{Binding CurrentEmployee}">
-            <TabItem Header="Taches annexes">
+        <TabControl>
+            <TabItem Header="Taches prod" DataContext="{Binding CurrentEmployeeListTaskProd}">
                 <Grid>
                     <!--2 lignes et 3 colonnes-->
                     <!--#region Param Grid-->
@@ -18,7 +18,7 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="300"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <!--#endregion-->
@@ -29,16 +29,17 @@
                     </StackPanel>
                     
                     <!--Ligne 1-->
-                    <ListView Grid.Row="1" ItemsSource="{Binding ListTask}" IsSynchronizedWithCurrentItem="True">
+                    <ListView Grid.Row="1" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
                             <GridView>
+                                <GridViewColumn Header="Numero" DisplayMemberBinding="{Binding Number}"/>
                                 <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}"/>
-                                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                                <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version.Number}"/>
                                 <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Code}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ListTask/ListWorkTime}" IsSynchronizedWithCurrentItem="True">
+                    <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ListWorkTime}" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Hours" DisplayMemberBinding="{Binding Hours}"/>
@@ -58,22 +59,22 @@
                             </StackPanel>
                             <DockPanel>
                                 <Label Content="Tâche " DockPanel.Dock="Left"/>
-                                <Label DockPanel.Dock="Left" Content="{Binding ListTask/Label}"/>
+                                <Label DockPanel.Dock="Left" Content="{Binding Label}"/>
                             </DockPanel>
-                            <DatePicker SelectedDate="{Binding ListTask/ListWorkTime/WorkingDate}"/>
+                            <DatePicker SelectedDate="{Binding ListWorkTime/WorkingDate}"/>
                             <DockPanel>
                                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="0,10">
                                     <Label Content="Productivité"/>
-                                    <TextBox VerticalContentAlignment="Center" Text="{Binding ListTask/ListWorkTime/Productivity}"/>
+                                    <TextBox VerticalContentAlignment="Center" Text="{Binding ListWorkTime/Productivity}"/>
                                 </StackPanel>
                             </DockPanel>
                             <TextBlock Text="Nombre d'heures effectuées"/>
-                            <TextBox Height="30" Width="200" MaxLength="1" Text="{Binding ListTask/ListWorkTime/Hours}"/>
+                            <TextBox Height="30" Width="200" MaxLength="1" Text="{Binding ListWorkTime/Hours}"/>
                         </StackPanel>
                     </Expander>
                 </Grid>
             </TabItem>
-            <TabItem Header="Taches prod"></TabItem>
+            <TabItem Header="Taches annexes"></TabItem>
         </TabControl>   
     </Grid>
 </UserControl>
