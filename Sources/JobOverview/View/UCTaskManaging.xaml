@@ -24,11 +24,14 @@
             </ComboBox>
         </StackPanel>
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBox Name="tbxFilter" MinWidth="50"/>
                     <ComboBox Name="cbFilter">
@@ -36,7 +39,7 @@
                         <ComboBoxItem Content="Identifiant"/>
                     </ComboBox>
                 </StackPanel>
-                <ListView Name="lvListEmployee" ItemsSource="{Binding Employee}" Margin="2.5">
+                <ListView Grid.Row="1" Name="lvListEmployee" ItemsSource="{Binding Employee}" Margin="2.5">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="N°" DisplayMemberBinding="{Binding FirstName}"/>
@@ -46,10 +49,8 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-            </StackPanel>
-            <StackPanel Grid.Column="1">
-                <CheckBox Name="chbTaskFinished" Content="Terminée" Height="{Binding ElementName=tbxFilter, Path=ActualHeight}" Margin="5"/>
-                <TabControl TabStripPlacement="Top" Margin="2.5">
+                <CheckBox Grid.Column="1" Name="chbTaskFinished" Content="Terminée" Height="{Binding ElementName=tbxFilter, Path=ActualHeight}" Margin="5"/>
+                <TabControl  Grid.Column="1" Grid.Row="1" TabStripPlacement="Top" Margin="2.5">
                     <TabItem Header="Tâches de production" Name="tabTaskProd">
                         <ListView Name="lvListTaskProd" ItemsSource="{Binding Employee/ListTask}">
                             <ListView.View>
@@ -80,7 +81,6 @@
                         </ListView>
                     </TabItem>
                 </TabControl>
-            </StackPanel>
         </Grid>
     </DockPanel>
 </UserControl>
