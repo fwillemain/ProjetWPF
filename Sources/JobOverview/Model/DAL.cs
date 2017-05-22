@@ -348,7 +348,7 @@ namespace JobOverview.Model
             XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>),
                                        new XmlRootAttribute("ListEmployee"));
 
-            using (var sw = new StreamWriter(path))
+            using (var sw = new StreamWriter(path + "/TaskList.xml"))
             {
                 serializer.Serialize(sw, listEmployee);
             }

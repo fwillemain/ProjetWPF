@@ -1,12 +1,15 @@
 ﻿using JobOverview.Entity;
 using JobOverview.Model;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows;
 
 namespace JobOverview.ViewModel
 {
@@ -28,6 +31,8 @@ namespace JobOverview.ViewModel
 			}
 		}
 
+        public string XmlPath { get; set; }
+
         public VMMain()
         {
             CurrentEmployee = new Employee();
@@ -35,16 +40,16 @@ namespace JobOverview.ViewModel
         }
 
 		#region Commandes
-		private ICommand _cmdLogin;
-		public ICommand CmdLogin
-		{
-			get
-			{
-				if (_cmdLogin == null)
-					_cmdLogin = new RelayCommand(() => VMCourante = new VMLogin());
-				return _cmdLogin;
-			}
-		}
+		//private ICommand _cmdLogin;
+		//public ICommand CmdLogin
+		//{
+		//	get
+		//	{
+		//		if (_cmdLogin == null)
+		//			_cmdLogin = new RelayCommand(() => VMCourante = new VMLogin());
+		//		return _cmdLogin;
+		//	}
+		//}
 
         private ICommand _cmdVMAbout;
         public ICommand CmdVMABout
@@ -97,8 +102,31 @@ namespace JobOverview.ViewModel
             get
             {
                 if (_cmdExportToXML == null)
-                    _cmdExportToXML = new RelayCommand(() => { }, ActiverEmployee);
+                    _cmdExportToXML = new RelayCommand(ExportToXML, ActiverEmployee);
                 return _cmdExportToXML;
+            }
+        }
+
+        private void ExportToXML()
+        {
+            // Chargement de la liste des taches pour tous les employés de la liste pour lesquels ce n'est pas déjà fait
+            foreach (var e in ListEmployee)
+                if (e.ListTask == null)
+                    e.ListTask = DAL.GetListTask(e.Login);
+
+            // Récupération du dossier où les taches seront exportées au format .xml
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    DAL.ExportListTaskEmployeeToXML(ListEmployee, dlg.SelectedPath);
+                    System.Windows.MessageBox.Show("L'exportation s'est terminée sans erreur.");
+                }
+                catch (Exception)
+                {
+                    System.Windows.MessageBox.Show("Une erreur s'est produite, l'exportation a échoué.", "Erreur", MessageBoxButton.OKCancel , System.Windows.MessageBoxImage.Error);
+                }
             }
         }
 
