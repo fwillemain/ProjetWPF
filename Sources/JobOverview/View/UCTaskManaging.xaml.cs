@@ -25,22 +25,25 @@ namespace JobOverview.View
         {
             InitializeComponent();
         }
-
+        // TODO : faire gaffe quand on change de logiciel l'état de la liste de version de la combobox
         /// <summary>
         /// Filtre les taches en fonction du logiciel choisis.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FilterTaskWithDateMinMax(object sender, RoutedEventArgs e)
+        private void FilterTaskWithSoftware(object sender, SelectionChangedEventArgs e)
         {
-            ICollectionView view = CollectionViewSource.GetDefaultView(((ViewModel.VMTaskManaging)this.DataContext).ListEmployee.Select(emp => emp.ListTask));
+            ICollectionView view = CollectionViewSource.GetDefaultView(lvListTaskProd.DataContext);
             view.Filter = FilterBySoftware;
         }
-
+        /// <summary>
+        /// Filtre les taches par rapport à un logiciel.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         private bool FilterBySoftware(object obj)
         {
             return (((Entity.Software)obj).Code == ((Entity.Software)cbFilterPerSoftware.SelectedItem).Code);
         }
-
     }
 }

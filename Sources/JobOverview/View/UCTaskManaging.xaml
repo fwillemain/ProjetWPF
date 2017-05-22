@@ -16,7 +16,7 @@
     </UserControl.Resources>
     <DockPanel Background="White">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <ComboBox Name="cbFilterPerSoftware" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"/>
+            <ComboBox Name="cbFilterPerSoftware" SelectionChanged="FilterTaskWithSoftware" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"/>
             <ComboBox Name="cbFilterPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="VersionNumber"/>
         </StackPanel>
         <Grid>
