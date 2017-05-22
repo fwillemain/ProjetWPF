@@ -9,7 +9,7 @@
     <StackPanel Orientation="Horizontal" MinHeight="100" >
         <Label Content="Utilisateur" VerticalAlignment="Center" Margin="10"/>
         <ComboBox Height="30" Width="200" 
-				    ItemsSource="{Binding Path=ListPeople}" SelectedItem="{Binding LastEmployee}" ItemTemplate="{StaticResource TemplateEmployee}">
+				    ItemsSource="{Binding Path=ListEmployee}" SelectedItem="{Binding LastEmployee}" ItemTemplate="{StaticResource TemplateEmployee}">
 
         </ComboBox>
         

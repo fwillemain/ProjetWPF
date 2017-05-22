@@ -13,9 +13,9 @@ namespace JobOverview.ViewModel
 	{
 		public List<Employee> ListEmployee { get; private set; }
         public Employee LastEmployee { get; set; }
-        public VMLogin(List<Employee> listEmployee)
+        public VMLogin()
 		{
-            ListEmployee = listEmployee;
+            ListEmployee = Model.DAL.GetListEmployeeWithoutTasks();
             if (ListEmployee.Select(c => c.Login).Contains(Properties.Settings.Default.EmployeeId))
                 LastEmployee = ListEmployee.Where(c => c.Login == Properties.Settings.Default.EmployeeId).FirstOrDefault();
             else LastEmployee = ListEmployee[0];
