@@ -102,15 +102,29 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Taches annexes">
-
-                <ListView ItemsSource="{Binding CurrentEmployeeListTaskAnx}" IsSynchronizedWithCurrentItem="True">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}"/>
-                            <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Code}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <Grid>
+                    <!--2 lignes et 3 colonnes-->
+                    <!--#region Param Grid-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!--#endregion-->
+                    <ListView Grid.RowSpan="2" ItemsSource="{Binding CurrentEmployeeListTaskAnx}" IsSynchronizedWithCurrentItem="True">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}"/>
+                                <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Code}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
