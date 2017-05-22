@@ -20,7 +20,7 @@ namespace JobOverview.ViewModel
             set { SetProperty(ref _listEmployee, value); } }
         public VMTaskManaging(List<Employee> listEmployee)
         {
-            ListEmployee = listEmployee.Where( e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam);
+           // ListEmployee = listEmployee.Where( e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam);
         }
     }
 }
