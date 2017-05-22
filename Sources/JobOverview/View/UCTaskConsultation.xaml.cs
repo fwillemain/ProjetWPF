@@ -43,7 +43,11 @@ namespace JobOverview.View
             return (((WorkTime)obj).WorkingDate < dpDateMax.SelectedDate && ((WorkTime)obj).WorkingDate > dpDateMin.SelectedDate);
         }
 
-
+        /// <summary>
+        /// Filtre les taches de production par rapport au combobox Software, Version, Module, Activité
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FilterTaskWithSoftwareVersionModuleActivity(object sender, RoutedEventArgs e)
         {
             ICollectionView view = CollectionViewSource.GetDefaultView(((ViewModel.VMTaskConsultation)DataContext).CurrentEmployeeListTaskProd);
@@ -54,7 +58,7 @@ namespace JobOverview.View
         {
             return (((TaskProd)obj).Activity==(Activity)cbSortPerActivity.SelectedItem &&
                 ((TaskProd)obj).Version == (Entity.Version)cbSortPerVersion.SelectedItem &&
-               // ((TaskProd)obj).Software == (Software)cbSortPerSoftware.SelectedItem &&
+                ((TaskProd)obj).Software == (Software)cbSortPerSoftware.SelectedItem &&
                 ((TaskProd)obj).Module == (Module)cbSortPerModule.SelectedItem
                 );
         }

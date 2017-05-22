@@ -16,7 +16,6 @@ namespace JobOverview.View
 
             Loaded += MainWindow_Loaded;
 
-        }
 
         // Après chargement de la fenêtre
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
