@@ -62,5 +62,6 @@ namespace JobOverview.View
                 ((TaskProd)obj).Module == (Module)cbSortPerModule.SelectedItem
                 );
         }
+
     }
 }

@@ -52,8 +52,8 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <DatePicker Name="dpDateMin" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterTaskWithDateMinMax"/>
-                        <DatePicker Name="dpDateMax" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterTaskWithDateMinMax"/>
+                        <DatePicker Name="dpDateMin" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
+                        <DatePicker Name="dpDateMax" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
                     </StackPanel>
 
                     <!--Ligne 1-->

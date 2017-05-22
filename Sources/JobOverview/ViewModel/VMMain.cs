@@ -15,7 +15,7 @@ namespace JobOverview.ViewModel
 	{
         //TODO: Current employee non static
         public static Employee CurrentEmployee { get; set; }
-        public List<Employee> ListEmployee { get; set; }
+        public static List<Employee> ListEmployee { get; set; }
                                            // Vue-modèle courante sur laquelle est liées le ContentControl
                                            // de la zone principale
         private ViewModelBase _VMCourante;
@@ -31,7 +31,7 @@ namespace JobOverview.ViewModel
         public VMMain()
         {
             CurrentEmployee = new Employee();
-            ListEmployee = new List<Employee>();
+            ListEmployee = DAL.GetListEmployeeWithoutTasks();
             //TODO : Appeler liste employe
           //  List<Employee> listEmployee = DAL.GetListEmployee("JROUSSET");
         }
