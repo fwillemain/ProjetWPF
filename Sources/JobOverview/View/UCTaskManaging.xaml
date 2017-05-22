@@ -17,7 +17,7 @@
     <DockPanel Background="White">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <ComboBox Name="cbFilterPerSoftware" SelectionChanged="FilterTaskWithSoftware" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"/>
-            <ComboBox Name="cbFilterPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="VersionNumber"/>
+            <ComboBox Name="cbFilterPerVersion" SelectionChanged="FilterTaskWithVersion"  ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="Number"/>
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>
@@ -35,7 +35,7 @@
                     <ComboBoxItem Content="Identifiant"/>
                 </ComboBox>
             </StackPanel>
-            <ListView Grid.Row="1" Name="lvListEmployee" ItemsSource="{Binding Employee}" Margin="2.5">
+            <ListView Grid.Row="1" Name="lvListEmployee" ItemsSource="{Binding ListEmployee}" Margin="2.5" IsSynchronizedWithCurrentItem="True">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Prénom" DisplayMemberBinding="{Binding FirstName}"/>
@@ -48,7 +48,7 @@
             <CheckBox Grid.Column="1" Name="chbTaskFinished" Content="Terminée" Height="{Binding ElementName=tbxFilter, Path=ActualHeight}" Margin="5"/>
             <TabControl  Grid.Column="1" Grid.Row="1" TabStripPlacement="Top" Margin="2.5">
                 <TabItem Header="Tâches de production" Name="tabTaskProd">
-                    <ListView Name="lvListTaskProd" ItemsSource="{Binding Employee/ListTask}" SelectedItem="{Binding SelectedEmployee}">
+                    <ListView Name="lvListTaskProd" ItemsSource="{Binding ListEmployee/ListTask}" SelectedItem="{Binding SelectedEmployee.ListTask}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="N°" DisplayMemberBinding="{Binding Number}"/>
@@ -77,9 +77,9 @@
                     </ListView>
                 </TabItem>
             </TabControl>
-            <Expander Grid.Column="1" Grid.Row="1" IsExpanded="False" ExpandDirection="Left" >
+            <Expander Grid.Column="1" Grid.Row="1" IsExpanded="False" ExpandDirection="Left" VerticalAlignment="Bottom">
                 <Border BorderThickness="0.7" BorderBrush="Black" Margin="2" Padding="2">
-                    <TextBox Width="200" TextWrapping="Wrap" Text="{Binding Task/Description}" IsReadOnly="True"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding Task/Description}" IsReadOnly="True"/>
                 </Border>
             </Expander>
         </Grid>
