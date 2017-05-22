@@ -17,9 +17,9 @@ namespace JobOverview.ViewModel
         #region Propriétés
         public Employee CurrentEmployee { get; set; }
         public List<TaskProd> CurrentEmployeeListTaskProd { get; set; }
+        public List<Entity.Task> CurrentEmployeeListTaskAnx { get; set; }
         public List<Software> ListSoftware { get; set; }
 
-        //public List<Entity.Task> CurrentEmployeeListTaskAnx { get; set; }
         #endregion
 
         #region Constructeurs
@@ -32,7 +32,7 @@ namespace JobOverview.ViewModel
 
             CurrentEmployee = currentEmployee;
             CurrentEmployeeListTaskProd = CurrentEmployee.ListTask.OfType<TaskProd>().ToList();
-            //CurrentEmployeeListTaskAnx = CurrentEmployee.ListTask.Where(t => t.Activity.IsAnnex).ToList();
+            CurrentEmployeeListTaskAnx = CurrentEmployee.ListTask.Where(t => t.Activity.IsAnnex).ToList();
             ListSoftware = DAL.GetListSoftware();
         }
         #endregion
