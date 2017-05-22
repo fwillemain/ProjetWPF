@@ -2,6 +2,7 @@
 using JobOverview.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -12,19 +13,14 @@ namespace JobOverview.ViewModel
 {
     public class VMTaskManaging : ViewModelBase
     {
-        public List<Employee> ListEmployee { get; set; }
-        public VMTaskManaging()
+        private ObservableCollection<Employee> _listEmployee;
+        public ObservableCollection<Employee> ListEmployee
+        { get
+            { return _listEmployee; }
+            set { SetProperty(ref _listEmployee, value); } }
+        public VMTaskManaging(List<Employee> listEmployee)
         {
-            ListEmployee = DAL.GetListEmployeeWithoutTask(Properties.Settings.Default.EmployeeId);
-            ListEmployee.Add(VMMain.CurrentEmployee);
+            ListEmployee = listEmployee.Where( e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam);
         }
-
-        #region Gestion de MAJ de l'affichage après MAJ des données
-        private void RaisePropertyChanged([CallerMemberName] string prop = null)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
-        #endregion
     }
 }
