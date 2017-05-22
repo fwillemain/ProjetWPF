@@ -32,16 +32,31 @@ namespace JobOverview.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FilterTaskWithDateMinMax(object sender, RoutedEventArgs e)
+        private void FilterWorkTimeWithDateMinMax(object sender, RoutedEventArgs e)
         {
-            ICollectionView view = CollectionViewSource.GetDefaultView(((ViewModel.VMTaskConsultation)this.DataContext).CurrentEmployeeListTaskProd);
+            ICollectionView view = CollectionViewSource.GetDefaultView(lvWorkTime.DataContext);
             view.Filter = FilterByDate;
         }
 
         private bool FilterByDate(object obj)
         {
-            return (((WorkTime)obj).WorkingDate < DPDateMax.SelectedDate && ((WorkTime)obj).WorkingDate > DPDateMin.SelectedDate);
+            return (((WorkTime)obj).WorkingDate < dpDateMax.SelectedDate && ((WorkTime)obj).WorkingDate > dpDateMin.SelectedDate);
         }
 
+
+        private void FilterTaskWithSoftwareVersionModuleActivity(object sender, RoutedEventArgs e)
+        {
+            ICollectionView view = CollectionViewSource.GetDefaultView(((ViewModel.VMTaskConsultation)DataContext).CurrentEmployeeListTaskProd);
+            view.Filter = FilterBySoftwareVersionModuleActivity;
+        }
+
+        private bool FilterBySoftwareVersionModuleActivity(object obj)
+        {
+            return (((TaskProd)obj).Activity==(Activity)cbSortPerActivity.SelectedItem &&
+                ((TaskProd)obj).Version == (Entity.Version)cbSortPerVersion.SelectedItem &&
+               // ((TaskProd)obj).Software == (Software)cbSortPerSoftware.SelectedItem &&
+                ((TaskProd)obj).Module == (Module)cbSortPerModule.SelectedItem
+                );
+        }
     }
 }
