@@ -22,6 +22,22 @@ namespace JobOverview.Entity
         [XmlAttribute]
         public string CodeTeam { get; set; }
         public List<Task> ListTask { get; set; }
+        [XmlAttribute]
+        public float RemainingTimeReport
+        {
+            get
+            {
+                return ListTask.OfType<TaskProd>().Sum(t => t.EstimatedRemainingTime);
+            }
+        }
+        [XmlAttribute]
+        public float SpentTimeReport
+        {
+            get
+            {
+                return ListTask.OfType<TaskProd>().Where(t => t.EstimatedRemainingTime != 0).Sum(w => w.ListWorkTime.Sum(wt => wt.Hours));
+            }
+        }
     }
     public enum Habilitation
     {
