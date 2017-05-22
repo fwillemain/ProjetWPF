@@ -26,7 +26,7 @@ namespace JobOverview.ViewModel
         }
         public override ValidationResult Validate()
         {
-            Properties.Settings.Default.EmployeId = LastEmployee.Login;
+            Properties.Settings.Default.EmployeeId = LastEmployee.Login;
             Properties.Settings.Default.Save();
 
 
