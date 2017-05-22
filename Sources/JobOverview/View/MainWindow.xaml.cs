@@ -9,7 +9,8 @@ namespace JobOverview.View
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public MainWindow()
+        public Entity.Employee emp { get; set; }
+        public MainWindow()
 		{
 			InitializeComponent();
 			DataContext = new VMMain();
@@ -32,6 +33,7 @@ namespace JobOverview.View
 
             // Affichage d'une fenêtre modale d'identification
             var dlgLog = new ModalWindow(new VMLogin());
+            
 			dlgLog.Title = "Identification";
             bool? resLog = dlgLog.ShowDialog();
 

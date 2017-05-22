@@ -14,7 +14,7 @@ namespace JobOverview.ViewModel
 	public class VMMain : ViewModelBase
 	{
         
-        private Employee _currentEmployee;
+        public static Employee CurrentEmployee;
 		// Vue-modèle courante sur laquelle est liées le ContentControl
 		// de la zone principale
 		private ViewModelBase _VMCourante;
@@ -29,6 +29,7 @@ namespace JobOverview.ViewModel
 
         public VMMain()
         {
+            CurrentEmployee = new Employee();
           //  List<Employee> listEmployee = DAL.GetListEmployee("JROUSSET");
         }
 
@@ -102,7 +103,7 @@ namespace JobOverview.ViewModel
 
         private bool ActiverEmployee()
         {
-            return _currentEmployee.Habilitation != Habilitation.Employee;
+            return CurrentEmployee.Habilitation != Habilitation.Employee;
         }
 
         #endregion
