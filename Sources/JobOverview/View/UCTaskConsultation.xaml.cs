@@ -35,6 +35,7 @@ namespace JobOverview.View
         private void FilterWorkTimeWithDateMinMax(object sender, RoutedEventArgs e)
         {
             ICollectionView view = CollectionViewSource.GetDefaultView(((ViewModel.VMTaskConsultation)DataContext).CurrentEmployeeListTaskProd.Select(c => c.ListWorkTime).First());
+         
             view.Filter = FilterByDate;
         }
 
