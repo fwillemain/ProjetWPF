@@ -52,8 +52,8 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <DatePicker Name="DPDateMin" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterTaskWithDateMinMax"/>
-                        <DatePicker Name="DPDateMax" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterTaskWithDateMinMax"/>
+                        <DatePicker Name="dpDateMin" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterTaskWithDateMinMax"/>
+                        <DatePicker Name="dpDateMax" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterTaskWithDateMinMax"/>
                     </StackPanel>
 
                     <!--Ligne 1-->
@@ -68,7 +68,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ListWorkTime}" IsSynchronizedWithCurrentItem="True">
+                    <ListView Name="lvWorkTime" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ListWorkTime}" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Hours" DisplayMemberBinding="{Binding Hours}"/>
