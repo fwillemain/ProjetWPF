@@ -53,7 +53,7 @@
                     <TextBlock Text="Synthèse des versions"/>
                 </StackPanel>
             </Button>
-            <Button Command="{Binding CmdVMABout}">
+            <Button Name="btnAbout" Click="btnAbout_Click">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="ClockO"/>
                     <TextBlock Text="A propos"/>

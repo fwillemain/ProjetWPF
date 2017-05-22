@@ -25,8 +25,8 @@ namespace JobOverview.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=GLAVENDER17-DE\\IP08R2;Initial Catalog=\"job overview\";Integrated Secur" +
-            "ity=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FWILLEMAIN17-DE\\IP08R2;Initial Catalog=JobOverview;Integrated Securit" +
+            "y=True")]
         public string JobOverviewConnectionStringDefault {
             get {
                 return ((string)(this["JobOverviewConnectionStringDefault"]));

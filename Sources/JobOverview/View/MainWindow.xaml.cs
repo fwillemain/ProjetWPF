@@ -39,5 +39,10 @@ namespace JobOverview.View
             if (!resLog.Value) Close();
 
         }
+
+        private void btnAbout_Click(object sender, RoutedEventArgs e)
+        {
+            new AboutWindow().ShowDialog();
+        }
     }
 }

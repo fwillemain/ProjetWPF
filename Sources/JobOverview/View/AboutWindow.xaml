@@ -1,0 +1,27 @@
+﻿<Window x:Class="JobOverview.View.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JobOverview.View"
+        mc:Ignorable="d"
+        Title="A propos" Height="300" Width="300">
+    <Grid>
+        <RichTextBox Margin="10" IsReadOnly="True">
+            <FlowDocument>
+                <Paragraph>Job Overview</Paragraph>
+                <Paragraph>Version 3.0.0 (05/2017)</Paragraph>
+                <Paragraph>Technologies :
+                    <LineBreak/> - .net Framework 4.6.1
+                    <LineBreak/> - WPF
+                    <LineBreak/> - SQL Server 2008
+                </Paragraph>
+                <Paragraph>Auteurs :
+                    <LineBreak/> - Léo MILBOR
+                    <LineBreak/> - Gaëtan LAVENDER
+                    <LineBreak/> - Florian WILLEMAIN
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+    </Grid>
+</Window>
