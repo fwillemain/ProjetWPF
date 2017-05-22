@@ -43,7 +43,7 @@ namespace JobOverview.ViewModel
 			get
 			{
 				if (_cmdLogin == null)
-					_cmdLogin = new RelayCommand(() => VMCourante = new VMLogin(ListEmployee));
+					_cmdLogin = new RelayCommand(() => VMCourante = new VMLogin());
 				return _cmdLogin;
 			}
 		}
