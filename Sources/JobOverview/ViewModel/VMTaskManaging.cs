@@ -24,7 +24,7 @@ namespace JobOverview.ViewModel
             {
                 if (_listEmployee.Where(e => e.Login == value.Login).FirstOrDefault().ListTask == null)
                 {
-                    _listEmployee.Where(e => e.Login == value.Login).FirstOrDefault().ListTask = DAL.GetListTask(_selectedEmployee.Login);
+                    _listEmployee.Where(e => e.Login == value.Login).FirstOrDefault().ListTask = DAL.GetListTask(value.Login);
                 }
                 SetProperty(ref _selectedEmployee, value);
             }
@@ -43,6 +43,7 @@ namespace JobOverview.ViewModel
         {
             ListSoftware = DAL.GetListSoftware();
             ListEmployee = new ObservableCollection<Employee>(listEmployee.Where(e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam).ToList());
+            SelectedEmployee = ListEmployee.FirstOrDefault();
         }
     }
 }

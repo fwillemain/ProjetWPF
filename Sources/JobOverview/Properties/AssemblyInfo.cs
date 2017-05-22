@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("JobOverview")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Toto")]
+[assembly: AssemblyCompany("ISAGRI")]
 [assembly: AssemblyProduct("JobOverview")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]

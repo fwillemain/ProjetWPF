@@ -25,6 +25,8 @@ namespace JobOverview.ViewModel
             Properties.Settings.Default.EmployeeId = LastEmployee.Login;
             Properties.Settings.Default.Save();
             VMMain.CurrentEmployee = LastEmployee;
+            VMMain.ListEmployee = Model.DAL.GetListEmployeeWithoutTasks(LastEmployee.Login);
+            VMMain.ListEmployee.Add(LastEmployee);
             return base.Validate();
         }
     }

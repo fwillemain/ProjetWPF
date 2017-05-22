@@ -25,7 +25,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="280"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
@@ -35,7 +35,7 @@
                     <ComboBoxItem Content="Identifiant"/>
                 </ComboBox>
             </StackPanel>
-            <ListView Grid.Row="1" Name="lvListEmployee" ItemsSource="{Binding ListEmployee}" Margin="2.5" IsSynchronizedWithCurrentItem="True">
+            <ListView Grid.Row="1" Name="lvListEmployee" ItemsSource="{Binding ListEmployee}" SelectedItem="{Binding SelectedEmployee}" Margin="2.5" IsSynchronizedWithCurrentItem="True">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Prénom" DisplayMemberBinding="{Binding FirstName}"/>
@@ -45,15 +45,15 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <CheckBox Grid.Column="1" Name="chbTaskFinished" Content="Terminée" Height="{Binding ElementName=tbxFilter, Path=ActualHeight}" Margin="5"/>
-            <TabControl  Grid.Column="1" Grid.Row="1" TabStripPlacement="Top" Margin="2.5">
+            <CheckBox Grid.Column="1" Name="chbTaskFinished" Content="Terminée" Margin="5"/>
+            <TabControl  Grid.Column="1" Grid.Row="1" TabStripPlacement="Top" Margin="2.5" ><!--SelectionChanged="TabControl_SelectionChanged">-->
                 <TabItem Header="Tâches de production" Name="tabTaskProd">
-                    <ListView Name="lvListTaskProd" ItemsSource="{Binding ListEmployee/ListTask}" SelectedItem="{Binding SelectedEmployee.ListTask}">
+                    <ListView Name="lvListTaskProd" ItemsSource="{Binding SelectedEmployee.ListTask}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="N°" DisplayMemberBinding="{Binding Number}"/>
-                                <GridViewColumn Header="Durée restante estimée" DisplayMemberBinding="{Binding EstimatedRemainingTime}"/>
-                                <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Label}"/>
+                                <GridViewColumn Header="Logiciel" DisplayMemberBinding="{Binding Software.Code}"/>
+                                <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version.Number}"/>
                                 <GridViewColumn Header="Terminée">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -61,16 +61,18 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+                                <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Label}"/>
                                 <GridViewColumn Header="Libellé" DisplayMemberBinding="{Binding Label}"/>
+                                <GridViewColumn Header="Durée restante estimée" DisplayMemberBinding="{Binding EstimatedRemainingTime}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </TabItem>
                 <TabItem Header="Tâches annexes" Name="tabTaskAnnex">
-                    <ListView Name="lvListTaskAnnex" ItemsSource="{Binding Employee/ListTask}">
+                    <ListView Name="lvListTaskAnnex" ItemsSource="{Binding ListEmployee/ListTask}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="N°" DisplayMemberBinding="{Binding Label}"/>
+                                <GridViewColumn Header="Libellé" DisplayMemberBinding="{Binding Label}"/>
                                 <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Label}"/>
                             </GridView>
                         </ListView.View>

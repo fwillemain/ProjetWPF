@@ -15,7 +15,7 @@
                 <Setter Property="Button.Height" Value="20"/>
             </Style>
         </Grid.Resources>
-        <TabControl>
+        <TabControl Name="tcTache" >
             <TabItem Header="Taches prod">
                 <Grid>
                     <!--2 lignes et 3 colonnes-->
@@ -38,11 +38,11 @@
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                             </Style>
                         </StackPanel.Resources>
-                        <ComboBox Name="cbSortPerSoftware" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" />
+                        <ComboBox Name="cbSortPerSoftware" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"/>
 
-                        <ComboBox Name="cbSortPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="Number" IsSynchronizedWithCurrentItem="True"/>
+                        <ComboBox Name="cbSortPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="Number" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"/>
 
-                        <ComboBox Name="cbSortPerModule" ItemsSource="{Binding ListSoftware/ListModule}" DisplayMemberPath="Label" SelectedIndex="0"/>
+                        <ComboBox Name="cbSortPerModule" ItemsSource="{Binding ListSoftware/ListModule}" DisplayMemberPath="Label" IsSynchronizedWithCurrentItem="True"/>
 
                         <ComboBox Name="cbSortPerActivity" ItemsSource="{Binding CurrentEmployee.Job.ListActivity}" DisplayMemberPath="Code" SelectedIndex="0"/>
 
@@ -101,7 +101,31 @@
                     </Expander>
                 </Grid>
             </TabItem>
-            <TabItem Header="Taches annexes"></TabItem>
+            <TabItem Header="Taches annexes">
+                <Grid>
+                    <!--2 lignes et 3 colonnes-->
+                    <!--#region Param Grid-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!--#endregion-->
+                    <ListView Grid.RowSpan="2" ItemsSource="{Binding CurrentEmployeeListTaskAnx}" IsSynchronizedWithCurrentItem="True">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}"/>
+                                <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Code}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>
