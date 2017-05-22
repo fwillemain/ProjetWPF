@@ -1,5 +1,7 @@
-﻿using System;
+﻿using JobOverview.Entity;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,5 +26,22 @@ namespace JobOverview.View
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Filtre les journées de travail en fonction des DatePickers DPDateMin et DPDateMax
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FilterTaskWithDateMinMax(object sender, RoutedEventArgs e)
+        {
+            ICollectionView view = CollectionViewSource.GetDefaultView(((ViewModel.VMTaskConsultation)this.DataContext).CurrentEmployeeListTaskProd);
+            view.Filter = FilterByDate;
+        }
+
+        private bool FilterByDate(object obj)
+        {
+            return (((WorkTime)obj).WorkingDate < DPDateMax.SelectedDate && ((WorkTime)obj).WorkingDate > DPDateMin.SelectedDate);
+        }
+
     }
 }

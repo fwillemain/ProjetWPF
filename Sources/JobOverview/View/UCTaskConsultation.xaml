@@ -50,12 +50,12 @@
                         </ComboBox>
                         <Button Name="btnSort" Content="Trier" Style="{StaticResource RegularButtonStyle}"/>
                     </StackPanel>
-                    
+
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <DatePicker/>
-                    <DatePicker/>
+                        <DatePicker Name="DPDateMin" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterTaskWithDateMinMax"/>
+                        <DatePicker Name="DPDateMax" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterTaskWithDateMinMax"/>
                     </StackPanel>
-                    
+
                     <!--Ligne 1-->
                     <ListView Grid.Row="1" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
@@ -104,6 +104,6 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Taches annexes"></TabItem>
-        </TabControl>   
+        </TabControl>
     </Grid>
 </UserControl>
