@@ -22,6 +22,9 @@ namespace JobOverview.Entity
         [XmlAttribute]
         public float Productivity { get; set; }
         [XmlAttribute]
+        public string CodeTeam { get; set; }
+
+        [XmlElement]
         public List<Task> ListTask { get; set; }
     }
     public enum Habilitation

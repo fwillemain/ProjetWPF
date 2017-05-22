@@ -99,5 +99,17 @@ namespace JobOverview.Properties {
                 this["JobOverviewConnectionStringFloMaison"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string EmployeeId1 {
+            get {
+                return ((string)(this["EmployeeId1"]));
+            }
+            set {
+                this["EmployeeId1"] = value;
+            }
+        }
     }
 }
