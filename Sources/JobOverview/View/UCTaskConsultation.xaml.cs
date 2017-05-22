@@ -58,7 +58,7 @@ namespace JobOverview.View
         {
             return (((TaskProd)obj).Activity==(Activity)cbSortPerActivity.SelectedItem &&
                 ((TaskProd)obj).Version == (Entity.Version)cbSortPerVersion.SelectedItem &&
-               // ((TaskProd)obj).Software == (Software)cbSortPerSoftware.SelectedItem &&
+                ((TaskProd)obj).Software == (Software)cbSortPerSoftware.SelectedItem &&
                 ((TaskProd)obj).Module == (Module)cbSortPerModule.SelectedItem
                 );
         }
