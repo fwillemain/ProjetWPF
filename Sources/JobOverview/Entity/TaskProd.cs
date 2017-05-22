@@ -15,11 +15,8 @@ namespace JobOverview.Entity
         public float EstimatedRemainingTime { get; set; }
         [XmlAttribute]
         public float PredictedTime { get; set; }
-        [XmlAttribute]
         public Module Module { get; set; }
-        [XmlAttribute]
         public Version Version { get; set; }
-        [XmlAttribute]
         public Software Software { get; set; }
     }
 }

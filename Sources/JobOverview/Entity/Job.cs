@@ -13,7 +13,6 @@ namespace JobOverview.Entity
         public string Code { get; set; }
         [XmlAttribute]
         public string Label { get; set; }
-        [XmlAttribute]
         public List<Activity> ListActivity { get; set; }
     }
 }
