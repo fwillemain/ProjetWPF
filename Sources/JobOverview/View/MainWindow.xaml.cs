@@ -9,7 +9,6 @@ namespace JobOverview.View
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-        public Entity.Employee emp { get; set; }
         public MainWindow()
 		{
 			InitializeComponent();
@@ -32,7 +31,7 @@ namespace JobOverview.View
             // TODO MainWindow : gérer la fermeture de la fenetre quand l'utilisateur appuie sur le bouton abort (X)
 
             // Affichage d'une fenêtre modale d'identification
-            var dlgLog = new ModalWindow(new VMLogin());
+            var dlgLog = new ModalWindow(new VMLogin(null));
             
 			dlgLog.Title = "Identification";
             bool? resLog = dlgLog.ShowDialog();

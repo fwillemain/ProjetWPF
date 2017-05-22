@@ -11,8 +11,9 @@ namespace JobOverview.ViewModel
     public class VMTaskManaging : ViewModelBase
     {
         public List<Employee> ListEmployee { get; set; }
-        public VMTaskManaging()
+        public VMTaskManaging(List<Employee> listEmployee)
         {
+            ListEmployee = listEmployee;
             //ListEmployee = DAL.GetListEmployeeWithoutTask(Properties.Settings.Default.EmployeeId);
             //ListEmployee.Add();
         }

@@ -20,5 +20,15 @@
         <DataTemplate DataType="{x:Type vm:VMTaskConsultation}">
             <vw:UCTaskConsultation/>
         </DataTemplate>
+        <DataTemplate x:Key="TemplateEmployee">
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} {1}">
+                        <Binding Path="LastName"/>
+                        <Binding Path="FirstName"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </DataTemplate>
     </Application.Resources>
 </Application>

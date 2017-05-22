@@ -13,11 +13,12 @@ namespace JobOverview.ViewModel
 
 	public class VMMain : ViewModelBase
 	{
-        
-        public static Employee CurrentEmployee;
-		// Vue-modèle courante sur laquelle est liées le ContentControl
-		// de la zone principale
-		private ViewModelBase _VMCourante;
+        //TODO: Current employee non static
+        public static Employee CurrentEmployee { get; set; }
+        public List<Employee> ListEmployee { get; set; }
+                                           // Vue-modèle courante sur laquelle est liées le ContentControl
+                                           // de la zone principale
+        private ViewModelBase _VMCourante;
 		public ViewModelBase VMCourante
 		{
 			get { return _VMCourante; }
@@ -30,6 +31,8 @@ namespace JobOverview.ViewModel
         public VMMain()
         {
             CurrentEmployee = new Employee();
+            ListEmployee = new List<Employee>();
+            //TODO : Appeler liste employe
           //  List<Employee> listEmployee = DAL.GetListEmployee("JROUSSET");
         }
 
@@ -40,7 +43,7 @@ namespace JobOverview.ViewModel
 			get
 			{
 				if (_cmdLogin == null)
-					_cmdLogin = new RelayCommand(() => VMCourante = new VMLogin());
+					_cmdLogin = new RelayCommand(() => VMCourante = new VMLogin(ListEmployee));
 				return _cmdLogin;
 			}
 		}
@@ -63,7 +66,7 @@ namespace JobOverview.ViewModel
             {
                 // TODO VMMain::CmdVMTaskConsultation : utiliser l'employé courrant pour la création de chaque VM (à discuter)
                 if (_cmdVMTaskConsultation == null)
-                    _cmdVMTaskConsultation = new RelayCommand(() =>  VMCourante = new VMTaskConsultation(DAL.GetEmployee("RBEAUMONT")));
+                    _cmdVMTaskConsultation = new RelayCommand(() =>  VMCourante = new VMTaskConsultation(CurrentEmployee));
                 return _cmdVMTaskConsultation;
             }
         }
@@ -85,7 +88,7 @@ namespace JobOverview.ViewModel
             get
             {
                 if (_cmdVMTaskManaging == null)
-                    _cmdVMTaskManaging = new RelayCommand(() => VMCourante = new VMTaskManaging(), ActiverEmployee);
+                    _cmdVMTaskManaging = new RelayCommand(() => VMCourante = new VMTaskManaging(ListEmployee), ActiverEmployee);
                 return _cmdVMTaskManaging;
             }
         }
