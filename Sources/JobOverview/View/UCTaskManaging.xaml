@@ -52,7 +52,7 @@
             <CheckBox Grid.Column="1" Name="chbTaskFinished" Content="Terminée" Height="{Binding ElementName=tbxFilter, Path=ActualHeight}" Margin="5"/>
             <TabControl  Grid.Column="1" Grid.Row="1" TabStripPlacement="Top" Margin="2.5">
                 <TabItem Header="Tâches de production" Name="tabTaskProd">
-                    <ListView Name="lvListTaskProd" ItemsSource="{Binding Employee/ListTask}">
+                    <ListView Name="lvListTaskProd" ItemsSource="{Binding Employee/ListTask}" SelectedItem="{Binding SelectedEmployee}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="N°" DisplayMemberBinding="{Binding Number}"/>
