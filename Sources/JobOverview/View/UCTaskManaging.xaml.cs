@@ -33,8 +33,9 @@ namespace JobOverview.View
         /// <param name="e"></param>
         private void FilterTaskWithSoftware(object sender, SelectionChangedEventArgs e)
         {
-            ICollectionView view = CollectionViewSource.GetDefaultView(lvListTaskProd.DataContext);
-            view.Filter = FilterBySoftware;
+                ICollectionView view = CollectionViewSource.GetDefaultView(lvListTaskProd.DataContext);
+            if (view != null)
+                view.Filter = FilterBySoftware; 
         }
         /// <summary>
         /// Filtre les taches par rapport à un logiciel.
@@ -44,6 +45,26 @@ namespace JobOverview.View
         private bool FilterBySoftware(object obj)
         {
             return (((Entity.Software)obj).Code == ((Entity.Software)cbFilterPerSoftware.SelectedItem).Code);
+        }
+        /// <summary>
+        /// Filtre les taches en fonction de la version choisis.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FilterTaskWithVersion(object sender, SelectionChangedEventArgs e)
+        {
+            ICollectionView view = CollectionViewSource.GetDefaultView(lvListTaskProd.DataContext);
+            if (view != null)
+                view.Filter = FilterByVersion;
+        }
+        /// <summary>
+        /// Filtre les taches par rapport à une version.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        private bool FilterByVersion(object obj)
+        {
+            return (((Entity.Version)obj).Number == ((Entity.Version)cbFilterPerSoftware.SelectedItem).Number);
         }
     }
 }

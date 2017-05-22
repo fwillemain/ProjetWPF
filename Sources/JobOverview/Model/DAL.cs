@@ -34,7 +34,6 @@ namespace JobOverview.Model
                         FirstName = (string)reader["Prenom"],
                         Habilitation = reader["Manager"] == DBNull.Value ? Habilitation.Manager : Habilitation.Employee,
                         Productivity = (float)reader["TauxProductivite"],
-                        ListTask = new List<Entity.Task>(),
                         CodeTeam = (string)reader["CodeEquipe"],
                         Job = new Job()
                         {

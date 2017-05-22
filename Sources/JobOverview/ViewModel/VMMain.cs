@@ -32,8 +32,6 @@ namespace JobOverview.ViewModel
         {
             CurrentEmployee = new Employee();
             ListEmployee = DAL.GetListEmployeeWithoutTasks();
-            //TODO : Appeler liste employe
-          //  List<Employee> listEmployee = DAL.GetListEmployee("JROUSSET");
         }
 
 		#region Commandes
