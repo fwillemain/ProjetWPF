@@ -12,8 +12,8 @@ namespace JobOverview.ViewModel
 	public class VMLogin : ViewModelBase
 	{
 		public List<Employee> ListPeople { get; private set; }
-        public Employee LastEmploye { get; set; }
-
+        public Employee CurrentEmployee { get; set; }
+        public Employee LastEmployee { get; set; }
         public VMLogin()
 		{
             // TODO VMLogin: utiliser un appel à une méthode de DAL
@@ -26,10 +26,10 @@ namespace JobOverview.ViewModel
         }
         public override ValidationResult Validate()
         {
-            //Properties.Settings.Default.EmployeId = LastEmploye.Login;
-            //Properties.Settings.Default.Save();
+            Properties.Settings.Default.EmployeId = LastEmployee.Login;
+            Properties.Settings.Default.Save();
 
-            
+
             return base.Validate();
         }
     }

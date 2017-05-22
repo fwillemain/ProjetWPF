@@ -1,5 +1,4 @@
-﻿using JobOverview.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +23,9 @@ namespace JobOverview.Entity
         public float Productivity { get; set; }
         [XmlAttribute]
         public List<Task> ListTask { get; set; }
+    }
+    public enum Habilitation
+    {
+        Manager, Employee
     }
 }

@@ -10,14 +10,11 @@ using System.Windows.Input;
 
 namespace JobOverview.ViewModel
 {
-    public enum Habilitation
-    {
-        Manager, Employee
-    }
+
 	public class VMMain : ViewModelBase
 	{
         
-        private Habilitation _habilitation;
+        private Employee _currentEmployee;
 		// Vue-modèle courante sur laquelle est liées le ContentControl
 		// de la zone principale
 		private ViewModelBase _VMCourante;
@@ -105,7 +102,7 @@ namespace JobOverview.ViewModel
 
         private bool ActiverEmployee()
         {
-            return _habilitation != Habilitation.Employee;
+            return _currentEmployee.Habilitation != Habilitation.Employee;
         }
 
         #endregion
