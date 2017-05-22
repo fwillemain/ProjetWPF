@@ -48,7 +48,7 @@
                         <ComboBox Name="cbSortPerActivity">
                             <ComboBoxItem Content="Activité" IsSelected="True"/>
                         </ComboBox>
-                        <Button Name="btnSort" Content="Trier" Style="{StaticResource RegularButtonStyle}"/>
+                        <Button Name="btnSort" Content="Trier" Click="FilterTaskWithSoftwareVersionModuleActivity" Style="{StaticResource RegularButtonStyle}"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
