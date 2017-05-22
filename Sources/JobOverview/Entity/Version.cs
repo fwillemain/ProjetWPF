@@ -14,7 +14,7 @@ namespace JobOverview.Entity
         [XmlAttribute]
         public short Year { get; set; }
         [XmlAttribute]
-        public DateTime ActualReleaseDate { get; set; }
+        public DateTime? ActualReleaseDate { get; set; }
         [XmlAttribute]
         public DateTime EstimatedReleaseDate { get; set; }
         [XmlAttribute]
