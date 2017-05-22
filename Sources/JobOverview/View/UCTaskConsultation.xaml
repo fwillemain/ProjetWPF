@@ -36,19 +36,19 @@
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                             </Style>
                         </StackPanel.Resources>
-                        <ComboBox Name="cbSortPerSoftware">
+                        <ComboBox Name="cbFilterPerSoftware">
                             <ComboBoxItem Content="Logiciel" IsSelected="True"/>
                         </ComboBox>
-                        <ComboBox Name="cbSortPerVersion">
+                        <ComboBox Name="cbFilterPerVersion">
                             <ComboBoxItem Content="Version" IsSelected="True"/>
                         </ComboBox>
-                        <ComboBox Name="cbSortPerModule">
+                        <ComboBox Name="cbFilterPerModule">
                             <ComboBoxItem Content="Module" IsSelected="True"/>
                         </ComboBox>
-                        <ComboBox Name="cbSortPerActivity">
+                        <ComboBox Name="cbFilterPerActivity">
                             <ComboBoxItem Content="Activité" IsSelected="True"/>
                         </ComboBox>
-                        <Button Name="btnSort" Content="Trier" Style="{StaticResource RegularButtonStyle}"/>
+                        <Button Name="btnFilter" Content="Filtrer" Style="{StaticResource RegularButtonStyle}"/>
                     </StackPanel>
                     
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
