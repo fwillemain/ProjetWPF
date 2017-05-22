@@ -36,26 +36,26 @@
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                             </Style>
                         </StackPanel.Resources>
-                        <ComboBox Name="cbFilterPerSoftware">
+                        <ComboBox Name="cbSortPerSoftware">
                             <ComboBoxItem Content="Logiciel" IsSelected="True"/>
                         </ComboBox>
-                        <ComboBox Name="cbFilterPerVersion">
+                        <ComboBox Name="cbSortPerVersion">
                             <ComboBoxItem Content="Version" IsSelected="True"/>
                         </ComboBox>
-                        <ComboBox Name="cbFilterPerModule">
+                        <ComboBox Name="cbSortPerModule">
                             <ComboBoxItem Content="Module" IsSelected="True"/>
                         </ComboBox>
-                        <ComboBox Name="cbFilterPerActivity">
+                        <ComboBox Name="cbSortPerActivity">
                             <ComboBoxItem Content="Activité" IsSelected="True"/>
                         </ComboBox>
-                        <Button Name="btnFilter" Content="Filtrer" Style="{StaticResource RegularButtonStyle}"/>
+                        <Button Name="btnSort" Content="Trier" Click="FilterTaskWithSoftwareVersionModuleActivity" Style="{StaticResource RegularButtonStyle}"/>
                     </StackPanel>
-                    
+
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <DatePicker/>
-                    <DatePicker/>
+                        <DatePicker Name="dpDateMin" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterTaskWithDateMinMax"/>
+                        <DatePicker Name="dpDateMax" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterTaskWithDateMinMax"/>
                     </StackPanel>
-                    
+
                     <!--Ligne 1-->
                     <ListView Grid.Row="1" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
@@ -68,7 +68,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ListWorkTime}" IsSynchronizedWithCurrentItem="True">
+                    <ListView Name="lvWorkTime" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ListWorkTime}" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Hours" DisplayMemberBinding="{Binding Hours}"/>
@@ -104,6 +104,6 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Taches annexes"></TabItem>
-        </TabControl>   
+        </TabControl>
     </Grid>
 </UserControl>

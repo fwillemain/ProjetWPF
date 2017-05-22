@@ -88,7 +88,8 @@ namespace JobOverview.Model
                             EstimatedRemainingTime = (float)reader["DureeRestanteEstimee"],
                             PredictedTime = (float)reader["DureePrevue"],
                             Module = new Module() { Code = (string)reader["CodeModule"] },
-                            Version = new Entity.Version() { Number = (float)reader["NumeroVersion"] }
+                            Version = new Entity.Version() { Number = (float)reader["NumeroVersion"] },
+                            Software = new Software() { Code = (string)reader["CodeLogiciel"] }
                         };
                     }
 
@@ -276,17 +277,18 @@ namespace JobOverview.Model
 
             using (SqlConnection cnx = new SqlConnection(Properties.Settings.Default.JobOverviewConnectionStringDefault))
             {
-                string query = @"select          t.IdTache, t.Description, t.Libelle, t.Annexe, 
-                                                 act2.CodeActivite CodeActiviteTache, act2.Libelle LibelleActiviteTache, act2.Annexe AnnexeActiviteTache,
-                                                 tr.Heures, tr.TauxProductivite, tr.DateTravail,
-                                                 tp.Numero, tp.DureeRestanteEstimee, tp.DureePrevue, tp.CodeModule, tp.NumeroVersion
-                                    from jo.Personne p 
-                                    inner join jo.Tache t on p.Login = t.Login
-                                    inner join jo.Activite act2 on t.CodeActivite = act2.CodeActivite
-                                    left outer join  jo.Travail tr on t.IdTache = tr.IdTache 
-                                    left outer join jo.TacheProd tp on t.IdTache = tp.IdTache
-                                    where p.Login = @Login
-                                    order by t.IdTache, act2.CodeActivite, tr.DateTravail";
+                string query = @"SELECT t.IdTache, t.Description, t.Libelle, t.Annexe, 
+                                    act2.CodeActivite CodeActiviteTache, act2.Libelle LibelleActiviteTache, act2.Annexe AnnexeActiviteTache,
+                                    tr.Heures, tr.TauxProductivite, tr.DateTravail,
+                                    tp.Numero, tp.DureeRestanteEstimee, tp.DureePrevue,
+                                    tp.CodeModule, tp.NumeroVersion, tp.CodeLogicielVersion AS CodeLogiciel
+                                    FROM jo.Personne p 
+                                    INNER JOIN jo.Tache t ON p.Login = t.Login
+                                    INNER JOIN jo.Activite act2 ON t.CodeActivite = act2.CodeActivite
+                                    LEFT OUTER JOIN  jo.Travail tr ON t.IdTache = tr.IdTache 
+                                    LEFT OUTER JOIN jo.TacheProd tp ON t.IdTache = tp.IdTache
+                                    WHERE p.Login = @Login
+                                    ORDER by t.IdTache, act2.CodeActivite, tr.DateTravail";
 
                 SqlCommand cmd = new SqlCommand(query, cnx);
                 cmd.Parameters.Add(new SqlParameter("@Login", SqlDbType.VarChar));

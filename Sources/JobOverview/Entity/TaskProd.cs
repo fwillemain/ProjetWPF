@@ -19,5 +19,7 @@ namespace JobOverview.Entity
         public Module Module { get; set; }
         [XmlAttribute]
         public Version Version { get; set; }
+        [XmlAttribute]
+        public Software Software { get; set; }
     }
 }

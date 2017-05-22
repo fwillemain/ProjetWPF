@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -16,6 +17,8 @@ namespace JobOverview.ViewModel
         #region Propriétés
         public Employee CurrentEmployee { get; set; }
         public List<TaskProd> CurrentEmployeeListTaskProd { get; set; }
+
+
         //public List<Entity.Task> CurrentEmployeeListTaskAnx { get; set; }
         #endregion
 
@@ -49,8 +52,9 @@ namespace JobOverview.ViewModel
         {
             ICollectionView view = CollectionViewSource.GetDefaultView(CurrentEmployeeListTaskProd);
 
-        } 
+        }
 
         #endregion
+
     }
 }
