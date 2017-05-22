@@ -62,7 +62,7 @@ namespace JobOverview.ViewModel
             {
                 // TODO VMMain::CmdVMTaskConsultation : utiliser l'employé courrant pour la création de chaque VM (à discuter)
                 if (_cmdVMTaskConsultation == null)
-                    _cmdVMTaskConsultation = new RelayCommand(() =>  VMCourante = new VMTaskConsultation(DAL.GetEmployee("RBEAUMONT")));
+                    _cmdVMTaskConsultation = new RelayCommand(() =>  VMCourante = new VMTaskConsultation(new Employee()));
                 return _cmdVMTaskConsultation;
             }
         }
@@ -102,7 +102,8 @@ namespace JobOverview.ViewModel
 
         private bool ActiverEmployee()
         {
-            return _currentEmployee.Habilitation != Habilitation.Employee;
+            return true;
+           // return _currentEmployee.Habilitation != Habilitation.Employee;
         }
 
         #endregion
