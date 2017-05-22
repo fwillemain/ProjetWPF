@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 
 namespace JobOverview.Entity
 {
+    [XmlInclude(typeof(TaskProd))]
     public class Task
     {
         [XmlAttribute]
@@ -15,9 +16,7 @@ namespace JobOverview.Entity
         public string Description { get; set; }
         [XmlAttribute]
         public string Label { get; set; }
-        [XmlAttribute]
         public Activity Activity { get; set; }
-        [XmlAttribute]
         public List<WorkTime> ListWorkTime { get; set; }
     }
 }

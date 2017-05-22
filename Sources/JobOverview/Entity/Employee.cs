@@ -15,16 +15,12 @@ namespace JobOverview.Entity
         public string LastName { get; set; }
         [XmlAttribute]
         public string FirstName { get; set; }
-        [XmlAttribute]
         public Job Job { get; set; }
-        [XmlAttribute]
         public Habilitation Habilitation { get; set; }
         [XmlAttribute]
         public float Productivity { get; set; }
         [XmlAttribute]
         public string CodeTeam { get; set; }
-
-        [XmlElement]
         public List<Task> ListTask { get; set; }
     }
     public enum Habilitation

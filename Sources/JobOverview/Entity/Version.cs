@@ -13,7 +13,6 @@ namespace JobOverview.Entity
         public float Number { get; set; }
         [XmlAttribute]
         public short Year { get; set; }
-        [XmlAttribute]
         public DateTime? ActualReleaseDate { get; set; }
         [XmlAttribute]
         public DateTime EstimatedReleaseDate { get; set; }

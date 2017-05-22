@@ -13,9 +13,9 @@ namespace JobOverview.Entity
         public string Code { get; set; }
         [XmlAttribute]
         public string Name { get; set; }
-        [XmlAttribute]
+        [XmlElement]
         public List<Module> ListModule { get; set; }
-        [XmlAttribute]
+        [XmlElement]
         public List<Version> ListVersion { get; set; }
     }
 }
