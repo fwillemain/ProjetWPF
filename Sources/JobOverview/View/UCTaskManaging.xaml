@@ -16,12 +16,8 @@
     </UserControl.Resources>
     <DockPanel Background="White">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <ComboBox Name="cbSortPerSoftware">
-                <ComboBoxItem Content="Logiciel" IsSelected="True"/>
-            </ComboBox>
-            <ComboBox Name="cbSortPerVersion">
-                <ComboBoxItem Content="Version" IsSelected="True"/>
-            </ComboBox>
+            <ComboBox Name="cbFilterPerSoftware" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"/>
+            <ComboBox Name="cbFilterPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="VersionNumber"/>
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>
@@ -34,7 +30,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <TextBox Name="tbxFilter" MinWidth="50"/>
-                <ComboBox Name="cbFilter">
+                <ComboBox Name="cbFilterEmployee">
                     <ComboBoxItem Content="Nom" IsSelected="True"/>
                     <ComboBoxItem Content="Identifiant"/>
                 </ComboBox>

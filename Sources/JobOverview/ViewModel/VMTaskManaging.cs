@@ -36,11 +36,13 @@ namespace JobOverview.ViewModel
             { return _listEmployee; }
             set { SetProperty(ref _listEmployee, value); }
         }
+        public List<Software> ListSoftware { get; set; }
         #endregion
 
         public VMTaskManaging(List<Employee> listEmployee)
         {
-            ListEmployee = (ObservableCollection<Employee>)listEmployee.Where(e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam);
+            ListEmployee = new ObservableCollection<Employee>(listEmployee.Where(e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam).ToList());
+            ListSoftware = DAL.GetListSoftware();
         }
     }
 }

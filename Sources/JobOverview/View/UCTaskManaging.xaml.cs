@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,5 +25,22 @@ namespace JobOverview.View
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Filtre les taches en fonction du logiciel choisis.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FilterTaskWithDateMinMax(object sender, RoutedEventArgs e)
+        {
+            ICollectionView view = CollectionViewSource.GetDefaultView(((ViewModel.VMTaskManaging)this.DataContext).ListEmployee.Select(emp => emp.ListTask));
+            view.Filter = FilterBySoftware;
+        }
+
+        private bool FilterBySoftware(object obj)
+        {
+            return (((Entity.Software)obj).Code == ((Entity.Software)cbFilterPerSoftware.SelectedItem).Code);
+        }
+
     }
 }
