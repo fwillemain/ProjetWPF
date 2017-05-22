@@ -16,8 +16,9 @@
     </UserControl.Resources>
     <DockPanel Background="White">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <ComboBox Name="cbFilterPerSoftware" SelectionChanged="FilterTaskWithSoftware" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"/>
-            <ComboBox Name="cbFilterPerVersion" SelectionChanged="FilterTaskWithVersion"  ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="Number"/>
+            <ComboBox Name="cbFilterPerSoftware" ItemsSource="{Binding ListSoftware}" SelectedItem="{Binding SelectedSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"/>
+            <ComboBox Name="cbFilterPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" SelectedItem="{Binding SelectedVersion}" DisplayMemberPath="Number"/>
+            <Button Name="btnFilterSoftwareVersion" Content="Filtrer les tâches" Command="{Binding CmdFilter}" />
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>
@@ -28,27 +29,22 @@
                 <ColumnDefinition Width="280"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Name="tbxFilter" MinWidth="50"/>
-                <ComboBox Name="cbFilterEmployee">
-                    <ComboBoxItem Content="Nom" IsSelected="True"/>
-                    <ComboBoxItem Content="Identifiant"/>
-                </ComboBox>
-            </StackPanel>
-            <ListView Grid.Row="1" Name="lvListEmployee" ItemsSource="{Binding ListEmployee}" SelectedItem="{Binding SelectedEmployee}" Margin="2.5" IsSynchronizedWithCurrentItem="True">
+            <ListView Grid.Row="1" Name="lvListEmployee" ItemsSource="{Binding ListEmployee}"  SelectedItem="{Binding SelectedEmployee}" Margin="2.5" IsSynchronizedWithCurrentItem="True">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Prénom" DisplayMemberBinding="{Binding FirstName}"/>
                         <GridViewColumn Header="Nom" DisplayMemberBinding="{Binding LastName}"/>
                         <GridViewColumn Header="Métier" DisplayMemberBinding="{Binding Job.Label}"/>
                         <GridViewColumn Header="Productivité" DisplayMemberBinding="{Binding Productivity}"/>
+                        <GridViewColumn Header="Temps réalisés sur tâches en cours" DisplayMemberBinding="{Binding SpentTimeReport}"/>
+                        <GridViewColumn Header="Temps de travail restant" DisplayMemberBinding="{Binding RemainingTimeReport}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
             <CheckBox Grid.Column="1" Name="chbTaskFinished" Content="Terminée" Margin="5"/>
-            <TabControl  Grid.Column="1" Grid.Row="1" TabStripPlacement="Top" Margin="2.5" ><!--SelectionChanged="TabControl_SelectionChanged">-->
+            <TabControl  Grid.Column="1" Grid.Row="1" TabStripPlacement="Top" Margin="2.5" >
                 <TabItem Header="Tâches de production" Name="tabTaskProd">
-                    <ListView Name="lvListTaskProd" ItemsSource="{Binding SelectedEmployee.ListTask}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView Name="lvListTaskProd" ItemsSource="{Binding ListTaskProd}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="N°" DisplayMemberBinding="{Binding Number}"/>
@@ -69,7 +65,7 @@
                     </ListView>
                 </TabItem>
                 <TabItem Header="Tâches annexes" Name="tabTaskAnnex">
-                    <ListView Name="lvListTaskAnnex" ItemsSource="{Binding ListEmployee/ListTask}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView Name="lvListTaskAnnex" ItemsSource="{Binding ListTaskAnnex}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Libellé" DisplayMemberBinding="{Binding Label}"/>
@@ -81,7 +77,7 @@
             </TabControl>
             <Expander Grid.Column="1" Grid.Row="1" IsExpanded="False" ExpandDirection="Left" VerticalAlignment="Bottom">
                 <Border BorderThickness="0.7" BorderBrush="Black" Margin="2" Padding="2">
-                    <TextBox TextWrapping="Wrap" Text="{Binding Task/Description}" IsReadOnly="True"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding Task.Description}" IsReadOnly="True"/>
                 </Border>
             </Expander>
         </Grid>
