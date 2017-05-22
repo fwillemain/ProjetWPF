@@ -77,9 +77,9 @@ namespace JobOverview.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public int EmployeId {
+        public string EmployeId {
             get {
-                return ((int)(this["EmployeId"]));
+                return ((string)(this["EmployeId"]));
             }
             set {
                 this["EmployeId"] = value;

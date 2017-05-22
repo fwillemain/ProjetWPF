@@ -14,7 +14,7 @@
     <Setting Name="JobOverviewConnectionStringLeo" Type="System.String" Scope="User">
       <Value Profile="(Default)">Test3</Value>
     </Setting>
-    <Setting Name="EmployeId" Type="System.Int32" Scope="User">
+    <Setting Name="EmployeId" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
