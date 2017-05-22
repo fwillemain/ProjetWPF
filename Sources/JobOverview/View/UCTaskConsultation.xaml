@@ -4,17 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JobOverview.View"
+             xmlns:converter="clr-namespace:JobOverview.ToolKit"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="900">
     <Grid>
         <Grid.Resources>
+            <converter:DebuggerConverter x:Key="DebuggerConverter"/>
             <Style x:Key="RegularButtonStyle">
                 <Setter Property="Button.Width" Value="70"/>
                 <Setter Property="Button.Height" Value="20"/>
             </Style>
         </Grid.Resources>
         <TabControl>
-            <TabItem Header="Taches prod" DataContext="{Binding CurrentEmployeeListTaskProd}">
+            <TabItem Header="Taches prod">
                 <Grid>
                     <!--2 lignes et 3 colonnes-->
                     <!--#region Param Grid-->
@@ -36,28 +38,24 @@
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                             </Style>
                         </StackPanel.Resources>
-                        <ComboBox Name="cbSortPerSoftware">
-                            <ComboBoxItem Content="Logiciel" IsSelected="True"/>
-                        </ComboBox>
-                        <ComboBox Name="cbSortPerVersion">
-                            <ComboBoxItem Content="Version" IsSelected="True"/>
-                        </ComboBox>
-                        <ComboBox Name="cbSortPerModule">
-                            <ComboBoxItem Content="Module" IsSelected="True"/>
-                        </ComboBox>
-                        <ComboBox Name="cbSortPerActivity">
-                            <ComboBoxItem Content="Activité" IsSelected="True"/>
-                        </ComboBox>
+                        <ComboBox Name="cbSortPerSoftware" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" />
+
+                        <ComboBox Name="cbSortPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="Number" IsSynchronizedWithCurrentItem="True"/>
+
+                        <ComboBox Name="cbSortPerModule" ItemsSource="{Binding ListSoftware/ListModule}" DisplayMemberPath="Label" SelectedIndex="0"/>
+
+                        <ComboBox Name="cbSortPerActivity" ItemsSource="{Binding CurrentEmployee.Job.ListActivity}" DisplayMemberPath="Code" SelectedIndex="0"/>
+
                         <Button Name="btnSort" Content="Trier" Click="FilterTaskWithSoftwareVersionModuleActivity" Style="{StaticResource RegularButtonStyle}"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <DatePicker Name="dpDateMin" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
-                        <DatePicker Name="dpDateMax" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
+                        <DatePicker DisplayDate="01/01/2016" Name="dpDateMin" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
+                        <DatePicker DisplayDate="01/01/2016"  Name="dpDateMax" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
                     </StackPanel>
 
                     <!--Ligne 1-->
-                    <ListView Grid.Row="1" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True">
+                    <ListView Grid.Row="1" ItemsSource="{Binding CurrentEmployeeListTaskProd}" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Numero" DisplayMemberBinding="{Binding Number}"/>
@@ -68,7 +66,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ListView Name="lvWorkTime" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ListWorkTime}" IsSynchronizedWithCurrentItem="True">
+                    <ListView Name="lvWorkTime" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding CurrentEmployeeListTaskProd/ListWorkTime}" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Hours" DisplayMemberBinding="{Binding Hours}"/>
