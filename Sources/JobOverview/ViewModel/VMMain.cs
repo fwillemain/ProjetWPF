@@ -1,4 +1,5 @@
 ﻿using JobOverview.Entity;
+using JobOverview.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,11 @@ namespace JobOverview.ViewModel
 				SetProperty(ref _VMCourante, value);
 			}
 		}
+
+        public VMMain()
+        {
+            List<Employee> listEmployee = DAL.GetListEmployee("JROUSSET");
+        }
 
 		#region Commandes
 		private ICommand _cmdLogin;
@@ -54,8 +60,9 @@ namespace JobOverview.ViewModel
         {
             get
             {
+                // TODO VMMain::CmdVMTaskConsultation : utiliser l'employé courrant pour la création de chaque VM (à discuter)
                 if (_cmdVMTaskConsultation == null)
-                    _cmdVMTaskConsultation = new RelayCommand(() => { });
+                    _cmdVMTaskConsultation = new RelayCommand(() =>  VMCourante = new VMTaskConsultation(DAL.GetEmployee("RBEAUMONT")));
                 return _cmdVMTaskConsultation;
             }
         }
@@ -77,7 +84,7 @@ namespace JobOverview.ViewModel
             get
             {
                 if (_cmdVMTaskManaging == null)
-                    _cmdVMTaskManaging = new RelayCommand(() => { }, ActiverEmployee);
+                    _cmdVMTaskManaging = new RelayCommand(() => VMCourante = new VMTaskManaging(), ActiverEmployee);
                 return _cmdVMTaskManaging;
             }
         }

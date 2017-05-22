@@ -12,7 +12,7 @@ namespace JobOverview.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.1.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,8 +25,8 @@ namespace JobOverview.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FWILLEMAIN17-DE\\IP08R2;Initial Catalog=JobOverview;Integrated Securit" +
-            "y=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FLORIAN-PC\\SQLEXPRESS;Initial Catalog=JobOverview;Integrated Security" +
+            "=True")]
         public string JobOverviewConnectionStringDefault {
             get {
                 return ((string)(this["JobOverviewConnectionStringDefault"]));
@@ -64,7 +64,8 @@ namespace JobOverview.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Test3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LMILBOR17-DE\\IP08R2;Initial Catalog=JobOverview;Integrated Security=T" +
+            "rue")]
         public string JobOverviewConnectionStringLeo {
             get {
                 return ((string)(this["JobOverviewConnectionStringLeo"]));
@@ -76,13 +77,26 @@ namespace JobOverview.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public string EmployeId {
+        [global::System.Configuration.DefaultSettingValueAttribute("JROUSSET")]
+        public string EmployeeId {
             get {
-                return ((string)(this["EmployeId"]));
+                return ((string)(this["EmployeeId"]));
             }
             set {
-                this["EmployeId"] = value;
+                this["EmployeeId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FLORIAN-PC\\SQLEXPRESS;Initial Catalog=JobOverview;Integrated Security" +
+            "=True")]
+        public string JobOverviewConnectionStringFloMaison {
+            get {
+                return ((string)(this["JobOverviewConnectionStringFloMaison"]));
+            }
+            set {
+                this["JobOverviewConnectionStringFloMaison"] = value;
             }
         }
     }

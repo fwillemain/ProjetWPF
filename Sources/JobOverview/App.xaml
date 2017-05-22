@@ -4,13 +4,21 @@
              xmlns:local="clr-namespace:JobOverview"
 				xmlns:vw="clr-namespace:JobOverview.View"
 				xmlns:vm="clr-namespace:JobOverview.ViewModel"
+				xmlns:tk="clr-namespace:JobOverview.ToolKit"
              StartupUri="View/MainWindow.xaml">
-	<Application.Resources>
+    <Application.Resources>
+        <tk:FloatToBoolConverter x:Key="FloatToBoolConverter"/>
 		<DataTemplate DataType="{x:Type vm:VMLogin}">
 			<vw:UCLogin/>
 		</DataTemplate>
         <DataTemplate DataType="{x:Type vm:VMConnection}">
             <vw:UCConnection/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VMTaskManaging}">
+            <vw:UCTaskCreation/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VMTaskConsultation}">
+            <vw:UCTaskConsultation/>
         </DataTemplate>
     </Application.Resources>
 </Application>
