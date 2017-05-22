@@ -13,7 +13,8 @@ namespace JobOverview.ViewModel
         public List<Employee> ListEmployee { get; set; }
         public VMTaskManaging()
         {
-            //ListEmployee = DAL.GetListEmployee(Properties.Settings.Default.EmployeId);
+            //ListEmployee = DAL.GetListEmployeeWithoutTask(Properties.Settings.Default.EmployeeId);
+            //ListEmployee.Add();
         }
     }
 }
