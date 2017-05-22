@@ -42,10 +42,10 @@
             <ListView Grid.Row="1" Name="lvListEmployee" ItemsSource="{Binding Employee}" Margin="2.5">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="N°" DisplayMemberBinding="{Binding FirstName}"/>
-                        <GridViewColumn Header="Durée restante estimée" DisplayMemberBinding="{Binding LastName}"/>
-                        <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Job.Label}"/>
-                        <GridViewColumn Header="Libellé" DisplayMemberBinding="{Binding Productivity}"/>
+                        <GridViewColumn Header="Prénom" DisplayMemberBinding="{Binding FirstName}"/>
+                        <GridViewColumn Header="Nom" DisplayMemberBinding="{Binding LastName}"/>
+                        <GridViewColumn Header="Métier" DisplayMemberBinding="{Binding Job.Label}"/>
+                        <GridViewColumn Header="Productivité" DisplayMemberBinding="{Binding Productivity}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
