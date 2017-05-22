@@ -41,8 +41,8 @@ namespace JobOverview.ViewModel
 
         public VMTaskManaging(List<Employee> listEmployee)
         {
-            ListEmployee = new ObservableCollection<Employee>(listEmployee.Where(e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam).ToList());
             ListSoftware = DAL.GetListSoftware();
+            ListEmployee = new ObservableCollection<Employee>(listEmployee.Where(e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam).ToList());
         }
     }
 }
