@@ -32,7 +32,7 @@ namespace JobOverview.ViewModel
 
         public VMMain()
         {
-            List<Employee> listEmployee = DAL.GetListEmployee("JROUSSET");
+          //  List<Employee> listEmployee = DAL.GetListEmployee("JROUSSET");
         }
 
 		#region Commandes
