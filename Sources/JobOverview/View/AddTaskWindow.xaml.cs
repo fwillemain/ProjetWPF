@@ -31,7 +31,6 @@ namespace JobOverview.View
         public AddTaskWindow(ViewModelBase vm)
         {
             InitializeComponent();
-
             _vm = vm;
         }
     }
