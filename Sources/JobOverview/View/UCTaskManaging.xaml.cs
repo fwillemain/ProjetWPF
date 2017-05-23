@@ -26,47 +26,48 @@ namespace JobOverview.View
         {
             InitializeComponent();
         }
-        // TODO : faire gaffe quand on change de logiciel l'état de la liste de version de la combobox
-        /// <summary>
-        /// Filtre les taches en fonction du logiciel choisis.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void FilterTaskWithSoftware(object sender, SelectionChangedEventArgs e)
-        {
-                ICollectionView view = CollectionViewSource.GetDefaultView(((ViewModel.VMTaskManaging)DataContext).SelectedEmployee.ListTask.OfType<TaskProd>());
-            if (view != null)
-                view.Filter = FilterBySoftware;
-        }
-        /// <summary>
-        /// Filtre les taches par rapport à un logiciel.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        private bool FilterBySoftware(object obj)
-        {
-            return (((TaskProd)obj).Software.Code == ((Software)cbFilterPerSoftware.SelectedItem).Code);
-        }
-        /// <summary>
-        /// Filtre les taches en fonction de la version choisis.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void FilterTaskWithVersion(object sender, SelectionChangedEventArgs e)
-        {
-            ICollectionView view = CollectionViewSource.GetDefaultView(((ViewModel.VMTaskManaging)DataContext).SelectedEmployee.ListTask.OfType<TaskProd>());
-            if (view != null)
-                view.Filter = FilterByVersion;
-        }
-        /// <summary>
-        /// Filtre les taches par rapport à une version.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        private bool FilterByVersion(object obj)
-        {
-            return (((TaskProd)obj).Version.Number == ((Entity.Version)cbFilterPerVersion.SelectedItem).Number);
-        }
+
+        #region Obsolète
+        ///// <summary>
+        ///// Filtre les taches en fonction du logiciel choisis.
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void FilterTaskWithSoftware(object sender, SelectionChangedEventArgs e)
+        //{
+        //        ICollectionView view = CollectionViewSource.GetDefaultView(((ViewModel.VMTaskManaging)DataContext).ListTaskProd);
+        //    if (view != null)
+        //        view.Filter = FilterBySoftware;
+        //}
+        ///// <summary>
+        ///// Filtre les taches par rapport à un logiciel.
+        ///// </summary>
+        ///// <param name="obj"></param>
+        ///// <returns></returns>
+        //private bool FilterBySoftware(object obj)
+        //{
+        //    return (((TaskProd)obj).Software.Code == ((Software)cbFilterPerSoftware.SelectedItem).Code);
+        //}
+        ///// <summary>
+        ///// Filtre les taches en fonction de la version choisis.
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void FilterTaskWithVersion(object sender, SelectionChangedEventArgs e)
+        //{
+        //    ICollectionView view = CollectionViewSource.GetDefaultView(((ViewModel.VMTaskManaging)DataContext).ListTaskProd);
+        //    if (view != null)
+        //        view.Filter = FilterByVersion;
+        //}
+        ///// <summary>
+        ///// Filtre les taches par rapport à une version.
+        ///// </summary>
+        ///// <param name="obj"></param>
+        ///// <returns></returns>
+        //private bool FilterByVersion(object obj)
+        //{
+        //    return (((TaskProd)obj).Version.Number == ((Entity.Version)cbFilterPerVersion.SelectedItem).Number);
+        //} 
 
         //private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{
@@ -90,24 +91,31 @@ namespace JobOverview.View
         //            view.Filter += FilterByTaskProd;
         //        }
         //    }
+        ////}
+        ///// <summary>
+        ///// Filtre les taches annexes.
+        ///// </summary>
+        ///// <param name="obj"></param>
+        ///// <returns></returns>
+        //private bool FilterByTaskAnnex(object obj)
+        //{
+        //    return (((Entity.Task)obj).Activity.IsAnnex);
         //}
-        /// <summary>
-        /// Filtre les taches annexes.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        private bool FilterByTaskAnnex(object obj)
-        {
-            return (((Entity.Task)obj).Activity.IsAnnex);
-        }
-        /// <summary>
-        /// Filtre les taches de productions.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        private bool FilterByTaskProd(object obj)
-        {
-            return !(((Entity.Task)obj).Activity.IsAnnex);
-        }
+        ///// <summary>
+        ///// Filtre les taches de productions.
+        ///// </summary>
+        ///// <param name="obj"></param>
+        ///// <returns></returns>
+        //private bool FilterByTaskProd(object obj)
+        //{
+        //    return !(((Entity.Task)obj).Activity.IsAnnex);
+        //}
+
+        //private void lvListEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    lvListTaskAnnex.DataContext = ListTaskAnnex;
+        //    lvListTaskProd.DataContext = ListTaskProd;
+        //}
+        #endregion
     }
 }

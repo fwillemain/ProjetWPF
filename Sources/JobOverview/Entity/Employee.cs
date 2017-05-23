@@ -27,7 +27,8 @@ namespace JobOverview.Entity
         {
             get
             {
-                return ListTask.OfType<TaskProd>().Sum(t => t.EstimatedRemainingTime);
+                //return ListTask.OfType<TaskProd>().Sum(t => t.EstimatedRemainingTime);
+                return 0;
             }
         }
         [XmlAttribute]
@@ -35,7 +36,11 @@ namespace JobOverview.Entity
         {
             get
             {
-                return ListTask.OfType<TaskProd>().Where(t => t.EstimatedRemainingTime != 0).Sum(w => w.ListWorkTime.Sum(wt => wt.Hours));
+                if (ListTask != null
+                    && ListTask.OfType<TaskProd>().Where(t => t.EstimatedRemainingTime != 0).Any()
+                    && ListTask.OfType<TaskProd>().Where(t => t.EstimatedRemainingTime != 0).Select(w => w.ListWorkTime).Any())
+                    return ListTask.OfType<TaskProd>().Where(t => t.EstimatedRemainingTime != 0).Sum(w => w.ListWorkTime.Sum(wt => wt.Hours));
+                return 0;
             }
         }
     }
