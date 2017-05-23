@@ -19,5 +19,17 @@ namespace JobOverview.Entity
         public string Label { get; set; }
         public Activity Activity { get; set; }
         public ObservableCollection<WorkTime> ListWorkTime { get; set; }
+        public float TotalWorkingTime
+        {
+            get
+            {
+                float res = 0;
+
+                if (ListWorkTime != null)
+                    res = ListWorkTime.Sum(wt => wt.Hours);
+
+                return res;
+            }
+        }
     }
 }
