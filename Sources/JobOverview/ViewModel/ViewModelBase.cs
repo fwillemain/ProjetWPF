@@ -9,13 +9,13 @@ namespace JobOverview.ViewModel
 	/// Implémente la notification des changements
 	/// http://danrigby.com/2012/04/01/inotifypropertychanged-the-net-4-5-way-revisited/
 	/// </summary>
-	public abstract class ViewModelBase : INotifyPropertyChanged
+	public  class ViewModelBase : INotifyPropertyChanged
     {
 		/// <summary>
 		/// Evènement de notification de changement de valeur 
 		/// </summary>
 		public event PropertyChangedEventHandler PropertyChanged;
-       // public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
+        public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
         /// <summary>
         /// Vérifie si la nouvelle valeur de la propriété qu'on affecte est différente
         /// de sa valeur actuelle, et si c'est le cas, affecte la nouvelle valeur, puis
@@ -43,18 +43,18 @@ namespace JobOverview.ViewModel
         }
 
 
-        //protected static bool SetPropertyStatic<T>(ref T field, T value, [CallerMemberName] string propName = null)
-        //{
-        //    if (Equals(field, value)) return false;
+        protected static bool SetPropertyStatic<T>(ref T field, T value, [CallerMemberName] string propName = null)
+        {
+            if (Equals(field, value)) return false;
 
-        //    field = value;
-        //    var handler = StaticPropertyChanged;
+            field = value;
+            var handler = StaticPropertyChanged;
 
-        //    handler(field, new PropertyChangedEventArgs(propName));
-            
+            handler(field, new PropertyChangedEventArgs(propName));
 
-        //    return true;
-        //}
+
+            return true;
+        }
 
 
 
