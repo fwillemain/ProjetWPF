@@ -33,8 +33,6 @@ namespace JobOverview.View
             InitializeComponent();
 
             _vm = vm;
-            ccPrinc.Content = vm;
-            btnOK.Click += BtnOK_Click;
         }
     }
 }

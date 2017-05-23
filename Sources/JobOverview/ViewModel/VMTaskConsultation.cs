@@ -50,7 +50,7 @@ namespace JobOverview.ViewModel
             // TODO VMTaskConsultation::VMTaskConsultation() : voir pour faire un stockage des listes et de l'employé plus propre si nécessaire
             // TODO VMTaskConsultation::VMTaskConsultation() : faire un groupement par version?
             if (currentEmployee.ListTask==null)
-                currentEmployee.ListTask = DAL.GetListTask(currentEmployee.Login);
+                currentEmployee.ListTask = new System.Collections.ObjectModel.ObservableCollection<Entity.Task>(DAL.GetListTask(currentEmployee.Login));
 
             CurrentEmployee = currentEmployee;
             CurrentEmployeeListTaskProd = CurrentEmployee.ListTask.OfType<TaskProd>().ToList();
