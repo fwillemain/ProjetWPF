@@ -117,11 +117,11 @@ namespace JobOverview.ViewModel
             ListEmployee = new ObservableCollection<Employee>(VMMain.ListEmployee.Where(e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam));
             SelectedEmployee = ListEmployee.FirstOrDefault();
             // Création d'une copie de la liste des employé
-            ListEmployeeWithAddedTasks = new List<Employee>();
-            //foreach (var item in ListEmployee)
-            //    ListEmployeeWithAddedTasks.Add(item);
-            //foreach (var item in ListEmployeeWithAddedTasks)
-            //    item.ListTask = new ObservableCollection<Entity.Task>();
+            Employee[] empArray = new Employee[ListEmployee.Count];
+            ListEmployee.CopyTo(empArray, 0);
+            ListEmployeeWithAddedTasks = new List<Employee>(empArray);
+            foreach (var item in ListEmployeeWithAddedTasks)
+                item.ListTask = new ObservableCollection<Entity.Task>();
             ListSuppTasks = new List<Guid>();
             RemainingTaskVisible = true;
         }
@@ -193,7 +193,9 @@ namespace JobOverview.ViewModel
                 RemainingTimeReport = ListTaskProd != null ? ListTaskProd.Where(t => t.Version.Number == SelectedVersion.Number && t.Software.Code == SelectedSoftware.Code).Sum(t => t.EstimatedRemainingTime) : 0;
             }
         }
-
+        /// <summary>
+        /// Ajoute les tâches créée dans la fenêtre de création de tâche dans une liste de tâche à créer qui seront ajouter lors de l'appel de la méthode Save.
+        /// </summary>
         private void AddTask()
         {
             UpdatedEmployee = new Employee() {Login = SelectedEmployee.Login, ListTask = new ObservableCollection<Entity.Task>(), Job = SelectedEmployee.Job };
@@ -215,7 +217,9 @@ namespace JobOverview.ViewModel
                 }
             }
         }
-
+        /// <summary>
+        /// Ajoute la tâche marquée à supprimer dans une liste de tâche qui seront supprimer lors de l'appel de la méthode Save.
+        /// </summary>
         private void SuppTask()
         {
             if (CurrentTask != null && CurrentTask.TotalWorkingTime == 0)
@@ -238,7 +242,9 @@ namespace JobOverview.ViewModel
                     ListTaskAnnex.Remove(CurrentTask);
             }
         }
-
+        /// <summary>
+        /// Sauvegarde les ajout et suppression de tâche dans la base de donnée.
+        /// </summary>
         private void Save()
         {
             //DAL.UpdateDatabaseTaskListOfEmployee(ListEmployeeWithAddedTasks, ListSuppTasks); 
