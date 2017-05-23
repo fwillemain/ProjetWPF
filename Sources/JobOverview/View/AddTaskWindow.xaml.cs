@@ -37,7 +37,7 @@ namespace JobOverview.View
 
         private void cbTypeTask_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ccFilling.ContentTemplate = (bool)cbTypeTask.SelectedValue ? (DataTemplate)Resources["dtTaskAnnex"] : (DataTemplate)Resources["dtTaskProd"];
+            ccFilling.Visibility = (bool)cbTypeTask.SelectedValue ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }
