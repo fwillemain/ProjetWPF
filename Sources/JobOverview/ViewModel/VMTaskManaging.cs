@@ -86,7 +86,7 @@ namespace JobOverview.ViewModel
                 // si l'employé séléctionné a une liste de tache nulle alors on va la récupérer avec une méthade de DAL.
                 if (_listEmployee.Where(e => e.Login == value.Login).FirstOrDefault().ListTask == null)
                 {
-                    _listEmployee.Where(e => e.Login == value.Login).FirstOrDefault().ListTask = DAL.GetListTask(value.Login);
+                    _listEmployee.Where(e => e.Login == value.Login).FirstOrDefault().ListTask = new ObservableCollection<Entity.Task>(DAL.GetListTask(value.Login));
                 }
                 // Définition de l'employé séléctionné sur SelectedEmployee
                 _selectedEmployee = _listEmployee.Where(e => e.Login == value.Login).FirstOrDefault();

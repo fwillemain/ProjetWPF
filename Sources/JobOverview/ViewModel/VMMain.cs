@@ -112,7 +112,7 @@ namespace JobOverview.ViewModel
             // Chargement de la liste des taches pour tous les employés de la liste pour lesquels ce n'est pas déjà fait
             foreach (var e in ListEmployee)
                 if (e.ListTask == null)
-                    e.ListTask = DAL.GetListTask(e.Login);
+                    e.ListTask = new System.Collections.ObjectModel.ObservableCollection<Entity.Task>(DAL.GetListTask(e.Login));
 
             // Récupération du dossier où les taches seront exportées au format .xml
             FolderBrowserDialog dlg = new FolderBrowserDialog();
