@@ -3,7 +3,7 @@ go
 
 create type TypeWorkTimeTable as table
 (
-	TaskId UNIQUEIDENTIFIER primary key,
+	TaskId UNIQUEIDENTIFIER,
 	WorkingDate Date not null,
 	Hours float(5) not null,
 	Productivity float(5) not null
