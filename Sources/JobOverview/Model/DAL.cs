@@ -114,6 +114,8 @@ namespace JobOverview.Model
 
                 Entity.Task currentTask = listTask.Where(t => t.Id == (Guid)reader["IdTache"]).First();
 
+                // Si la liste des temps de travail de la tache courrante est vide ou si la date du temps de travail 
+                // est différente de celle du temps de travail précédent, ajouter un nouveau temps de travail
                 if (!currentTask.ListWorkTime.Any() ||
                     currentTask.ListWorkTime.Last().WorkingDate != (DateTime)reader["DateTravail"])
                 {
@@ -218,6 +220,7 @@ namespace JobOverview.Model
             table.Columns["Productivity"].AllowDBNull = false;
             #endregion
 
+            // Remplissage de la table avec tous les temps de travail de toutes les taches de la liste
             foreach (var t in listTask)
             {
                 foreach (var wt in t.ListWorkTime)
@@ -237,7 +240,7 @@ namespace JobOverview.Model
         }
 
         /// <summary>
-        /// 
+        /// Convertit la liste d'Id de tache passée en paramètre en DataTable
         /// </summary>
         /// <param name="listTaskId"></param>
         /// <returns></returns>
@@ -249,6 +252,7 @@ namespace JobOverview.Model
             colIdTache.AllowDBNull = false;
             table.Columns.Add(colIdTache);
 
+            // Remplissage de la table avec tous les Id présents dans la liste
             foreach(var i in listTaskId)
             {
                 var row = table.NewRow();
@@ -258,6 +262,11 @@ namespace JobOverview.Model
             return table;
         }
 
+        /// <summary>
+        /// Convertit la liste des taches prod des employés passés en paramètre en DataTable
+        /// </summary>
+        /// <param name="listEmployee"></param>
+        /// <returns></returns>
         private static DataTable GetDataTableForListTaskProd(List<Employee> listEmployee)
         {
             DataTable table = new DataTable();
@@ -281,7 +290,8 @@ namespace JobOverview.Model
             table.Columns.Add(new DataColumn("Logiciel", typeof(string)));
             table.Columns["Logiciel"].AllowDBNull = false;
             #endregion
-
+            
+            // Remplissage de la table avec toutes les taches prod des employés dans la liste
             foreach(var e in listEmployee)
             {
                 var listTaskProd = e.ListTask.OfType<TaskProd>().ToList();
@@ -303,6 +313,11 @@ namespace JobOverview.Model
             return table;
         }
 
+        /// <summary>
+        /// Convertit la liste des taches annexes des employés passés en paramètre en DataTable
+        /// </summary>
+        /// <param name="listEmployee"></param>
+        /// <returns></returns>
         private static DataTable GetDataTableForListTaskAnx(List<Employee> listEmployee)
         {
             DataTable table = new DataTable();
@@ -326,6 +341,7 @@ namespace JobOverview.Model
             table.Columns.Add(new DataColumn("Description", typeof(string)));
             #endregion
 
+            // Remplissage de la table avec toutes les taches des employés de la liste
             foreach (var e in listEmployee)
             {
                 foreach (var t in e.ListTask)
@@ -348,7 +364,6 @@ namespace JobOverview.Model
 
             return table;
         }
-
         #endregion
 
         #region Méthodes publiques
@@ -581,7 +596,6 @@ namespace JobOverview.Model
                 }
             }
         }
-
 
 
         /// <summary>
