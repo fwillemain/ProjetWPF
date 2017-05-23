@@ -491,7 +491,7 @@ namespace JobOverview.Model
                                  WHEN MATCHED AND Source.Productivity = 0 THEN
 	                                delete
                                  WHEN MATCHED THEN
-                                    update Cible.Travail set Heures = Source.Hours
+                                    update set Heures = Source.Hours
                                  WHEN NOT MATCHED BY TARGET THEN
 	                                INSERT (IdTache, DateTravail, Heures, TauxProductivite)
 	                                VALUES (Source.TaskId, Source.WorkingDate, Source.Hours, Source.Productivity);";
