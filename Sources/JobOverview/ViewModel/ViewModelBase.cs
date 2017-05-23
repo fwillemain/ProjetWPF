@@ -15,7 +15,6 @@ namespace JobOverview.ViewModel
 		/// Evènement de notification de changement de valeur 
 		/// </summary>
 		public event PropertyChangedEventHandler PropertyChanged;
-        public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
         /// <summary>
         /// Vérifie si la nouvelle valeur de la propriété qu'on affecte est différente
         /// de sa valeur actuelle, et si c'est le cas, affecte la nouvelle valeur, puis
@@ -41,21 +40,6 @@ namespace JobOverview.ViewModel
 
             return true;
         }
-
-
-        protected static bool SetPropertyStatic<T>(ref T field, T value, [CallerMemberName] string propName = null)
-        {
-            if (Equals(field, value)) return false;
-
-            field = value;
-            var handler = StaticPropertyChanged;
-
-            handler(field, new PropertyChangedEventArgs(propName));
-
-
-            return true;
-        }
-
 
 
         /// <summary>
