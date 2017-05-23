@@ -253,10 +253,12 @@ namespace JobOverview.Model
             table.Columns.Add(colIdTache);
 
             // Remplissage de la table avec tous les Id présents dans la liste
-            foreach(var i in listTaskId)
+            foreach(var guid in listTaskId)
             {
                 var row = table.NewRow();
-                row["TaskId"] = i;
+                row["TaskId"] = guid;
+
+                table.Rows.Add(row);
             }
 
             return table;
@@ -484,14 +486,13 @@ namespace JobOverview.Model
                 cnx.Open();
                 var tran = cnx.BeginTransaction();
 
-                // TODO : tester la requete
                 string query = @"MERGE jo.Travail AS Cible
 	                                USING (SELECT TaskId, WorkingDate, Hours, Productivity FROM @table) AS Source
 	                                ON (Cible.IdTache = Source.TaskId and Cible.DateTravail = Source.WorkingDate)
                                  WHEN MATCHED AND Source.Productivity = 0 THEN
 	                                delete
                                  WHEN MATCHED THEN
-                                    update Cible.Travail set Heures = Source.Hours
+                                    update set Heures = Source.Hours
                                  WHEN NOT MATCHED BY TARGET THEN
 	                                INSERT (IdTache, DateTravail, Heures, TauxProductivite)
 	                                VALUES (Source.TaskId, Source.WorkingDate, Source.Hours, Source.Productivity);";
@@ -528,8 +529,7 @@ namespace JobOverview.Model
                 cnx.Open();
                 var tran = cnx.BeginTransaction();
 
-
-                // TODO : tester la requete
+                // Ajout des taches annexes et prod dans jo.Tache
                 string queryInsertTaskAnx = @"insert jo.Tache(IdTache, Libelle, Annexe, CodeActivite, Login, Description)
                                               select TaskId, Label, IsAnnex, Activity, Login, Description 
                                               from @table";
@@ -540,11 +540,11 @@ namespace JobOverview.Model
                 commandInsertTaskAnx.Parameters["@table"].Value = GetDataTableForListTaskAnx(listEmployee);
 
 
-                // TODO : tester la requete
+                // Ajout des taches prod dans jo.TacheProd
                 string queryInsertTaskProd = @"insert jo.TacheProd(IdTache, DureePrevue, DureeRestanteEstimee, CodeModule, 
                                                                    CodeLogicielModule, NumeroVersion, CodeLogicielVersion)
                                                select TaskId, PredictedTime, EstimatedRemainingTime, Module,
-                                                      Module, Version, Logiciel
+                                                      Logiciel, Version, Logiciel
                                                from @table";
 
                 var commandInsertTaskProd = new SqlCommand(queryInsertTaskProd, cnx, tran);
@@ -553,7 +553,7 @@ namespace JobOverview.Model
                 commandInsertTaskProd.Parameters["@table"].Value = GetDataTableForListTaskProd(listEmployee);
 
 
-                // TODO : tester la requete
+                // Suppression des taches annexes et des taches prod dans jo.Tache
                 string queryDeleteTaskAnx = @"delete jo.Tache
                                               from jo.Tache t
                                               inner join @table tab on t.IdTache = tab.TaskId";
@@ -566,7 +566,7 @@ namespace JobOverview.Model
                 commandDeleteTaskAnx.Parameters["@table"].Value = dataTableTaskId;
 
 
-                // TODO : tester la requete
+                // Suppression des taches prod jo.TacheProd
                 string queryDeleteTaskProd = @"delete jo.TacheProd
                                               from jo.TacheProd t
                                               inner join @table tab on t.IdTache = tab.TaskId";
