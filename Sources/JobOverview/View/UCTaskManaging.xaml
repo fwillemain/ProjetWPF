@@ -22,14 +22,14 @@
             <ComboBox Name="cbFilterPerSoftware" ItemsSource="{Binding ListSoftware}" SelectedItem="{Binding SelectedSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"/>
             <ComboBox Name="cbFilterPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" SelectedItem="{Binding SelectedVersion}" DisplayMemberPath="Number" SelectedIndex="0"/>
             <CheckBox Name="chbTaskFinished" IsChecked="{Binding FinishedTaskVisible}" Content="Terminée" Margin="5" VerticalAlignment="Center"/>
-            <CheckBox Name="chbTaskNotFinished" IsChecked="{Binding RemainingTaskVisible}" Content="Courante" Margin="5" VerticalAlignment="Center"/>
+            <CheckBox Name="chbTaskNotFinished" IsChecked="{Binding RemainingTaskVisible}" Content="Courante" Margin="5" VerticalAlignment="Center" />
             <Button Name="btnFilterSoftwareVersion" Content="Filtrer les tâches" Command="{Binding CmdFilter}" />
             <Button Name="btnAddTask" Content="Nouvelle tâche" Command="{Binding CmdAddTask}" />
             <Button Name="btnSuppCurrentTask" Content="Supprimer" Command="{Binding CmdSuppTask}" />
         </StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="280"/>
+                <ColumnDefinition Width="300"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <ListView Name="lvListEmployee" ItemsSource="{Binding ListEmployee}"  SelectedItem="{Binding SelectedEmployee}" Margin="2.5" IsSynchronizedWithCurrentItem="True">
@@ -60,7 +60,8 @@
                                 </GridViewColumn>
                                 <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Label}"/>
                                 <GridViewColumn Header="Libellé" DisplayMemberBinding="{Binding Label}"/>
-                                <GridViewColumn Header="Durée restante estimée" DisplayMemberBinding="{Binding EstimatedRemainingTime}"/>
+                                <GridViewColumn Header="Temps restant estimé" DisplayMemberBinding="{Binding EstimatedRemainingTime}"/>
+                                <GridViewColumn Header="Temps réalisé" DisplayMemberBinding="{Binding TotalWorkingTime}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -71,6 +72,7 @@
                             <GridView>
                                 <GridViewColumn Header="Libellé" DisplayMemberBinding="{Binding Label}"/>
                                 <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Label}"/>
+                                <GridViewColumn Header="Temps réalisé" DisplayMemberBinding="{Binding TotalWorkingTime}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
