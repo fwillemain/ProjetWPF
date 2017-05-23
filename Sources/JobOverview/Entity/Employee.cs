@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,28 +22,7 @@ namespace JobOverview.Entity
         public float Productivity { get; set; }
         [XmlAttribute]
         public string CodeTeam { get; set; }
-        public List<Task> ListTask { get; set; }
-        [XmlAttribute]
-        public float RemainingTimeReport
-        {
-            get
-            {
-                //return ListTask.OfType<TaskProd>().Sum(t => t.EstimatedRemainingTime);
-                return 0;
-            }
-        }
-        [XmlAttribute]
-        public float SpentTimeReport
-        {
-            get
-            {
-                if (ListTask != null
-                    && ListTask.OfType<TaskProd>().Where(t => t.EstimatedRemainingTime != 0).Any()
-                    && ListTask.OfType<TaskProd>().Where(t => t.EstimatedRemainingTime != 0).Select(w => w.ListWorkTime).Any())
-                    return ListTask.OfType<TaskProd>().Where(t => t.EstimatedRemainingTime != 0).Sum(w => w.ListWorkTime.Sum(wt => wt.Hours));
-                return 0;
-            }
-        }
+        public ObservableCollection<Task> ListTask { get; set; }
     }
     public enum Habilitation
     {
