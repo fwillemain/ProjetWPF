@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JobOverview.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="800" d:DesignWidth="800">
     <UserControl.Resources>
         <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="5"/>
@@ -13,14 +13,19 @@
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="5"/>
         </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
     </UserControl.Resources>
     <DockPanel Background="White">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <ComboBox Name="cbFilterPerSoftware" ItemsSource="{Binding ListSoftware}" SelectedItem="{Binding SelectedSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"/>
             <ComboBox Name="cbFilterPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" SelectedItem="{Binding SelectedVersion}" DisplayMemberPath="Number" SelectedIndex="0"/>
-            <CheckBox Name="chbTaskFinished" Content="Terminée" Margin="5" VerticalAlignment="Center"/>
-            <CheckBox Name="chbTaskNotFinished" Content="Courante" Margin="5" VerticalAlignment="Center"/>
+            <CheckBox Name="chbTaskFinished" IsChecked="{Binding FinishedTaskVisible}" Content="Terminée" Margin="5" VerticalAlignment="Center"/>
+            <CheckBox Name="chbTaskNotFinished" IsChecked="{Binding RemainingTaskVisible}" Content="Courante" Margin="5" VerticalAlignment="Center"/>
             <Button Name="btnFilterSoftwareVersion" Content="Filtrer les tâches" Command="{Binding CmdFilter}" />
+            <Button Name="btnAddTask" Content="Nouvelle tâche" Command="{Binding CmdAddTask}" />
+            <Button Name="btnSuppCurrentTask" Content="Supprimer" Command="{Binding CmdSuppTask}" />
         </StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -45,6 +50,7 @@
                                 <GridViewColumn Header="N°" DisplayMemberBinding="{Binding Number}"/>
                                 <GridViewColumn Header="Logiciel" DisplayMemberBinding="{Binding Software.Code}"/>
                                 <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version.Number}"/>
+                                <GridViewColumn Header="Module" DisplayMemberBinding="{Binding Module.Label}"/>
                                 <GridViewColumn Header="Terminée">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>

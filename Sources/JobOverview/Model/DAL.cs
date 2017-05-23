@@ -9,6 +9,7 @@ using JobOverview.ViewModel;
 using System.Data;
 using System.Xml.Serialization;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace JobOverview.Model
 {
@@ -103,7 +104,7 @@ namespace JobOverview.Model
                         Label = (string)reader["LibelleActiviteTache"],
                         IsAnnex = (bool)reader["AnnexeActiviteTache"]
                     };
-                    task.ListWorkTime = new List<WorkTime>();
+                    task.ListWorkTime = new ObservableCollection<WorkTime>();
 
                     listTask.Add(task);
                 }

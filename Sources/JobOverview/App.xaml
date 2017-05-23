@@ -20,6 +20,9 @@
         <DataTemplate DataType="{x:Type vm:VMTaskConsultation}">
             <vw:UCTaskConsultation/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VMAddTask}">
+            <vw:AddTaskWindow/>
+        </DataTemplate>
         <DataTemplate x:Key="TemplateEmployee">
             <TextBlock>
                 <TextBlock.Text>

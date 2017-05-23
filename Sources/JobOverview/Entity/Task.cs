@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,6 @@ namespace JobOverview.Entity
         [XmlAttribute]
         public string Label { get; set; }
         public Activity Activity { get; set; }
-        public List<WorkTime> ListWorkTime { get; set; }
+        public ObservableCollection<WorkTime> ListWorkTime { get; set; }
     }
 }
