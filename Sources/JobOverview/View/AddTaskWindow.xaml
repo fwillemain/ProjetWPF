@@ -5,10 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JobOverview.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Name="UCAddTask">
+             d:DesignHeight="300" d:DesignWidth="300" Name="UCAddTask" ResizeMode="NoResize" Width="400" Height="300" Title="Fenêtre d'ajout de tâche">
     <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
         <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="5"/>
+            <Setter Property="MinWidth" Value="60"/>
         </Style>
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="5"/>
@@ -16,41 +21,43 @@
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="5"/>
         </Style>
-        <DataTemplate x:Key="dtTaskAnnex">
-            
-        </DataTemplate>
+        <DataTemplate x:Key="dtTaskAnnex"/>
         <DataTemplate x:Key="dtTaskProd">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Logiciel :"/>
-                    <ComboBox Name="cbSoftwareSelection"/>
+                    <ComboBox Name="cbSoftwareSelection" ItemsSource="{Binding ListSoftware}" SelectedItem="{Binding SelectedSoftware}" IsSynchronizedWithCurrentItem="True"/>
                     <Label Content="Version :"/>
-                    <ComboBox Name="cbVersionSelection"/>
+                    <ComboBox Name="cbVersionSelection" ItemsSource="{Binding ListSoftware/ListVersion}" SelectedItem="{Binding SelectedVersion}" IsSynchronizedWithCurrentItem="True"/>
                     <Label Content="Module :"/>
-                    <ComboBox Name="cbModuleSelection"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Label :"/>
-                    <TextBox Name="tbxLabel" MinWidth="100"/>
+                    <ComboBox Name="cbModuleSelection" ItemsSource="{Binding ListSoftware/ListModule}" SelectedItem="{Binding SelectedModule}" IsSynchronizedWithCurrentItem="True"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Temps prévu"/>
                     <TextBox Name="tbxPredictedTime" MinWidth="30"/>
-                    <Label Content="Temps restant estimer"/>
+                    <Label Content="Temps restant estimé"/>
                     <TextBox Name="tbEstimatedRemainingTime" Text="{Binding ElementName=tbxPredictedTime, Path=Text}" MinWidth="30"/>
                 </StackPanel>
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
-    <StackPanel>
+    <StackPanel Name="spAddTask">
         <StackPanel Orientation="Horizontal">
             <Label Content="Activité :"/>
-            <ComboBox Name="cbTypeTask" ItemsSource="{Binding CurrentEmployee.Job.ListActivity}">
-            </ComboBox>
+            <ComboBox Name="cbTypeTask" ItemsSource="{Binding ListActivity}" SelectionChanged="cbTypeTask_SelectionChanged" DisplayMemberPath="Label" SelectedValuePath="IsAnnex" SelectedIndex="0"/>
         </StackPanel>
-        <ContentControl ContentTemplate="{StaticResource dtTaskProd}"/>
+        <ContentControl Name="ccFilling" />
         <StackPanel Orientation="Horizontal">
-            
+            <Label Content="Label :"/>
+            <TextBox Name="tbxLabel" MinWidth="100"/>
         </StackPanel>
+        <Label Content="Description :"/>
+        <TextBox Name="tbxDescription" TextWrapping="Wrap" Height="40"/>
+        <DockPanel>
+            <Button Content="Terminer" Name="btnFinish" DockPanel.Dock="Right"/>
+            <Button Content="Annuler" Name="btnCancel" DockPanel.Dock="Right"/>
+            <Button Content="OK" Name="btnOK" DockPanel.Dock="Right"/>
+            <Line Opacity="0"/>
+        </DockPanel>
     </StackPanel>
 </Window>
