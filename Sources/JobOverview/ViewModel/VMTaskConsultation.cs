@@ -14,11 +14,33 @@ namespace JobOverview.ViewModel
 {
     public class VMTaskConsultation : ViewModelBase
     {
+        public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
         #region Propriétés
         public Employee CurrentEmployee { get; set; }
         public List<TaskProd> CurrentEmployeeListTaskProd { get; set; }
         public List<Entity.Task> CurrentEmployeeListTaskAnx { get; set; }
         public List<Software> ListSoftware { get; set; }
+        private static Entity.Task _currentTask;
+
+        public static Entity.Task CurrentTask
+        {
+            get { return _currentTask ?? ViewModel.VMMain.CurrentEmployee.ListTask.FirstOrDefault(); }
+            set { _currentTask = value;}
+        }
+
+        private static Entity.WorkTime _currentWorkTime;
+
+        public static Entity.WorkTime CurrentWorkTime
+        {
+            get { return _currentWorkTime ?? ViewModel.VMMain.CurrentEmployee.ListTask.FirstOrDefault().ListWorkTime.FirstOrDefault(); }
+            set { _currentWorkTime = value;
+                //SetPropertyStatic(ref _currentWorkTime, value);
+
+                StaticPropertyChanged(CurrentWorkTime, new PropertyChangedEventArgs("CurrentWorkTime"));
+            }
+        }
+
+
 
         #endregion
 

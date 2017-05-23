@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JobOverview.View"
-             xmlns:converter="clr-namespace:JobOverview.ToolKit"
+             xmlns:ToolKit="clr-namespace:JobOverview.ToolKit"
+             
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="900">
     <Grid>
         <Grid.Resources>
-            <converter:DebuggerConverter x:Key="DebuggerConverter"/>
+            <ToolKit:DebuggerConverter x:Key="DebuggerConverter"/>
             <Style x:Key="RegularButtonStyle">
                 <Setter Property="Button.Width" Value="70"/>
                 <Setter Property="Button.Height" Value="20"/>
@@ -55,7 +56,7 @@
                     </StackPanel>
 
                     <!--Ligne 1-->
-                    <ListView Grid.Row="1" ItemsSource="{Binding CurrentEmployeeListTaskProd}" IsSynchronizedWithCurrentItem="True">
+                    <ListView Grid.Row="1" ItemsSource="{Binding CurrentEmployeeListTaskProd}" SelectedItem="{Binding CurrentTask}" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Numero" DisplayMemberBinding="{Binding Number}"/>
@@ -66,7 +67,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ListView Name="lvWorkTime" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding CurrentEmployeeListTaskProd/ListWorkTime}" IsSynchronizedWithCurrentItem="True">
+                    <ListView Name="lvWorkTime" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding CurrentEmployeeListTaskProd/ListWorkTime}" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding CurrentWorkTime}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Hours" DisplayMemberBinding="{Binding Hours}"/>
@@ -75,7 +76,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Expander Grid.Row="1" Grid.Column="2" ExpandDirection="Left" MaxWidth="300" BorderThickness="1" BorderBrush="Black" Padding="5">
+                    <Expander Grid.Row="1" Grid.Column="2" ExpandDirection="Left" MaxWidth="300" BorderThickness="1" BorderBrush="Black" Padding="5" DataContext="{Binding CurrentWorkTime}">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                 <Button Content="&#x2B;" />
@@ -88,15 +89,32 @@
                                 <Label Content="Tâche " DockPanel.Dock="Left"/>
                                 <Label DockPanel.Dock="Left" Content="{Binding Label}"/>
                             </DockPanel>
-                            <DatePicker SelectedDate="{Binding ListWorkTime/WorkingDate}"/>
+                            <DatePicker >
+                                <DatePicker.SelectedDate>
+                                    <Binding Path="WorkingDate">
+                                        <Binding.ValidationRules>
+                                            <ToolKit:UniqueDateTimeValidationRule ValidationStep="RawProposedValue"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </DatePicker.SelectedDate>
+                            </DatePicker>
                             <DockPanel>
                                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="0,10">
                                     <Label Content="Productivité"/>
-                                    <TextBox VerticalContentAlignment="Center" Text="{Binding ListWorkTime/Productivity}"/>
+                                    <Label VerticalContentAlignment="Center" Content="{Binding Productivity}"/>
                                 </StackPanel>
                             </DockPanel>
                             <TextBlock Text="Nombre d'heures effectuées"/>
-                            <TextBox Height="30" Width="200" MaxLength="1" Text="{Binding ListWorkTime/Hours}"/>
+                            <TextBox Height="30" Width="200" MaxLength="1">
+                                <TextBox.Text>
+                                    <Binding Path="Hours">
+                                        <Binding.ValidationRules>
+                                            <ToolKit:MaxHourPerDayValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            
                         </StackPanel>
                     </Expander>
                 </Grid>

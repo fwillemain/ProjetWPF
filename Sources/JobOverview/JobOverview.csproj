@@ -90,6 +90,7 @@
     <Compile Include="Model\DAL.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ToolKit\Converter.cs" />
+    <Compile Include="ToolKit\ValidationRules.cs" />
     <Compile Include="ViewModel\VMAddTask.cs" />
     <Compile Include="ViewModel\VMConnection.cs" />
     <Compile Include="ViewModel\VMTaskConsultation.cs" />
