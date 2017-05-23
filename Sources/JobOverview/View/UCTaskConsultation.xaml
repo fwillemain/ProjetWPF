@@ -79,7 +79,7 @@
                     <Expander Grid.Row="1" Grid.Column="2" ExpandDirection="Left" MaxWidth="300" BorderThickness="1" BorderBrush="Black" Padding="5" DataContext="{Binding CurrentWorkTime}">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                <Button Content="&#x2B;" />
+                                <Button Content="&#x2B;" Command="CmdAddWorkTime"/>
                                 <Button Content="Modifier" />
                                 <Button Content="&#x2212;" />
                                 <Button Content="&#x2713;" />

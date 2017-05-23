@@ -14,7 +14,7 @@ namespace JobOverview.ViewModel
 {
     public class VMTaskConsultation : ViewModelBase
     {
-        public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
+        //public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
         #region Propriétés
         public Employee CurrentEmployee { get; set; }
         public List<TaskProd> CurrentEmployeeListTaskProd { get; set; }
@@ -33,10 +33,10 @@ namespace JobOverview.ViewModel
         public static Entity.WorkTime CurrentWorkTime
         {
             get { return _currentWorkTime ?? ViewModel.VMMain.CurrentEmployee.ListTask.FirstOrDefault().ListWorkTime.FirstOrDefault(); }
-            set { _currentWorkTime = value;
-                //SetPropertyStatic(ref _currentWorkTime, value);
+            set { /*_currentWorkTime = value;*/
+                SetPropertyStatic(ref _currentWorkTime, value);
 
-                StaticPropertyChanged(CurrentWorkTime, new PropertyChangedEventArgs("CurrentWorkTime"));
+                //StaticPropertyChanged(CurrentWorkTime, new PropertyChangedEventArgs("CurrentWorkTime"));
             }
         }
 
