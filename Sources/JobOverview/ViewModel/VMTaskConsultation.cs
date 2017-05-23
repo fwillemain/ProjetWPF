@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace JobOverview.ViewModel
 {
-    public enum EditionModes { Consultation, Edition };
+    public enum EditionModes { Consultation, Edition, Modification };
     public class VMTaskConsultation : ViewModelBase
     {
 
@@ -38,7 +38,9 @@ namespace JobOverview.ViewModel
         public static Entity.Task CurrentTask
         {
             get { return _currentTask ?? ViewModel.VMMain.CurrentEmployee.ListTask.FirstOrDefault(); }
-            set { _currentTask = value; }
+            set { _currentTask = value;
+                StaticPropertyChanged(CurrentTask, new PropertyChangedEventArgs("CurrentTask"));
+            }
         }
 
         private static Entity.WorkTime _currentWorkTime;
@@ -114,6 +116,7 @@ namespace JobOverview.ViewModel
         {
             CurrentWorkTime = new WorkTime { WorkingDate = DateTime.Today, Productivity=CurrentEmployee.Productivity };
             CurrentModeEdition = EditionModes.Edition;
+
         }
 
         public ICommand CmdModifyWorkTime
@@ -129,7 +132,7 @@ namespace JobOverview.ViewModel
 
         private void ModifyWorkTime()
         {
-            CurrentModeEdition = EditionModes.Edition;
+            CurrentModeEdition = EditionModes.Modification;
         }
 
         public ICommand CmdDeleteWorkTime
@@ -158,7 +161,7 @@ namespace JobOverview.ViewModel
             get
             {
                 if (_cmdValidateWorkTime == null)
-                    _cmdValidateWorkTime = new RelayCommand(ValidateWorkTime, ActivateValidateCancel);
+                    _cmdValidateWorkTime = new RelayCommand(ValidateWorkTime, ActivateValidate);
 
                 return _cmdValidateWorkTime;
             }
@@ -166,18 +169,46 @@ namespace JobOverview.ViewModel
 
         private void ValidateWorkTime()
         {
-            if (!(CurrentTask.ListWorkTime.Select(c => c.WorkingDate.ToShortDateString()).Contains(CurrentWorkTime.WorkingDate.ToShortDateString())) &&
-                CurrentEmployee.ListTask.Select(c => c.ListWorkTime).First()
-                .Where(c => c.WorkingDate == VMTaskConsultation.CurrentWorkTime.WorkingDate).Sum(c => c.Hours)+ CurrentWorkTime.Hours <= 8)
+            var listWorktime = new List<WorkTime>();
+            foreach (var item in CurrentEmployee.ListTask)
             {
-                CurrentWorkTime.Productivity = VMMain.CurrentEmployee.Productivity;
-                CurrentTask.ListWorkTime.Add(CurrentWorkTime);
-                CurrentModeEdition = EditionModes.Consultation;
+                foreach (var ite in item.ListWorkTime)
+                {
+                    if (ite.WorkingDate.ToShortDateString() == VMTaskConsultation.CurrentWorkTime.WorkingDate.ToShortDateString())
+                        listWorktime.Add(ite);
+                }
+            }
+            if (CurrentModeEdition == EditionModes.Edition)
+            {
+                if (!(CurrentTask.ListWorkTime.Select(c => c.WorkingDate.ToShortDateString()).Contains(CurrentWorkTime.WorkingDate.ToShortDateString())) &&
+                     listWorktime.Sum(c => c.Hours) + CurrentWorkTime.Hours <= 8)
+                {
+                    CurrentWorkTime.Productivity = VMMain.CurrentEmployee.Productivity;
+                    CurrentTask.ListWorkTime.Add(CurrentWorkTime);
 
+                    var listTask = new System.Collections.ObjectModel.ObservableCollection<WorkTime>();
+                    listTask.Add(CurrentWorkTime);
+                    ListTaskToAddOrDelete.Add(new Entity.Task { Id = CurrentTask.Id, ListWorkTime = listTask });
+                    CurrentModeEdition = EditionModes.Consultation;
+                }
+                else
+                    MessageBox.Show("La date existe déjà ou le nombre d'heures dépasse 8.");
             }
             else
-                MessageBox.Show("La date existe déjà ou le nombre d'heures dépasse 8.");
-            
+            {
+                var l = CurrentEmployee.ListTask.Select(c => c.ListWorkTime).First();
+                var l2 = l.Where(c => c.WorkingDate == VMTaskConsultation.CurrentWorkTime.WorkingDate).Sum(c => c.Hours);
+                if (listWorktime.Sum(c => c.Hours) <= 8)
+                {
+                    var listTask = new System.Collections.ObjectModel.ObservableCollection<WorkTime>();
+                    listTask.Add(CurrentWorkTime);
+                    ListTaskToAddOrDelete.Add(new Entity.Task { Id = CurrentTask.Id, ListWorkTime = listTask });
+                    CurrentModeEdition = EditionModes.Consultation;
+                }
+                else
+                    MessageBox.Show("La date existe déjà ou le nombre d'heures dépasse 8.");
+            }
+           
         }
 
         public ICommand CmdCancelWorkTime
@@ -185,7 +216,7 @@ namespace JobOverview.ViewModel
             get
             {
                 if (_cmdCancelWorkTime == null)
-                    _cmdCancelWorkTime = new RelayCommand(CancelWorkTime, ActivateValidateCancel);
+                    _cmdCancelWorkTime = new RelayCommand(CancelWorkTime, ActivateCancel);
 
                 return _cmdCancelWorkTime;
             }
@@ -203,9 +234,13 @@ namespace JobOverview.ViewModel
             return CurrentModeEdition == EditionModes.Consultation;
         }
 
-        private bool ActivateValidateCancel()
+        private bool ActivateCancel()
         {
             return CurrentModeEdition == EditionModes.Edition;
+        }
+        private bool ActivateValidate()
+        {
+            return CurrentModeEdition == EditionModes.Edition || CurrentModeEdition == EditionModes.Modification;
         }
 
 
