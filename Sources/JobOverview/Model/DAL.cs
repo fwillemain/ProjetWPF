@@ -198,7 +198,7 @@ namespace JobOverview.Model
         }
 
         /// <summary>
-        /// Convertit la liste de tache passée en paramètre en DataTable
+        /// Convertit la liste de tache et de ses temps de travail passée en paramètre en DataTable
         /// </summary>
         /// <param name="listTask"></param>
         /// <returns></returns>
@@ -596,7 +596,6 @@ namespace JobOverview.Model
                 }
             }
         }
-
 
         /// <summary>
         /// Exporte la liste donnée en paramètre sous forme xml et la stock au chemin spécifié.
