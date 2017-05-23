@@ -15,52 +15,94 @@ namespace JobOverview.ViewModel
 {
     public class VMTaskManaging : ViewModelBase
     {
-        #region Champs privé et propriétés
-        public Software SelectedSoftware { get; set; }
-        public Entity.Version SelectedVersion { get; set; }
-        private Employee _selectedEmployee;
-        public Employee SelectedEmployee
-        {
-            get
-            { return _selectedEmployee; }
-            set
-            {
-                if (_listEmployee.Where(e => e.Login == value.Login).FirstOrDefault().ListTask == null)
-                {
-                    _listEmployee.Where(e => e.Login == value.Login).FirstOrDefault().ListTask = DAL.GetListTask(value.Login);
-                }
-                _selectedEmployee = _listEmployee.Where(e => e.Login == value.Login).FirstOrDefault();
-                if (_selectedEmployee != null)
-                {
-                    ListTaskAnnex = new ObservableCollection<Entity.Task>(_selectedEmployee.ListTask.Where(t => t.Activity.IsAnnex));
-                    ListTaskProd = new ObservableCollection<TaskProd>(_selectedEmployee.ListTask.OfType<TaskProd>()); 
-                }
-                FilterSoftwareVersion();
-                SetProperty(ref _selectedEmployee, value);
-            }
-        }
-        private ObservableCollection<Employee> _listEmployee;
-        public ObservableCollection<Employee> ListEmployee
-        {
-            get
-            { return _listEmployee; }
-            set { SetProperty(ref _listEmployee, value); }
-        }
+        #region Champs privé
+        private Software _selectedSoftware;
+        private Entity.Version _selectedVersion;
         private ObservableCollection<TaskProd> _listTaskProd;
+        private ObservableCollection<Entity.Task> _listTaskAnnex;
+        private float _remainingTimeReport;
+        private float _spentTimeReport;
+        private ObservableCollection<Employee> _listEmployee;
+        private Employee _selectedEmployee;
+        #endregion
+
+        #region Propriétés publiques
+        public List<Software> ListSoftware { get; set; }
+        public Software SelectedSoftware
+        {
+            get
+            { return _selectedSoftware != null ? _selectedSoftware : ListSoftware.FirstOrDefault(); }
+            set
+            { SetProperty(ref _selectedSoftware, value); }
+        }
+        public Entity.Version SelectedVersion
+        {
+            get
+            { return _selectedVersion != null ? _selectedVersion : ListSoftware.Where(s => s.Code == SelectedSoftware.Code).FirstOrDefault().ListVersion.FirstOrDefault(); }
+            set
+            { SetProperty(ref _selectedVersion, value); }
+        }
         public ObservableCollection<TaskProd> ListTaskProd
         {
             get
             { return _listTaskProd; }
             set { SetProperty(ref _listTaskProd, value); }
         }
-        private ObservableCollection<Entity.Task> _listTaskAnnex;
         public ObservableCollection<Entity.Task> ListTaskAnnex
         {
             get
             { return _listTaskAnnex; }
             set { SetProperty(ref _listTaskAnnex, value); }
         }
-        public List<Software> ListSoftware { get; set; }
+        public float RemainingTimeReport
+        {
+            get
+            { return _remainingTimeReport; }
+            set { SetProperty(ref _remainingTimeReport, value); }
+        }
+        public float SpentTimeReport
+        {
+            get
+            { return _spentTimeReport; }
+            set { SetProperty(ref _spentTimeReport, value); }
+        }
+        public ObservableCollection<Employee> ListEmployee
+        {
+            get
+            { return _listEmployee; }
+            set { SetProperty(ref _listEmployee, value); }
+        }
+        public Employee SelectedEmployee
+        {
+            get
+            { return _selectedEmployee; }
+            set
+            {
+                // si l'employé séléctionné a une liste de tache nulle alors on va la récupérer avec une méthade de DAL.
+                if (_listEmployee.Where(e => e.Login == value.Login).FirstOrDefault().ListTask == null)
+                {
+                    _listEmployee.Where(e => e.Login == value.Login).FirstOrDefault().ListTask = DAL.GetListTask(value.Login);
+                }
+                // Définition de l'employé séléctionné sur SelectedEmployee
+                _selectedEmployee = _listEmployee.Where(e => e.Login == value.Login).FirstOrDefault();
+                if (_selectedEmployee != null)
+                {
+                    // Remplissage des liste de tâche de production et annexe pour l'employé séléctionné.
+                    ListTaskAnnex = new ObservableCollection<Entity.Task>(_selectedEmployee.ListTask.Where(t => t.Activity.IsAnnex));
+                    ListTaskProd = new ObservableCollection<TaskProd>(_selectedEmployee.ListTask.OfType<TaskProd>());
+                    if (ListTaskProd != null && ListTaskProd.Select(w => w.ListWorkTime).Any())
+                    {
+                        // on récupère le temps passé total et restant
+                        SpentTimeReport = ListTaskProd.Where(t => t.Version.Number == SelectedVersion.Number && t.Software.Code == SelectedSoftware.Code).Sum(w => w.ListWorkTime.Sum(wt => wt.Hours));
+                    }
+                    else
+                        SpentTimeReport = 0;
+                    RemainingTimeReport = ListTaskProd != null ? ListTaskProd.Where(t => t.Version.Number == SelectedVersion.Number && t.Software.Code == SelectedSoftware.Code).Sum(t => t.EstimatedRemainingTime) : 0;
+                }
+                FilterSoftwareVersion();
+                SetProperty(ref _selectedEmployee, value);
+            }
+        }
         #endregion
 
         public VMTaskManaging(List<Employee> listEmployee)
@@ -84,7 +126,12 @@ namespace JobOverview.ViewModel
         private void FilterSoftwareVersion()
         {
             if (SelectedSoftware != null && SelectedVersion != null)
-                ListTaskProd = new ObservableCollection<TaskProd>(SelectedEmployee.ListTask.OfType<TaskProd>().Where(t => t.Version.Number == SelectedVersion.Number && t.Software.Code == SelectedSoftware.Code).ToList());
+            {
+                ListTaskProd = new ObservableCollection<TaskProd>(SelectedEmployee.ListTask.OfType<TaskProd>()
+                    .Where(t => t.Version.Number == SelectedVersion.Number && t.Software.Code == SelectedSoftware.Code).ToList());
+                SpentTimeReport = ListTaskProd.Where(t => t.Version.Number == SelectedVersion.Number && t.Software.Code == SelectedSoftware.Code).Sum(w => w.ListWorkTime.Sum(wt => wt.Hours));
+                RemainingTimeReport = ListTaskProd != null ? ListTaskProd.Where(t => t.Version.Number == SelectedVersion.Number && t.Software.Code == SelectedSoftware.Code).Sum(t => t.EstimatedRemainingTime) : 0;
+            }
         }
     }
 }

@@ -16,33 +16,28 @@
     </UserControl.Resources>
     <DockPanel Background="White">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <ComboBox Name="cbFilterPerSoftware" ItemsSource="{Binding ListSoftware}" SelectedItem="{Binding SelectedSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True"/>
-            <ComboBox Name="cbFilterPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" SelectedItem="{Binding SelectedVersion}" DisplayMemberPath="Number"/>
+            <ComboBox Name="cbFilterPerSoftware" ItemsSource="{Binding ListSoftware}" SelectedItem="{Binding SelectedSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"/>
+            <ComboBox Name="cbFilterPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" SelectedItem="{Binding SelectedVersion}" DisplayMemberPath="Number" SelectedIndex="0"/>
+            <CheckBox Name="chbTaskFinished" Content="Terminée" Margin="5" VerticalAlignment="Center"/>
+            <CheckBox Name="chbTaskNotFinished" Content="Courante" Margin="5" VerticalAlignment="Center"/>
             <Button Name="btnFilterSoftwareVersion" Content="Filtrer les tâches" Command="{Binding CmdFilter}" />
         </StackPanel>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="280"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ListView Grid.Row="1" Name="lvListEmployee" ItemsSource="{Binding ListEmployee}"  SelectedItem="{Binding SelectedEmployee}" Margin="2.5" IsSynchronizedWithCurrentItem="True">
+            <ListView Name="lvListEmployee" ItemsSource="{Binding ListEmployee}"  SelectedItem="{Binding SelectedEmployee}" Margin="2.5" IsSynchronizedWithCurrentItem="True">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Prénom" DisplayMemberBinding="{Binding FirstName}"/>
                         <GridViewColumn Header="Nom" DisplayMemberBinding="{Binding LastName}"/>
                         <GridViewColumn Header="Métier" DisplayMemberBinding="{Binding Job.Label}"/>
                         <GridViewColumn Header="Productivité" DisplayMemberBinding="{Binding Productivity}"/>
-                        <GridViewColumn Header="Temps réalisés sur tâches en cours" DisplayMemberBinding="{Binding SpentTimeReport}"/>
-                        <GridViewColumn Header="Temps de travail restant" DisplayMemberBinding="{Binding RemainingTimeReport}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <CheckBox Grid.Column="1" Name="chbTaskFinished" Content="Terminée" Margin="5"/>
-            <TabControl  Grid.Column="1" Grid.Row="1" TabStripPlacement="Top" Margin="2.5" >
+            <TabControl  Grid.Column="1" TabStripPlacement="Top" Margin="2.5" >
                 <TabItem Header="Tâches de production" Name="tabTaskProd">
                     <ListView Name="lvListTaskProd" ItemsSource="{Binding ListTaskProd}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="True">
                         <ListView.View>
@@ -77,7 +72,12 @@
             </TabControl>
             <Expander Grid.Column="1" Grid.Row="1" IsExpanded="False" ExpandDirection="Left" VerticalAlignment="Bottom">
                 <Border BorderThickness="0.7" BorderBrush="Black" Margin="2" Padding="2">
-                    <TextBox TextWrapping="Wrap" Text="{Binding Task.Description}" IsReadOnly="True"/>
+                    <StackPanel>
+                        <!--<TextBox TextWrapping="Wrap" Text="{Binding ListTaskProd.Description}" IsReadOnly="True"/>-->
+                        <TextBlock Text="Pour le logiciel et la version séléctionné :"/>
+                        <TextBlock Text="{Binding SpentTimeReport, StringFormat='Travail réalisé {0}'}"/>
+                        <TextBlock Text="{Binding RemainingTimeReport, StringFormat='Temps de travail restant {0}'}"/>
+                    </StackPanel>
                 </Border>
             </Expander>
         </Grid>
