@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JobOverview.View"
+				xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
     <UserControl.Resources>
@@ -15,17 +16,45 @@
         </Style>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="30"/>
         </Style>
     </UserControl.Resources>
     <DockPanel Background="White">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <ComboBox Name="cbFilterPerSoftware" ItemsSource="{Binding ListSoftware}" SelectedItem="{Binding SelectedSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"/>
-            <ComboBox Name="cbFilterPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" SelectedItem="{Binding SelectedVersion}" DisplayMemberPath="Number" SelectedIndex="0"/>
+            <StackPanel>
+                <Label Content="Logiciel"/>
+                <ComboBox Name="cbFilterPerSoftware" ItemsSource="{Binding ListSoftware}" SelectedItem="{Binding SelectedSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"/>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Version"/>
+                <ComboBox Name="cbFilterPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" SelectedItem="{Binding SelectedVersion}" DisplayMemberPath="Number" SelectedIndex="0"/>
+            </StackPanel>
             <CheckBox Name="chbTaskFinished" IsChecked="{Binding FinishedTaskVisible}" Content="Terminée" Margin="5" VerticalAlignment="Center"/>
             <CheckBox Name="chbTaskNotFinished" IsChecked="{Binding RemainingTaskVisible}" Content="Courante" Margin="5" VerticalAlignment="Center" />
-            <Button Name="btnFilterSoftwareVersion" Content="Filtrer les tâches" Command="{Binding CmdFilter}" />
-            <Button Name="btnAddTask" Content="Nouvelle tâche" Command="{Binding CmdAddTask}" />
-            <Button Name="btnSuppCurrentTask" Content="Supprimer" Command="{Binding CmdSuppTask}" />
+            <Button Name="btnFilterSoftwareVersion" Command="{Binding CmdFilter}">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconBlock Icon="Filter"/>
+                    <Label Content="Filtrer" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnAddTask" Command="{Binding CmdAddTask}">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconBlock Icon="Plus"/>
+                    <Label Content="Nouvelle tâche"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnSuppCurrentTask" Command="{Binding CmdSuppTask}">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconBlock Icon="Minus"/>
+                    <Label Content="Supprimer tâche"/>
+                </StackPanel>
+            </Button>
+            <Button Name="btnSave" Command="{Binding CmdSave}">
+                <StackPanel>
+                    <fa:IconBlock Icon="FloppyO"/>
+                    <Label Content="Sauvegarger les changement"/>
+                </StackPanel>
+            </Button>
         </StackPanel>
         <DockPanel>
             <ListView Name="lvListEmployee" ItemsSource="{Binding ListEmployee}"  SelectedItem="{Binding SelectedEmployee}" Margin="2.5" IsSynchronizedWithCurrentItem="True" DockPanel.Dock="Top">

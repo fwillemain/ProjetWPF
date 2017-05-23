@@ -158,6 +158,16 @@ namespace JobOverview.ViewModel
                 return _cmdSuppTask;
             }
         }
+
+        private ICommand _cmdSave;
+        public ICommand CmdSave
+        { get
+            {
+                if (_cmdSave == null)
+                    _cmdSave = new RelayCommand(Save);
+                return _cmdSave;
+            }
+        }
         #endregion
 
         #region Méthodes privées
@@ -227,6 +237,11 @@ namespace JobOverview.ViewModel
                 else
                     ListTaskAnnex.Remove(CurrentTask);
             }
+        }
+
+        private void Save()
+        {
+            //DAL.UpdateDatabaseTaskListOfEmployee(ListEmployeeWithAddedTasks, ListSuppTasks); 
         }
         #endregion
     }
