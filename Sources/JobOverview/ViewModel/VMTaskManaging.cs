@@ -118,6 +118,7 @@ namespace JobOverview.ViewModel
             // Création d'une copie de la liste des employé
             ListEmployeeWithAddedTasks = new List<Employee>(ListEmployee);
             ListSuppTasks = new List<Guid>();
+            RemainingTaskVisible = true;
         }
 
         #region Commandes
@@ -181,6 +182,7 @@ namespace JobOverview.ViewModel
         private void AddTask()
         {
             var inputBox = new View.AddTaskWindow( new VMAddTask(SelectedEmployee));
+            inputBox.ShowDialog();
         }
 
         private void SuppTask()
