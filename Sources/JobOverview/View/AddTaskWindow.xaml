@@ -5,10 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JobOverview.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Name="UCAddTask">
+             d:DesignHeight="300" d:DesignWidth="300" Name="UCAddTask" ResizeMode="NoResize" Width="500" Height="300" Title="Fenêtre d'ajout de tâche">
     <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
         <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="5"/>
+            <Setter Property="MinWidth" Value="60"/>
         </Style>
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="5"/>
@@ -16,41 +21,41 @@
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="5"/>
         </Style>
-        <DataTemplate x:Key="dtTaskAnnex">
-            
-        </DataTemplate>
-        <DataTemplate x:Key="dtTaskProd">
-            <StackPanel>
+    </Window.Resources>
+    <StackPanel Name="spAddTask">
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Activité :"/>
+            <ComboBox Name="cbTypeTask" ItemsSource="{Binding ListActivity}" SelectionChanged="cbTypeTask_SelectionChanged" SelectedItem="{Binding CurrentTask.Activity}" DisplayMemberPath="Label" SelectedValuePath="IsAnnex" SelectedIndex="0"/>
+        </StackPanel>
+        <ContentControl Name="ccFilling" >
+            <StackPanel >
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Logiciel :"/>
-                    <ComboBox Name="cbSoftwareSelection"/>
+                    <ComboBox Name="cbSoftwareSelection" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" SelectedItem="{Binding CurrentTask.Software}" IsSynchronizedWithCurrentItem="True"/>
                     <Label Content="Version :"/>
-                    <ComboBox Name="cbVersionSelection"/>
+                    <ComboBox Name="cbVersionSelection" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="Number" SelectedItem="{Binding CurrentTask.Version}" IsSynchronizedWithCurrentItem="True"/>
                     <Label Content="Module :"/>
-                    <ComboBox Name="cbModuleSelection"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Label :"/>
-                    <TextBox Name="tbxLabel" MinWidth="100"/>
+                    <ComboBox Name="cbModuleSelection" ItemsSource="{Binding ListSoftware/ListModule}" DisplayMemberPath="Label" SelectedItem="{Binding CurrentTask.Module}" IsSynchronizedWithCurrentItem="True"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Temps prévu"/>
-                    <TextBox Name="tbxPredictedTime" MinWidth="30"/>
-                    <Label Content="Temps restant estimer"/>
-                    <TextBox Name="tbEstimatedRemainingTime" Text="{Binding ElementName=tbxPredictedTime, Path=Text}" MinWidth="30"/>
+                    <TextBox Name="tbxPredictedTime" Text="{Binding CurrentTask.PredictedTime}" MinWidth="30"/>
+                    <Label Content="Temps restant estimé"/>
+                        <TextBox Name="tbxEstimatedRemainingTime" Text="{Binding ElementName=tbxPredictedTime, Path=Text}" MinWidth="30"/>
                 </StackPanel>
             </StackPanel>
-        </DataTemplate>
-    </Window.Resources>
-    <StackPanel>
+        </ContentControl>
         <StackPanel Orientation="Horizontal">
-            <Label Content="Activité :"/>
-            <ComboBox Name="cbTypeTask" ItemsSource="{Binding CurrentEmployee.Job.ListActivity}">
-            </ComboBox>
+            <Label Content="Label :"/>
+            <TextBox Name="tbxLabel" Text="{Binding CurrentTask.Label}" MinWidth="100"/>
         </StackPanel>
-        <ContentControl ContentTemplate="{StaticResource dtTaskProd}"/>
-        <StackPanel Orientation="Horizontal">
-            
-        </StackPanel>
+        <Label Content="Description :"/>
+        <TextBox Name="tbxDescription" Text="{Binding CurrentTask.Description}" TextWrapping="Wrap" Height="40"/>
+        <DockPanel>
+            <Button Content="Terminer" Name="btnFinish" DockPanel.Dock="Right" Command="{Binding CmdAddTask}" IsCancel="True"/>
+            <Button Content="Annuler" Name="btnCancel" DockPanel.Dock="Right" IsCancel="True"/>
+            <Button Content="Ajouter" Command="{Binding CmdAddTask}" Name="btnOK" DockPanel.Dock="Right"/>
+            <Line Opacity="0"/>
+        </DockPanel>
     </StackPanel>
 </Window>

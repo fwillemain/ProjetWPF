@@ -108,6 +108,7 @@ namespace JobOverview.ViewModel
                 SetProperty(ref _selectedEmployee, value);
             }
         }
+        public Employee UpdatedEmployee { get; set; }
         #endregion
 
         public VMTaskManaging(List<Employee> listEmployee)
@@ -116,7 +117,11 @@ namespace JobOverview.ViewModel
             ListEmployee = new ObservableCollection<Employee>(VMMain.ListEmployee.Where(e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam));
             SelectedEmployee = ListEmployee.FirstOrDefault();
             // Création d'une copie de la liste des employé
-            ListEmployeeWithAddedTasks = new List<Employee>(ListEmployee);
+            ListEmployeeWithAddedTasks = new List<Employee>();
+            //foreach (var item in ListEmployee)
+            //    ListEmployeeWithAddedTasks.Add(item);
+            //foreach (var item in ListEmployeeWithAddedTasks)
+            //    item.ListTask = new ObservableCollection<Entity.Task>();
             ListSuppTasks = new List<Guid>();
             RemainingTaskVisible = true;
         }
@@ -181,25 +186,46 @@ namespace JobOverview.ViewModel
 
         private void AddTask()
         {
-            var inputBox = new View.AddTaskWindow( new VMAddTask(SelectedEmployee));
+            UpdatedEmployee = new Employee() {Login = SelectedEmployee.Login, ListTask = new ObservableCollection<Entity.Task>(), Job = SelectedEmployee.Job };
+            var inputBox = new View.AddTaskWindow( new VMAddTask(UpdatedEmployee));
             inputBox.ShowDialog();
+            if (ListEmployeeWithAddedTasks.Where(e => e.Login == UpdatedEmployee.Login).Count() == 0)
+            {
+                ListEmployeeWithAddedTasks.Add(UpdatedEmployee); 
+            }
+            else
+            {
+                foreach (var task in UpdatedEmployee.ListTask)
+                {
+                    ListEmployeeWithAddedTasks.Where(e => e.Login == UpdatedEmployee.Login).FirstOrDefault().ListTask.Add(task);
+                    if (task is TaskProd)
+                        ListTaskProd.Add((TaskProd)task);
+                    else
+                        ListTaskAnnex.Add(task);
+                }
+            }
         }
 
         private void SuppTask()
         {
-            if (ListEmployeeWithAddedTasks.Where(e => e.Login == SelectedEmployee.Login).FirstOrDefault().ListTask.Where(t => t.Id == CurrentTask.Id).Any())
+            if (CurrentTask != null && CurrentTask.TotalWorkingTime == 0)
             {
-                // Si la tâche à supprimé était déjà présente dans la liste (elle a été ajouté pendant la session courrante) alors on la supprime de la liste des tâches modifiées.
-                ListEmployeeWithAddedTasks.Where(e => e.Login == SelectedEmployee.Login).FirstOrDefault().
-            ListTask.Remove(CurrentTask);
+                if (ListEmployeeWithAddedTasks.Where(e => e.Login == SelectedEmployee.Login).FirstOrDefault().ListTask.Where(t => t.Id == CurrentTask.Id).Any())
+                {
+                    // Si la tâche à supprimé était déjà présente dans la liste (elle a été ajouté pendant la session courrante) alors on la supprime de la liste des tâches modifiées.
+                    ListEmployeeWithAddedTasks.Where(e => e.Login == SelectedEmployee.Login).FirstOrDefault().
+                ListTask.Remove(CurrentTask);
+                }
+                else
+                {
+                    ListSuppTasks.Add(CurrentTask.Id);
+                }
                 ListEmployee.Where(e => e.Login == SelectedEmployee.Login).FirstOrDefault().
             ListTask.Remove(CurrentTask);
-            }
-            else
-            {
-                ListSuppTasks.Add(CurrentTask.Id);
-                ListEmployee.Where(e => e.Login == SelectedEmployee.Login).FirstOrDefault().
-            ListTask.Remove(CurrentTask);
+                if (CurrentTask is TaskProd)
+                    ListTaskProd.Remove((TaskProd)CurrentTask);
+                else
+                    ListTaskAnnex.Remove(CurrentTask);
             }
         }
         #endregion
