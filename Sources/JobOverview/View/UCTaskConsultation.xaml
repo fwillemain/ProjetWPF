@@ -48,6 +48,9 @@
                         <ComboBox Name="cbSortPerActivity" ItemsSource="{Binding CurrentEmployee.Job.ListActivity}" DisplayMemberPath="Code" SelectedIndex="0"/>
 
                         <Button Name="btnSort" Content="Trier" Click="FilterTaskWithSoftwareVersionModuleActivity" Style="{StaticResource RegularButtonStyle}"/>
+                        <Button Name="btnSave" Content="Enregistrer modifications" Command="{Binding CmdSaveModification}"/>
+
+
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -76,14 +79,14 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Expander Grid.Row="1" Grid.Column="2" ExpandDirection="Left" MaxWidth="300" BorderThickness="1" BorderBrush="Black" Padding="5" DataContext="{Binding CurrentWorkTime}">
+                    <Expander Grid.Row="1" Grid.Column="2" ExpandDirection="Left" MaxWidth="300" BorderThickness="1" BorderBrush="Black" Padding="5">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                <Button Content="&#x2B;" Command="CmdAddWorkTime"/>
-                                <Button Content="Modifier" />
-                                <Button Content="&#x2212;" />
-                                <Button Content="&#x2713;" />
-                                <Button Content="&#x21b6;" />
+                                <Button Content="&#x2B;" Command="{Binding CmdAddWorkTime}"/>
+                                <Button Content="Modifier" Command="{Binding CmdModifyWorkTime}"/>
+                                <Button Content="&#x2212;" Command="{Binding CmdDeleteWorkTime}"/>
+                                <Button Content="&#x2713;" Command="{Binding CmdValidateWorkTime}"/>
+                                <Button Content="&#x21b6;" Command="{Binding CmdCancelWorkTime}"/>
                             </StackPanel>
                             <DockPanel>
                                 <Label Content="Tâche " DockPanel.Dock="Left"/>
@@ -91,7 +94,7 @@
                             </DockPanel>
                             <DatePicker >
                                 <DatePicker.SelectedDate>
-                                    <Binding Path="WorkingDate">
+                                    <Binding Path="CurrentWorkTime.WorkingDate">
                                         <Binding.ValidationRules>
                                             <ToolKit:UniqueDateTimeValidationRule ValidationStep="RawProposedValue"/>
                                         </Binding.ValidationRules>
@@ -101,13 +104,13 @@
                             <DockPanel>
                                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" Margin="0,10">
                                     <Label Content="Productivité"/>
-                                    <Label VerticalContentAlignment="Center" Content="{Binding Productivity}"/>
+                                    <Label VerticalContentAlignment="Center" Content="{Binding CurrentWorkTime.Productivity}"/>
                                 </StackPanel>
                             </DockPanel>
                             <TextBlock Text="Nombre d'heures effectuées"/>
                             <TextBox Height="30" Width="200" MaxLength="1">
                                 <TextBox.Text>
-                                    <Binding Path="Hours">
+                                    <Binding Path="CurrentWorkTime.Hours">
                                         <Binding.ValidationRules>
                                             <ToolKit:MaxHourPerDayValidationRule/>
                                         </Binding.ValidationRules>

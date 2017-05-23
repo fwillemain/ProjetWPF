@@ -10,7 +10,9 @@ using System.Windows.Data;
 namespace JobOverview.ToolKit
 {
 
-
+    /// <summary>
+    /// Règle de validation permettant de vérifier si un temps de travail existe déjà pour la date renseigné
+    /// </summary>
     public class UniqueDateTimeValidationRule : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
@@ -25,12 +27,16 @@ namespace JobOverview.ToolKit
         }
     }
 
+    /// <summary>
+    /// Règle de validation permettant de vérifier si le temps total de travail dans une journée ne dépasse pas 8 heures
+    /// </summary>
     public class MaxHourPerDayValidationRule : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             
-            if (ViewModel.VMMain.CurrentEmployee.ListTask.Select(c => c.ListWorkTime).First().Where(c=>c.WorkingDate==ViewModel.VMTaskConsultation.CurrentWorkTime.WorkingDate).Sum(c=>c.Hours)>8)
+            if (ViewModel.VMMain.CurrentEmployee.ListTask.Select(c => c.ListWorkTime).First()
+                .Where(c=>c.WorkingDate==ViewModel.VMTaskConsultation.CurrentWorkTime.WorkingDate).Sum(c=>c.Hours)>8)
                 return new ValidationResult(false, "Le maximum d'heures par jour est 8.");
 
             return ValidationResult.ValidResult;
