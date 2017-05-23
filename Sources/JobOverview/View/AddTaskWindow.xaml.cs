@@ -32,6 +32,12 @@ namespace JobOverview.View
         {
             InitializeComponent();
             _vm = vm;
+            DataContext = _vm;
+        }
+
+        private void cbTypeTask_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ccFilling.ContentTemplate = (bool)cbTypeTask.SelectedValue ? (DataTemplate)Resources["dtTaskAnnex"] : (DataTemplate)Resources["dtTaskProd"];
         }
     }
 }
