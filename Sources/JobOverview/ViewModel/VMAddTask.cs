@@ -59,16 +59,16 @@ namespace JobOverview.ViewModel
             set { SetProperty(ref _listActivity, value); }
         }
         #endregion
-        public VMAddTask(Employee selectedEmployee)
+        public VMAddTask(Employee selectedEmployee, Employee referenceEmployee)
         {
             SelectedActivity = new Activity();
             CurrentTask = new Entity.Task() { Id = Guid.NewGuid(), Activity = new Activity(), ListWorkTime = new ObservableCollection<WorkTime>() };
             ListSoftware = DAL.GetListSoftware();
             CurrentEmployee = selectedEmployee;
             var tempList = CurrentEmployee.Job.ListActivity.Distinct().ToList();
-            foreach (Activity activity in CurrentEmployee.Job.ListActivity.Where(a => a.IsAnnex == true).ToList())
+            foreach (Activity activity in referenceEmployee.Job.ListActivity.Where(a => a.IsAnnex == true).ToList())
             {
-                if (CurrentEmployee.ListTask.Where(t => t.Activity.Code == activity.Code).Any())
+                if (referenceEmployee.ListTask.Where(t => t.Activity.Code == activity.Code).Any())
                 {
                     tempList.Remove(activity);
                 }
