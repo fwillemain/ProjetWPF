@@ -1,3 +1,6 @@
+if exists(select 1
+			from sys.table_types
+			where name = 'TypeWorkTimeTable')
 drop type TypeWorkTimeTable
 go
 
@@ -10,12 +13,15 @@ create type TypeWorkTimeTable as table
 )
 go
 
+if exists(select 1
+			from sys.table_types
+			where name = 'TypeTaskTable')
 drop type TypeTaskTable
 go
 
 create type TypeTaskTable as table
 (
-	TaskId UNIQUEIDENTIFIER primary key,
+	TaskId UNIQUEIDENTIFIER,
 	Label nvarchar(40) not null,
 	IsAnnex bit not null,
 	Activity varchar(20) not null,
@@ -24,12 +30,15 @@ create type TypeTaskTable as table
 )
 go
 
+if exists(select 1
+			from sys.table_types
+			where name = 'TypeTaskProdTable')
 drop type TypeTaskProdTable
 go
 
 create type TypeTaskProdTable as table
 (
-	TaskId UNIQUEIDENTIFIER primary key,
+	TaskId UNIQUEIDENTIFIER,
 	EstimatedRemainingTime float(5) not null,
 	PredictedTime float(5) not null,
 	Module varchar(20) not null,
@@ -39,12 +48,16 @@ create type TypeTaskProdTable as table
 go
 
 
+if exists(select 1
+			from sys.table_types
+			where name = 'TypeIdTaskTable')
 drop type TypeIdTaskTable
 go
 
+
 create type TypeIdTaskTable as table
 (
-	TaskId UNIQUEIDENTIFIER primary key
+	TaskId UNIQUEIDENTIFIER
 )
 go
 
