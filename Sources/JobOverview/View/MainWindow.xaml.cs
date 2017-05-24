@@ -15,6 +15,14 @@ namespace JobOverview.View
             InitializeComponent();
 
             Loaded += MainWindow_Loaded;
+            Closing += MainWindow_Closing;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var res = MessageBox.Show("Toutes les modifications qui n'ont pas été sauvegardées seront perdues. Êtes-vous sûr de vouloir quitter l'application?", "Information", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (res != MessageBoxResult.Yes)
+                e.Cancel = true;
         }
 
         // Après chargement de la fenêtre

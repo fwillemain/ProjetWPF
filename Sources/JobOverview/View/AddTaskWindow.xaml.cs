@@ -34,7 +34,6 @@ namespace JobOverview.View
             _vm = vm;
             DataContext = _vm;
         }
-
         private void cbTypeTask_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ccFilling.Visibility = (bool)cbTypeTask.SelectedValue ? Visibility.Collapsed : Visibility.Visible;

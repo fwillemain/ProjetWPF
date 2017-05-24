@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace JobOverview.ViewModel
@@ -19,6 +20,7 @@ namespace JobOverview.ViewModel
         private Module _selectedModule;
         private Entity.Task _currentTask;
         private Activity _activity;
+        private float _selectedPredictedTime;
         #endregion
         #region Propriétées publiques
         public List<Software> ListSoftware { get; set; }
@@ -44,9 +46,23 @@ namespace JobOverview.ViewModel
             { SetProperty(ref _selectedModule, value); }
         }
         public Activity SelectedActivity
-        { get { return _activity ?? ListActivity.FirstOrDefault(); }
-            set {SetProperty(ref _activity, value); } }
-        public float SelectedPredictedTime{ get; set; }
+        {
+            get { return _activity ?? ListActivity.FirstOrDefault(); }
+            set { SetProperty(ref _activity, value); }
+        }
+        public string SelectedPredictedTime
+        {
+            get
+            { return _selectedPredictedTime.ToString(); }
+            set
+            {
+                float testFloat;
+                if (!string.IsNullOrEmpty(value) && (!float.TryParse(value, out testFloat) || float.Parse(value) < 0))
+                    MessageBox.Show("Vous ne pouvez entrer qu'un temps positif.");
+                else
+                    SetProperty(ref _selectedPredictedTime, float.Parse(value));
+            }
+        }
         public Employee CurrentEmployee { get; set; }
         public Entity.Task CurrentTask
         {
@@ -98,15 +114,16 @@ namespace JobOverview.ViewModel
             if (!SelectedActivity.IsAnnex)
             {
                 CurrentTask = new TaskProd()
-                { Id = CurrentTask.Id,
+                {
+                    Id = CurrentTask.Id,
                     ListWorkTime = new ObservableCollection<WorkTime>(),
                     Label = CurrentTask.Label,
                     Description = CurrentTask.Description,
                     Software = SelectedSoftware,
                     Version = SelectedVersion,
                     Module = SelectedModule,
-                    PredictedTime = SelectedPredictedTime,
-                    EstimatedRemainingTime = SelectedPredictedTime
+                    PredictedTime = float.Parse(SelectedPredictedTime),
+                    EstimatedRemainingTime = float.Parse(SelectedPredictedTime)
                 };
             }
             CurrentTask.Activity = SelectedActivity;
