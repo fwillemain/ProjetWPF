@@ -53,17 +53,6 @@ namespace JobOverview.ViewModel
         //	}
         //}
 
-        private ICommand _cmdVMAbout;
-        public ICommand CmdVMABout
-        {
-            get
-            {
-                if (_cmdVMAbout == null)
-                    _cmdVMAbout = new RelayCommand(() => { });
-                return _cmdVMAbout;
-            }
-        }
-
         private ICommand _cmdVMTaskConsultation;
         public ICommand CmdVMTaskConsultation
         {
