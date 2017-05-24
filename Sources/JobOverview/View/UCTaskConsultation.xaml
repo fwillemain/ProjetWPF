@@ -150,14 +150,14 @@
                                 </StackPanel>
                             </DockPanel>
                             <TextBlock Text="Nombre d'heures effectuées"/>
-                            <TextBox Height="30" Width="200" MaxLength="1"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
+                            <TextBox Height="30" Width="200" MaxLength="3"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
                                 <TextBox.Text>
                                     <Binding Path="CurrentWorkTime.Hours">
                                     </Binding>
                                 </TextBox.Text>
                             </TextBox>
                             <TextBlock Text="Nombre d'heures restantes estimées"/>
-                            <TextBox Height="30" Width="200" MaxLength="1"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
+                            <TextBox Height="30" Width="200" MaxLength="6" IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
                                 <TextBox.Text>
                                     <Binding Path="CurrentTask.EstimatedRemainingTime">
                                     </Binding>
@@ -255,7 +255,7 @@
                                 </StackPanel>
                             </DockPanel>
                             <TextBlock Text="Nombre d'heures effectuées"/>
-                            <TextBox Height="30" Width="200" MaxLength="1"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
+                            <TextBox Height="30" Width="200" MaxLength="3"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
                                 <TextBox.Text>
                                     <Binding Path="CurrentWorkTime.Hours">
                                     </Binding>

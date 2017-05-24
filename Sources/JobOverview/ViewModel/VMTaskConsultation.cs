@@ -3,7 +3,9 @@ using JobOverview.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,6 +30,42 @@ namespace JobOverview.ViewModel
         private List<Entity.Task> ListTaskToAddOrDelete { get; set; }
         private static Entity.Task _currentTask;
         private EditionModes _currentModeEdition;
+
+
+        public string Hours
+        {
+            get { return CurrentWorkTime.Hours.ToString(); }
+            set
+            {
+                int test;
+                if (int.TryParse(value, out test))
+                {
+                    if (test >= 0.5)
+                    {
+                        CurrentWorkTime.Hours = test;
+                        RaisePropertyChanged();
+                    }
+                    else
+                        MessageBox.Show("La durée minimum est de 0.5");
+                }
+                else
+                    MessageBox.Show("Veuillez entrer un nombre.");
+            }
+        }
+        public string EstimatedRemainingTime
+        {
+            get { return ((TaskProd)CurrentTask).EstimatedRemainingTime.ToString(); }
+            set
+            {
+                int test;
+                if (int.TryParse(value, out test))
+                    ((TaskProd)CurrentTask).EstimatedRemainingTime = test;
+                else
+                    MessageBox.Show("Veuillez entrer un nombre.");
+            }
+        }
+
+
         public EditionModes CurrentModeEdition
         {
             get { return _currentModeEdition; }
@@ -40,20 +78,21 @@ namespace JobOverview.ViewModel
         public static Entity.Task CurrentTask
         {
             get { return _currentTask ?? ViewModel.VMMain.CurrentEmployee.ListTask.FirstOrDefault(); }
-            set { _currentTask = value;
+            set
+            {
+                _currentTask = value;
                 StaticPropertyChanged(CurrentTask, new PropertyChangedEventArgs("CurrentTask"));
             }
         }
 
-        private static Entity.WorkTime _currentWorkTime;
+        private Entity.WorkTime _currentWorkTime;
 
-        public static Entity.WorkTime CurrentWorkTime
+        public Entity.WorkTime CurrentWorkTime
         {
             get { return _currentWorkTime ?? ViewModel.VMMain.CurrentEmployee.ListTask.FirstOrDefault().ListWorkTime.FirstOrDefault(); }
             set
             {
-                _currentWorkTime = value;
-                StaticPropertyChanged(CurrentWorkTime, new PropertyChangedEventArgs("CurrentWorkTime"));
+                SetProperty(ref _currentWorkTime, value);
             }
         }
 
@@ -115,7 +154,7 @@ namespace JobOverview.ViewModel
 
         private void AddWorkTime()
         {
-            CurrentWorkTime = new WorkTime { WorkingDate = DateTime.Today, Productivity=CurrentEmployee.Productivity };
+            CurrentWorkTime = new WorkTime { WorkingDate = DateTime.Today, Productivity = CurrentEmployee.Productivity };
             CurrentModeEdition = EditionModes.Edition;
 
         }
@@ -177,7 +216,7 @@ namespace JobOverview.ViewModel
             {
                 foreach (var ite in item.ListWorkTime)
                 {
-                    if (ite.WorkingDate.ToShortDateString() == VMTaskConsultation.CurrentWorkTime.WorkingDate.ToShortDateString())
+                    if (ite.WorkingDate.ToShortDateString() == CurrentWorkTime.WorkingDate.ToShortDateString())
                         listWorktime.Add(ite);
                 }
             }
@@ -188,12 +227,23 @@ namespace JobOverview.ViewModel
                 if (!(CurrentTask.ListWorkTime.Select(c => c.WorkingDate.ToShortDateString()).Contains(CurrentWorkTime.WorkingDate.ToShortDateString())) &&
                      listWorktime.Sum(c => c.Hours) + CurrentWorkTime.Hours <= 8)
                 {
-                    CurrentWorkTime.Productivity = VMMain.CurrentEmployee.Productivity;
-                    CurrentTask.ListWorkTime.Add(CurrentWorkTime);
 
-                    var listTask = new System.Collections.ObjectModel.ObservableCollection<WorkTime>();
-                    listTask.Add(CurrentWorkTime);
-                    ListTaskToAddOrDelete.Add(new Entity.Task { Id = CurrentTask.Id, ListWorkTime = listTask });
+                    if (ListTaskToAddOrDelete.Where(c => c.Id == CurrentTask.Id).FirstOrDefault() != null && ListTaskToAddOrDelete.Where(c => c.Id == CurrentTask.Id).FirstOrDefault().ListWorkTime.Where(b => b.WorkingDate.ToShortDateString() == CurrentWorkTime.WorkingDate.ToShortDateString()).Any())
+                    {
+                        var worktime = ListTaskToAddOrDelete.Where(c => c.Id == CurrentTask.Id).First().ListWorkTime.Where(b => b.WorkingDate.ToShortDateString() == CurrentWorkTime.WorkingDate.ToShortDateString()).First();
+                        worktime.Productivity = CurrentWorkTime.Productivity;
+                        worktime.Hours = CurrentWorkTime.Hours;
+
+                        CurrentTask.ListWorkTime.Add(CurrentWorkTime);
+                    }
+                    else
+                    {
+                        CurrentTask.ListWorkTime.Add(CurrentWorkTime);
+
+                        var listTask = new System.Collections.ObjectModel.ObservableCollection<WorkTime>();
+                        listTask.Add(CurrentWorkTime);
+                        ListTaskToAddOrDelete.Add(new Entity.Task { Id = CurrentTask.Id, ListWorkTime = listTask });
+                    }
                     CurrentModeEdition = EditionModes.Consultation;
                 }
                 else
@@ -212,7 +262,7 @@ namespace JobOverview.ViewModel
                 else
                     MessageBox.Show("La date existe déjà ou le nombre d'heures dépasse 8.");
             }
-           
+
         }
 
         public ICommand CmdCancelWorkTime
@@ -245,8 +295,30 @@ namespace JobOverview.ViewModel
 
         private void SaveModification()
         {
-            DAL.UpdateDatabaseWorkTimeOfTaskList(ListTaskToAddOrDelete);
-            ListTaskToAddOrDelete = new List<Entity.Task>();
+            // Si les listes de taches à modifier sont vides, informer l'utilisateur que rien n'est à faire.
+            if (!ListTaskToAddOrDelete.Any())
+            {
+                MessageBox.Show("Aucune modification à sauvegarder.");
+                return;
+            }
+
+
+
+            // Sinon demander confirmation pour l'enregistrement
+            var res = MessageBox.Show("Souhaitez-vous sauvegarder les modifications?", "Enregistrer?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (res == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    DAL.UpdateDatabaseWorkTimeOfTaskList(ListTaskToAddOrDelete);
+                    ListTaskToAddOrDelete = new List<Entity.Task>();
+                    MessageBox.Show("La sauvegarde a bien été effectuée.");
+                }
+                catch (SqlException)
+                {
+                    MessageBox.Show("La sauvegarde a échoué.", "Echec", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
+                }
+            }
         }
 
         //Les 3 méthodes suivantes permettent d'activé ou de désactivé les commandes en fonction du mode d'édition courant
