@@ -94,7 +94,7 @@
                                 <GridViewColumn Header="Numero" DisplayMemberBinding="{Binding Number}"/>
                                 <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}"/>
                                 <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version.Number}"/>
-                                <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Code}"/>
+                                <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Label}"/>
                                 <GridViewColumn Header="Module" DisplayMemberBinding="{Binding Module.Code}"/>
                             </GridView>
                         </ListView.View>
@@ -206,7 +206,7 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}"/>
-                                <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Code}"/>
+                                <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Label}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

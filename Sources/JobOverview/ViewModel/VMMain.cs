@@ -101,7 +101,7 @@ namespace JobOverview.ViewModel
                     _cmdVMTaskManaging = new RelayCommand(() =>
                     {
                         if (_vmTaskManaging == null)
-                            _vmTaskManaging = new VMTaskManaging(ListEmployee);
+                            _vmTaskManaging = new VMTaskManaging();
                         VMCourante = _vmTaskManaging;
                     }, ActiverEmployee);
                 return _cmdVMTaskManaging;
