@@ -19,6 +19,7 @@ namespace JobOverview.ViewModel
         private Module _selectedModule;
         private Entity.Task _currentTask;
         private Activity _activity;
+        private float _selectedPredictedTime;
         #endregion
         #region Propriétées publiques
         public List<Software> ListSoftware { get; set; }
@@ -44,9 +45,19 @@ namespace JobOverview.ViewModel
             { SetProperty(ref _selectedModule, value); }
         }
         public Activity SelectedActivity
-        { get { return _activity ?? ListActivity.FirstOrDefault(); }
-            set {SetProperty(ref _activity, value); } }
-        public float SelectedPredictedTime{ get; set; }
+        {
+            get { return _activity ?? ListActivity.FirstOrDefault(); }
+            set { SetProperty(ref _activity, value); }
+        }
+        public float SelectedPredictedTime
+        {
+            get
+            { return _selectedPredictedTime; }
+            set
+            {
+                SetProperty(ref _selectedPredictedTime, value);
+            }
+        }
         public Employee CurrentEmployee { get; set; }
         public Entity.Task CurrentTask
         {
@@ -98,7 +109,8 @@ namespace JobOverview.ViewModel
             if (!SelectedActivity.IsAnnex)
             {
                 CurrentTask = new TaskProd()
-                { Id = CurrentTask.Id,
+                {
+                    Id = CurrentTask.Id,
                     ListWorkTime = new ObservableCollection<WorkTime>(),
                     Label = CurrentTask.Label,
                     Description = CurrentTask.Description,

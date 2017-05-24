@@ -59,9 +59,11 @@ namespace JobOverview.ViewModel
         public Entity.Task CurrentTask { get; set; }
         public float RemainingTimeReport
         {
-            get
-            { return _remainingTimeReport; }
-            set { SetProperty(ref _remainingTimeReport, value); }
+            get { return _remainingTimeReport; }
+            set
+            {
+                SetProperty(ref _remainingTimeReport, value);
+            }
         }
         public float SpentTimeReport
         {
@@ -161,7 +163,8 @@ namespace JobOverview.ViewModel
 
         private ICommand _cmdSave;
         public ICommand CmdSave
-        { get
+        {
+            get
             {
                 if (_cmdSave == null)
                     _cmdSave = new RelayCommand(Save);
@@ -198,12 +201,12 @@ namespace JobOverview.ViewModel
         /// </summary>
         private void AddTask()
         {
-            UpdatedEmployee = new Employee() {Login = SelectedEmployee.Login, ListTask = new ObservableCollection<Entity.Task>(), Job = SelectedEmployee.Job };
-            var inputBox = new View.AddTaskWindow( new VMAddTask(UpdatedEmployee, SelectedEmployee));
+            UpdatedEmployee = new Employee() { Login = SelectedEmployee.Login, ListTask = new ObservableCollection<Entity.Task>(), Job = SelectedEmployee.Job };
+            var inputBox = new View.AddTaskWindow(new VMAddTask(UpdatedEmployee, SelectedEmployee));
             inputBox.ShowDialog();
             if (ListEmployeeWithAddedTasks.Where(e => e.Login == UpdatedEmployee.Login).Count() == 0)
             {
-                ListEmployeeWithAddedTasks.Add(UpdatedEmployee); 
+                ListEmployeeWithAddedTasks.Add(UpdatedEmployee);
             }
             else
             {
