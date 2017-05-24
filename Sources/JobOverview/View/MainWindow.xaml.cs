@@ -1,6 +1,7 @@
 ﻿using JobOverview.ViewModel;
 using System.Configuration;
 using System.Windows;
+using System;
 
 namespace JobOverview.View
 {
@@ -12,7 +13,6 @@ namespace JobOverview.View
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new VMMain();
 
             Loaded += MainWindow_Loaded;
         }
@@ -33,7 +33,18 @@ namespace JobOverview.View
                 return;
             }
 #endif
-            // TODO MainWindow : gérer la fermeture de la fenetre quand l'utilisateur appuie sur le bouton abort (X)
+
+            try
+            {
+                DataContext = new VMMain();
+            }
+            catch (ArgumentException)
+            {
+                // La création de la VMMain renvoi une exception de type ArgumentException si la chaine de connexion n'est pas valide
+                MessageBox.Show("Une chaine de connexion valide doit être renseignée dans pour \"JobOverviewConnectionStringDefault\" du fichier de configuration de l'application.", "Warning", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                Close();
+                return;
+            }
 
             //Affichage d'une fenêtre modale d'identification
             var dlgLog = new ModalWindow(new VMLogin());
@@ -42,7 +53,6 @@ namespace JobOverview.View
 
             // Si l'utilisateur annule, on ferme l'application
             if (!resLog.Value) Close();
-
         }
 
         private void btnAbout_Click(object sender, RoutedEventArgs e)

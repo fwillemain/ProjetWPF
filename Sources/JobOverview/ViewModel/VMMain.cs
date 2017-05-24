@@ -87,7 +87,8 @@ namespace JobOverview.ViewModel
             get
             {
                 if (_cmdVMVersion == null)
-                    _cmdVMVersion = new RelayCommand(() => { });
+                    // Bouton desactivé tant que VmVersion non créée
+                    _cmdVMVersion = new RelayCommand(() => { }, () => { return false; });
                 return _cmdVMVersion;
             }
         }
@@ -101,7 +102,7 @@ namespace JobOverview.ViewModel
                     _cmdVMTaskManaging = new RelayCommand(() =>
                     {
                         if (_vmTaskManaging == null)
-                            _vmTaskManaging = new VMTaskManaging(ListEmployee);
+                            _vmTaskManaging = new VMTaskManaging();
                         VMCourante = _vmTaskManaging;
                     }, ActiverEmployee);
                 return _cmdVMTaskManaging;

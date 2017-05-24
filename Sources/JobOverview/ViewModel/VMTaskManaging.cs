@@ -111,7 +111,7 @@ namespace JobOverview.ViewModel
         public Employee UpdatedEmployee { get; set; }
         #endregion
 
-        public VMTaskManaging(List<Employee> listEmployee)
+        public VMTaskManaging()
         {
             ListSoftware = DAL.GetListSoftware();
             ListEmployee = new ObservableCollection<Employee>(VMMain.ListEmployee.Where(e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam));
@@ -247,7 +247,15 @@ namespace JobOverview.ViewModel
         /// </summary>
         private void Save()
         {
-            DAL.UpdateDatabaseTaskListOfEmployee(ListEmployeeWithAddedTasks, ListSuppTasks); 
+            DAL.UpdateDatabaseTaskListOfEmployee(ListEmployeeWithAddedTasks, ListSuppTasks);
+            foreach (var task in ListEmployeeWithAddedTasks.Where(e => e.Login == VMMain.CurrentEmployee.Login).FirstOrDefault().ListTask)
+            {
+                VMMain.CurrentEmployee.ListTask.Add(task);
+            }
+            foreach (var id in ListSuppTasks)
+            {
+                VMMain.CurrentEmployee.ListTask.Remove(VMMain.CurrentEmployee.ListTask.Where(t => t.Id == id).FirstOrDefault());
+            }
         }
         #endregion
     }

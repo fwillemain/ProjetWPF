@@ -85,7 +85,7 @@
                                 <GridViewColumn Header="N°" DisplayMemberBinding="{Binding Number}"/>
                                 <GridViewColumn Header="Logiciel" DisplayMemberBinding="{Binding Software.Code}"/>
                                 <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version.Number}"/>
-                                <GridViewColumn Header="Module" DisplayMemberBinding="{Binding Module.Label}"/>
+                                <GridViewColumn Header="Module" DisplayMemberBinding="{Binding Module.Code}"/>
                                 <GridViewColumn Header="Terminée">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -106,7 +106,7 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Libellé" DisplayMemberBinding="{Binding Label}"/>
-                                <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Label}"/>
+                                <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Code}"/>
                                 <GridViewColumn Header="Temps réalisé" DisplayMemberBinding="{Binding TotalWorkingTime}"/>
                             </GridView>
                         </ListView.View>
