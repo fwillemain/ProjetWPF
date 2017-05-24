@@ -199,7 +199,7 @@ namespace JobOverview.ViewModel
         private void AddTask()
         {
             UpdatedEmployee = new Employee() {Login = SelectedEmployee.Login, ListTask = new ObservableCollection<Entity.Task>(), Job = SelectedEmployee.Job };
-            var inputBox = new View.AddTaskWindow( new VMAddTask(UpdatedEmployee));
+            var inputBox = new View.AddTaskWindow( new VMAddTask(UpdatedEmployee, SelectedEmployee));
             inputBox.ShowDialog();
             if (ListEmployeeWithAddedTasks.Where(e => e.Login == UpdatedEmployee.Login).Count() == 0)
             {

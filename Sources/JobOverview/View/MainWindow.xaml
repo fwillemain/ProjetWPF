@@ -23,7 +23,7 @@
 
 	<Grid Margin="5">
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition MaxWidth="200"/>
+			<ColumnDefinition MaxWidth="230"/>
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
 
@@ -43,19 +43,19 @@
 			</Button>
             <Button Command="{Binding CmdExportToXML}">
 				<StackPanel Orientation="Horizontal">
-					<fa:IconBlock Icon="ClockO"/>
+					<fa:IconBlock Icon="ArrowUp"/>
 					<TextBlock Text="Exportation des données"/>
 				</StackPanel>
 			</Button>
             <Button Command="{Binding CmdVMVersion}">
                 <StackPanel Orientation="Horizontal">
-                    <fa:IconBlock Icon="ClockO"/>
+                    <fa:IconBlock Icon="FileTextO"/>
                     <TextBlock Text="Synthèse des versions"/>
                 </StackPanel>
             </Button>
             <Button Name="btnAbout" Click="btnAbout_Click">
                 <StackPanel Orientation="Horizontal">
-                    <fa:IconBlock Icon="ClockO"/>
+                    <fa:IconBlock Icon="Question"/>
                     <TextBlock Text="A propos"/>
                 </StackPanel>
             </Button>
