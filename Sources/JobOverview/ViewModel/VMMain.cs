@@ -87,7 +87,8 @@ namespace JobOverview.ViewModel
             get
             {
                 if (_cmdVMVersion == null)
-                    _cmdVMVersion = new RelayCommand(() => { });
+                    // Bouton desactivé tant que VmVersion non créée
+                    _cmdVMVersion = new RelayCommand(() => { }, () => { return false; });
                 return _cmdVMVersion;
             }
         }
