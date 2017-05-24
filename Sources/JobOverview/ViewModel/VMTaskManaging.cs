@@ -117,11 +117,11 @@ namespace JobOverview.ViewModel
             ListEmployee = new ObservableCollection<Employee>(VMMain.ListEmployee.Where(e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam));
             SelectedEmployee = ListEmployee.FirstOrDefault();
             // Création d'une copie de la liste des employé
-            Employee[] empArray = new Employee[ListEmployee.Count];
-            ListEmployee.CopyTo(empArray, 0);
-            ListEmployeeWithAddedTasks = new List<Employee>(empArray);
+            ListEmployeeWithAddedTasks = DAL.GetListEmployeeWithoutTasks().Where(e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam).ToList();
             foreach (var item in ListEmployeeWithAddedTasks)
+            {
                 item.ListTask = new ObservableCollection<Entity.Task>();
+            }
             ListSuppTasks = new List<Guid>();
             RemainingTaskVisible = true;
         }
@@ -247,7 +247,7 @@ namespace JobOverview.ViewModel
         /// </summary>
         private void Save()
         {
-            //DAL.UpdateDatabaseTaskListOfEmployee(ListEmployeeWithAddedTasks, ListSuppTasks); 
+            DAL.UpdateDatabaseTaskListOfEmployee(ListEmployeeWithAddedTasks, ListSuppTasks); 
         }
         #endregion
     }
