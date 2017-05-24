@@ -39,7 +39,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Temps prévu"/>
-                    <TextBox Name="tbxPredictedTime" Text="{Binding SelectedPredictedTime}" MinWidth="30"/>
+                    <TextBox Name="tbxPredictedTime" Text="{Binding SelectedPredictedTime}" MinWidth="30" MaxLength="5"/>
                     <Label Content="Temps restant estimé"/>
                         <TextBox Name="tbxEstimatedRemainingTime" Text="{Binding ElementName=tbxPredictedTime, Path=Text}" MinWidth="30"/>
                 </StackPanel>

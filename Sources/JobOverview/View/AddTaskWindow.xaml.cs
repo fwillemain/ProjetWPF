@@ -33,24 +33,7 @@ namespace JobOverview.View
             InitializeComponent();
             _vm = vm;
             DataContext = _vm;
-            tbxPredictedTime.TextChanged += TbxPredictedTime_TextChanged;
         }
-
-        private void TbxPredictedTime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            float testFloat;
-            if (tbxPredictedTime.Text.ToString().Length >5) //TODO taille des variables
-            {
-                MessageBox.Show("Veuillez entrer un temps à 5 chiffres.");
-                tbxPredictedTime.Text = tbxPredictedTime.Text.Remove(5, 1);
-            }
-            if ( !string.IsNullOrEmpty(tbxPredictedTime.Text.ToString()) && !float.TryParse(tbxPredictedTime.Text, out testFloat))
-            {
-                MessageBox.Show("Veuillez entrer un nombre.");
-                tbxPredictedTime.Clear();
-            }
-        }
-
         private void cbTypeTask_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ccFilling.Visibility = (bool)cbTypeTask.SelectedValue ? Visibility.Collapsed : Visibility.Visible;
