@@ -9,8 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace JobOverview.Properties {
-    
-    
+
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
@@ -25,8 +24,8 @@ namespace JobOverview.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=GLAVENDER17-DE\\IP08R2;Initial Catalog=\"job overview\";Integrated Secur" +
-            "ity=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FWILLEMAIN17-DE\\IP08R2;Initial Catalog=JobOverview;Integrated Securit" +
+            "y=True")]
         public string JobOverviewConnectionStringDefault {
             get {
                 return ((string)(this["JobOverviewConnectionStringDefault"]));
@@ -35,46 +34,58 @@ namespace JobOverview.Properties {
                 this["JobOverviewConnectionStringDefault"] = value;
             }
         }
-        
+
+#if DEBUG
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=FWILLEMAIN17-DE\\IP08R2;Initial Catalog=JobOverview;Integrated Securit" +
             "y=True")]
-        public string JobOverviewConnectionStringFlo {
-            get {
+        public string JobOverviewConnectionStringFlo
+        {
+            get
+            {
                 return ((string)(this["JobOverviewConnectionStringFlo"]));
             }
-            set {
+            set
+            {
                 this["JobOverviewConnectionStringFlo"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=GLAVENDER17-DE\\IP08R2;Initial Catalog=\"job overview\";Integrated Secur" +
             "ity=True")]
-        public string JobOverviewConnectionStringGaetan {
-            get {
+        public string JobOverviewConnectionStringGaetan
+        {
+            get
+            {
                 return ((string)(this["JobOverviewConnectionStringGaetan"]));
             }
-            set {
+            set
+            {
                 this["JobOverviewConnectionStringGaetan"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LMILBOR17-DE\\IP08R2;Initial Catalog=JobOverview;Integrated Security=T" +
             "rue")]
-        public string JobOverviewConnectionStringLeo {
-            get {
+        public string JobOverviewConnectionStringLeo
+        {
+            get
+            {
                 return ((string)(this["JobOverviewConnectionStringLeo"]));
             }
-            set {
+            set
+            {
                 this["JobOverviewConnectionStringLeo"] = value;
             }
         }
-        
+
+#endif
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("JROUSSET")]

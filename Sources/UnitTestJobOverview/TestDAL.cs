@@ -248,9 +248,13 @@ namespace UnitTestJobOverview
         {
             foreach (var t in listTask)
                 foreach (var wt in t.ListWorkTime)
-                    wt.Productivity = 0;
+                    wt.Productivity = -1;
         }
 
+        /// <summary>
+        /// Ajoute des taches à l'employee passé en paramètre
+        /// </summary>
+        /// <param name="employee"></param>
         private void AddTaskToEmployee(Employee employee)
         {
             TaskProd taskProd = new TaskProd()

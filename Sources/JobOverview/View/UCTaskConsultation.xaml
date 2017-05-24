@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JobOverview.View"
+				xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:ToolKit="clr-namespace:JobOverview.ToolKit"
              
              mc:Ignorable="d" 
@@ -15,8 +16,8 @@
             <ToolKit:ConvModeEditionIsEnabled x:Key="ConvModeEditionIsEnabled"/>
             <Style TargetType="Button">
                 <Setter Property="Button.Width" Value="70"/>
-                <Setter Property="Button.Height" Value="20"/>
-                <Setter Property="Button.Margin" Value="2"/>
+                <Setter Property="Button.Height" Value="30"/>
+                <Setter Property="Button.Margin" Value="5"/>
             </Style>
             <Style TargetType="DatePicker">
                 <Setter Property="Margin" Value="2"/>
@@ -28,7 +29,7 @@
                     <!--2 lignes et 3 colonnes-->
                     <!--#region Param Grid-->
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="55"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -45,16 +46,38 @@
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                             </Style>
                         </StackPanel.Resources>
-                        <ComboBox Name="cbSortPerSoftware" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"/>
+                        <StackPanel>
+                            <Label Content="Logiciel"/>
+                            <ComboBox Name="cbSortPerSoftware" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"/>
+                        </StackPanel>
 
-                        <ComboBox Name="cbSortPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="Number" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"/>
+                        <StackPanel>
+                            <Label Content="Version"/>
+                            <ComboBox Name="cbSortPerVersion" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="Number" IsSynchronizedWithCurrentItem="True" SelectedIndex="0"/>
+                        </StackPanel>
 
-                        <ComboBox Name="cbSortPerModule" ItemsSource="{Binding ListSoftware/ListModule}" DisplayMemberPath="Label" IsSynchronizedWithCurrentItem="True"/>
+                        <StackPanel>
+                            <Label Content="Module"/>
+                            <ComboBox Name="cbSortPerModule" ItemsSource="{Binding ListSoftware/ListModule}" DisplayMemberPath="Label" IsSynchronizedWithCurrentItem="True"/>
+                        </StackPanel>
 
-                        <ComboBox Name="cbSortPerActivity" ItemsSource="{Binding CurrentEmployee.Job.ListActivity}" DisplayMemberPath="Code" SelectedIndex="0"/>
+                        <StackPanel>
+                            <Label Content="Activité"/>
+                            <ComboBox Name="cbSortPerActivity" ItemsSource="{Binding CurrentEmployee.Job.ListActivity}" DisplayMemberPath="Code" SelectedIndex="0"/>
+                        </StackPanel>
 
-                        <Button Name="btnSort" Content="Trier" Click="FilterTaskWithSoftwareVersionModuleActivity"/>
-                        <Button Name="btnSave" Content="Enregistrer" Command="{Binding CmdSaveModification}"/>
+                        <Button Name="btnSort" Click="FilterTaskWithSoftwareVersionModuleActivity">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconBlock Icon="Filter"/>
+                                <Label Content="Trier"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Name="btnSave" Command="{Binding CmdSaveModification}" Width="90">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconBlock Icon="FloppyO"/>
+                                <Label Content="Enregistrer"/>
+                            </StackPanel>
+                        </Button>
 
 
                     </StackPanel>
@@ -90,15 +113,25 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                 <StackPanel.Resources>
                                     <Style TargetType="Button">
-                                        <Setter Property="Margin" Value="2"/>
-                                        <Setter Property="Width" Value="20"/>
+                                        <Setter Property="Margin" Value="5"/>
+                                        <Setter Property="Width" Value="30"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <Button Content="&#x2B;" Command="{Binding CmdAddWorkTime}"/>
-                                <Button Content="Modifier" Command="{Binding CmdModifyWorkTime}" Width="60"/>
-                                <Button Content="&#x2212;" Command="{Binding CmdDeleteWorkTime}"/>
-                                <Button Content="&#x2713;" Command="{Binding CmdValidateWorkTime}"/>
-                                <Button Content="&#x21b6;" Command="{Binding CmdCancelWorkTime}"/>
+                                <Button Command="{Binding CmdAddWorkTime}">
+                                    <fa:IconBlock Icon="Plus"/>
+                                </Button>
+                                <Button Command="{Binding CmdModifyWorkTime}">
+                                    <fa:IconBlock Icon="PencilSquareO"/>
+                                </Button>
+                                <Button Command="{Binding CmdDeleteWorkTime}">
+                                    <fa:IconBlock Icon="Minus"/>
+                                </Button>
+                                <Button Command="{Binding CmdValidateWorkTime}">
+                                    <fa:IconBlock Icon="Check"/>
+                                </Button>
+                                <Button Command="{Binding CmdCancelWorkTime}">
+                                    <fa:IconBlock Icon="Reply"/>
+                                </Button>
                             </StackPanel>
                             <DockPanel>
                                 <Label Content="Tâche " DockPanel.Dock="Left"/>
@@ -157,8 +190,13 @@
                     
                     
                     <!-- Ligne 1-->
-                    
-                    <Button HorizontalAlignment="Left" Content="Enregistrer" Command="{Binding CmdSaveModification}"/>
+
+                    <Button HorizontalAlignment="Left" Command="{Binding CmdSaveModification}" Width="90">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconBlock Icon="FloppyO"/>
+                            <Label Content="Enregistrer"/>
+                        </StackPanel>
+                    </Button>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                         <DatePicker DisplayDate="01/01/2016" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
                         <DatePicker DisplayDate="01/01/2016" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
@@ -186,15 +224,25 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                 <StackPanel.Resources>
                                     <Style TargetType="Button">
-                                        <Setter Property="Margin" Value="2"/>
-                                        <Setter Property="Width" Value="20"/>
+                                        <Setter Property="Margin" Value="5"/>
+                                        <Setter Property="Width" Value="30"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <Button Content="&#x2B;" Command="{Binding CmdAddWorkTime}"/>
-                                <Button Content="Modifier" Command="{Binding CmdModifyWorkTime}" Width="60"/>
-                                <Button Content="&#x2212;" Command="{Binding CmdDeleteWorkTime}"/>
-                                <Button Content="&#x2713;" Command="{Binding CmdValidateWorkTime}"/>
-                                <Button Content="&#x21b6;" Command="{Binding CmdCancelWorkTime}"/>
+                                <Button Command="{Binding CmdAddWorkTime}">
+                                    <fa:IconBlock Icon="Plus"/>
+                                </Button>
+                                <Button Command="{Binding CmdModifyWorkTime}">
+                                    <fa:IconBlock Icon="PencilSquareO"/>
+                                </Button>
+                                <Button Command="{Binding CmdDeleteWorkTime}">
+                                    <fa:IconBlock Icon="Minus"/>
+                                </Button>
+                                <Button Command="{Binding CmdValidateWorkTime}">
+                                    <fa:IconBlock Icon="Check"/>
+                                </Button>
+                                <Button Command="{Binding CmdCancelWorkTime}">
+                                    <fa:IconBlock Icon="Reply"/>
+                                </Button>
                             </StackPanel>
                             <DockPanel>
                                 <Label Content="Tâche " DockPanel.Dock="Left"/>

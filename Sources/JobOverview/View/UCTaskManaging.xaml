@@ -50,9 +50,9 @@
                 </StackPanel>
             </Button>
             <Button Name="btnSave" Command="{Binding CmdSave}">
-                <StackPanel>
+                <StackPanel Orientation="Horizontal">
                     <fa:IconBlock Icon="FloppyO"/>
-                    <Label Content="Sauvegarger les changement"/>
+                    <Label Content="Sauvegarger les changements"/>
                 </StackPanel>
             </Button>
         </StackPanel>

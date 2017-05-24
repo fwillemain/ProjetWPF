@@ -14,22 +14,24 @@ using System.Windows;
 namespace JobOverview.ViewModel
 {
 
-	public class VMMain : ViewModelBase
-	{
+    public class VMMain : ViewModelBase
+    {
         //TODO: Current employee non static
         public static Employee CurrentEmployee { get; set; }
         public static List<Employee> ListEmployee { get; set; }
-                                           // Vue-modèle courante sur laquelle est liées le ContentControl
-                                           // de la zone principale
+        // Vue-modèle courante sur laquelle est liées le ContentControl
+        // de la zone principale
+        private ViewModelBase _vmTaskConsultation;
+        private ViewModelBase _vmTaskManaging;
         private ViewModelBase _VMCourante;
-		public ViewModelBase VMCourante
-		{
-			get { return _VMCourante; }
-			private set
-			{
-				SetProperty(ref _VMCourante, value);
-			}
-		}
+        public ViewModelBase VMCourante
+        {
+            get { return _VMCourante; }
+            private set
+            {
+                SetProperty(ref _VMCourante, value);
+            }
+        }
 
         public string XmlPath { get; set; }
 
@@ -39,17 +41,17 @@ namespace JobOverview.ViewModel
             ListEmployee = DAL.GetListEmployeeWithoutTasks();
         }
 
-		#region Commandes
-		//private ICommand _cmdLogin;
-		//public ICommand CmdLogin
-		//{
-		//	get
-		//	{
-		//		if (_cmdLogin == null)
-		//			_cmdLogin = new RelayCommand(() => VMCourante = new VMLogin());
-		//		return _cmdLogin;
-		//	}
-		//}
+        #region Commandes
+        //private ICommand _cmdLogin;
+        //public ICommand CmdLogin
+        //{
+        //	get
+        //	{
+        //		if (_cmdLogin == null)
+        //			_cmdLogin = new RelayCommand(() => VMCourante = new VMLogin());
+        //		return _cmdLogin;
+        //	}
+        //}
 
         private ICommand _cmdVMAbout;
         public ICommand CmdVMABout
@@ -69,7 +71,12 @@ namespace JobOverview.ViewModel
             {
                 // TODO VMMain::CmdVMTaskConsultation : utiliser l'employé courrant pour la création de chaque VM (à discuter)
                 if (_cmdVMTaskConsultation == null)
-                    _cmdVMTaskConsultation = new RelayCommand(() =>  VMCourante = new VMTaskConsultation(CurrentEmployee));
+                    _cmdVMTaskConsultation = new RelayCommand(() =>
+                    {
+                        if (_vmTaskConsultation == null)
+                            _vmTaskConsultation = new VMTaskConsultation(CurrentEmployee);
+                        VMCourante = _vmTaskConsultation;
+                    });
                 return _cmdVMTaskConsultation;
             }
         }
@@ -91,7 +98,12 @@ namespace JobOverview.ViewModel
             get
             {
                 if (_cmdVMTaskManaging == null)
-                    _cmdVMTaskManaging = new RelayCommand(() => VMCourante = new VMTaskManaging(ListEmployee), ActiverEmployee);
+                    _cmdVMTaskManaging = new RelayCommand(() =>
+                    {
+                        if (_vmTaskManaging == null)
+                            _vmTaskManaging = new VMTaskManaging(ListEmployee);
+                        VMCourante = _vmTaskManaging;
+                    }, ActiverEmployee);
                 return _cmdVMTaskManaging;
             }
         }
@@ -125,7 +137,7 @@ namespace JobOverview.ViewModel
                 }
                 catch (Exception)
                 {
-                    System.Windows.MessageBox.Show("Une erreur s'est produite, l'exportation a échoué.", "Erreur", MessageBoxButton.OKCancel , System.Windows.MessageBoxImage.Error);
+                    System.Windows.MessageBox.Show("Une erreur s'est produite, l'exportation a échoué.", "Erreur", MessageBoxButton.OKCancel, System.Windows.MessageBoxImage.Error);
                 }
             }
         }

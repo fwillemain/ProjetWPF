@@ -25,21 +25,21 @@
     <StackPanel Name="spAddTask">
         <StackPanel Orientation="Horizontal">
             <Label Content="Activité :"/>
-            <ComboBox Name="cbTypeTask" ItemsSource="{Binding ListActivity}" SelectionChanged="cbTypeTask_SelectionChanged" SelectedItem="{Binding CurrentTask.Activity}" DisplayMemberPath="Label" SelectedValuePath="IsAnnex" SelectedIndex="0"/>
+            <ComboBox SelectedIndex="0" Name="cbTypeTask" ItemsSource="{Binding ListActivity}" SelectionChanged="cbTypeTask_SelectionChanged" SelectedItem="{Binding SelectedActivity}" DisplayMemberPath="Label" SelectedValuePath="IsAnnex" IsSynchronizedWithCurrentItem="True"/>
         </StackPanel>
         <ContentControl Name="ccFilling" >
             <StackPanel >
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Logiciel :"/>
-                    <ComboBox Name="cbSoftwareSelection" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" SelectedItem="{Binding CurrentTask.Software}" IsSynchronizedWithCurrentItem="True"/>
+                    <ComboBox SelectedIndex="0" Name="cbSoftwareSelection" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" SelectedItem="{Binding CurrentTask.Software}" IsSynchronizedWithCurrentItem="True"/>
                     <Label Content="Version :"/>
-                    <ComboBox Name="cbVersionSelection" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="Number" SelectedItem="{Binding CurrentTask.Version}" IsSynchronizedWithCurrentItem="True"/>
+                    <ComboBox SelectedIndex="0" Name="cbVersionSelection" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="Number" SelectedItem="{Binding CurrentTask.Version}" IsSynchronizedWithCurrentItem="True"/>
                     <Label Content="Module :"/>
-                    <ComboBox Name="cbModuleSelection" ItemsSource="{Binding ListSoftware/ListModule}" DisplayMemberPath="Label" SelectedItem="{Binding CurrentTask.Module}" IsSynchronizedWithCurrentItem="True"/>
+                    <ComboBox SelectedIndex="0" Name="cbModuleSelection" ItemsSource="{Binding ListSoftware/ListModule}" DisplayMemberPath="Label" SelectedItem="{Binding CurrentTask.Module}" IsSynchronizedWithCurrentItem="True"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Temps prévu"/>
-                    <TextBox Name="tbxPredictedTime" Text="{Binding CurrentTask.PredictedTime}" MinWidth="30"/>
+                    <TextBox Name="tbxPredictedTime" Text="{Binding SelectedPredictedTime}" MinWidth="30"/>
                     <Label Content="Temps restant estimé"/>
                         <TextBox Name="tbxEstimatedRemainingTime" Text="{Binding ElementName=tbxPredictedTime, Path=Text}" MinWidth="30"/>
                 </StackPanel>
@@ -52,8 +52,7 @@
         <Label Content="Description :"/>
         <TextBox Name="tbxDescription" Text="{Binding CurrentTask.Description}" TextWrapping="Wrap" Height="40"/>
         <DockPanel>
-            <Button Content="Terminer" Name="btnFinish" DockPanel.Dock="Right" Command="{Binding CmdAddTask}" IsCancel="True"/>
-            <Button Content="Annuler" Name="btnCancel" DockPanel.Dock="Right" IsCancel="True"/>
+            <Button Content="Quitter" Name="btnCancel" DockPanel.Dock="Right" IsCancel="True"/>
             <Button Content="Ajouter" Command="{Binding CmdAddTask}" Name="btnOK" DockPanel.Dock="Right"/>
             <Line Opacity="0"/>
         </DockPanel>

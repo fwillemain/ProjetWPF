@@ -26,7 +26,12 @@ namespace JobOverview.View
             dlgCnx.Title = "Connection";
             bool? resCnx = dlgCnx.ShowDialog();
 
-            if (!resCnx.Value) Close();
+            // Quitte le main si la fenêtre est fermée
+            if (!resCnx.Value)
+            {
+                Close();
+                return;
+            }
 #endif
             // TODO MainWindow : gérer la fermeture de la fenetre quand l'utilisateur appuie sur le bouton abort (X)
 
