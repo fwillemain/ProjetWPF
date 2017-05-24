@@ -12,14 +12,16 @@ using System.Windows.Input;
 
 namespace JobOverview.ViewModel
 {
+    /// <summary>
+    /// Enumérable des différents modes d'édition
+    /// </summary>
     public enum EditionModes { Consultation, Edition, Modification };
     public class VMTaskConsultation : ViewModelBase
     {
 
-        public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
         #region Propriétés
+        public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
         public Employee CurrentEmployee { get; set; }
-
         public List<TaskProd> CurrentEmployeeListTaskProd { get; set; }
         public List<Entity.Task> CurrentEmployeeListTaskAnx { get; set; }
         public List<Software> ListSoftware { get; set; }
@@ -62,8 +64,7 @@ namespace JobOverview.ViewModel
         #region Constructeurs
         public VMTaskConsultation(Employee currentEmployee)
         {
-            // TODO VMTaskConsultation::VMTaskConsultation() : voir pour faire un stockage des listes et de l'employé plus propre si nécessaire
-            // TODO VMTaskConsultation::VMTaskConsultation() : faire un groupement par version?
+            //Rempli la liste de tâche de l'employé courant si elle n'a pas encore été rempli
             if (currentEmployee.ListTask == null)
                 currentEmployee.ListTask = new System.Collections.ObjectModel.ObservableCollection<Entity.Task>(DAL.GetListTask(currentEmployee.Login));
 
@@ -148,11 +149,12 @@ namespace JobOverview.ViewModel
 
         private void DeleteWorkTime()
         {
-            CurrentWorkTime.Productivity = 0;
-            var listTask = new System.Collections.ObjectModel.ObservableCollection<WorkTime>();
-            CurrentWorkTime.Productivity = 0;
-            listTask.Add(CurrentWorkTime);
-            ListTaskToAddOrDelete.Add(new Entity.Task { Id = CurrentTask.Id, ListWorkTime = listTask });
+            //Ajout du temps de travail à supprimer à la liste listTask avec une 
+            //productivité de -1 pour la différencier des tâches à modifier
+            var listWorkTime = new System.Collections.ObjectModel.ObservableCollection<WorkTime>();
+            CurrentWorkTime.Productivity = -1;
+            listWorkTime.Add(CurrentWorkTime);
+            ListTaskToAddOrDelete.Add(new Entity.Task { Id = CurrentTask.Id, ListWorkTime = listWorkTime });
             CurrentTask.ListWorkTime.Remove(CurrentWorkTime);
         }
 
@@ -169,6 +171,7 @@ namespace JobOverview.ViewModel
 
         private void ValidateWorkTime()
         {
+            //Recherche tous les temps de travail pour la date du temps de travail courant
             var listWorktime = new List<WorkTime>();
             foreach (var item in CurrentEmployee.ListTask)
             {
@@ -178,6 +181,8 @@ namespace JobOverview.ViewModel
                         listWorktime.Add(ite);
                 }
             }
+
+            // En mode édition vérifie si la date existe pour la tâche courante et si le total d'heure pour cette date ne dépasse pas 8h
             if (CurrentModeEdition == EditionModes.Edition)
             {
                 if (!(CurrentTask.ListWorkTime.Select(c => c.WorkingDate.ToShortDateString()).Contains(CurrentWorkTime.WorkingDate.ToShortDateString())) &&
@@ -194,10 +199,9 @@ namespace JobOverview.ViewModel
                 else
                     MessageBox.Show("La date existe déjà ou le nombre d'heures dépasse 8.");
             }
+            // En mode modification vérifie si le total d'heure pour cette date ne dépasse pas 8h
             else
             {
-                var l = CurrentEmployee.ListTask.Select(c => c.ListWorkTime).First();
-                var l2 = l.Where(c => c.WorkingDate == VMTaskConsultation.CurrentWorkTime.WorkingDate).Sum(c => c.Hours);
                 if (listWorktime.Sum(c => c.Hours) <= 8)
                 {
                     var listTask = new System.Collections.ObjectModel.ObservableCollection<WorkTime>();
@@ -228,23 +232,6 @@ namespace JobOverview.ViewModel
             CurrentModeEdition = EditionModes.Consultation;
         }
 
-
-        private bool ActivateAddModifyDelete()
-        {
-            return CurrentModeEdition == EditionModes.Consultation;
-        }
-
-        private bool ActivateCancel()
-        {
-            return CurrentModeEdition == EditionModes.Edition;
-        }
-        private bool ActivateValidate()
-        {
-            return CurrentModeEdition == EditionModes.Edition || CurrentModeEdition == EditionModes.Modification;
-        }
-
-
-
         public ICommand CmdSaveModification
         {
             get
@@ -259,6 +246,22 @@ namespace JobOverview.ViewModel
         private void SaveModification()
         {
             DAL.UpdateDatabaseWorkTimeOfTaskList(ListTaskToAddOrDelete);
+            ListTaskToAddOrDelete = new List<Entity.Task>();
+        }
+
+        //Les 3 méthodes suivantes permettent d'activé ou de désactivé les commandes en fonction du mode d'édition courant
+        private bool ActivateAddModifyDelete()
+        {
+            return CurrentModeEdition == EditionModes.Consultation;
+        }
+
+        private bool ActivateCancel()
+        {
+            return CurrentModeEdition == EditionModes.Edition;
+        }
+        private bool ActivateValidate()
+        {
+            return CurrentModeEdition == EditionModes.Edition || CurrentModeEdition == EditionModes.Modification;
         }
         #endregion
 

@@ -11,6 +11,7 @@
     <Grid>
         <Grid.Resources>
             <ToolKit:DebuggerConverter x:Key="DebuggerConverter"/>
+            <ToolKit:ConvModeEditionModifyIsEnabled x:Key="ConvModeEditionModifyIsEnabled"/>
             <ToolKit:ConvModeEditionIsEnabled x:Key="ConvModeEditionIsEnabled"/>
             <Style TargetType="Button">
                 <Setter Property="Button.Width" Value="70"/>
@@ -119,7 +120,7 @@
                                 </StackPanel>
                             </DockPanel>
                             <TextBlock Text="Nombre d'heures effectuées"/>
-                            <TextBox Height="30" Width="200" MaxLength="1"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionIsEnabled}}" >
+                            <TextBox Height="30" Width="200" MaxLength="1"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
                                 <TextBox.Text>
                                     <Binding Path="CurrentWorkTime.Hours">
                                         <Binding.ValidationRules>
@@ -129,7 +130,7 @@
                                 </TextBox.Text>
                             </TextBox>
                             <TextBlock Text="Nombre d'heures restantes estimées"/>
-                            <TextBox Height="30" Width="200" MaxLength="1"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionIsEnabled}}" >
+                            <TextBox Height="30" Width="200" MaxLength="1"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
                                 <TextBox.Text>
                                     <Binding Path="CurrentTask.EstimatedRemainingTime">
                                     </Binding>
@@ -215,7 +216,7 @@
                                 </StackPanel>
                             </DockPanel>
                             <TextBlock Text="Nombre d'heures effectuées"/>
-                            <TextBox Height="30" Width="200" MaxLength="1"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionIsEnabled}}" >
+                            <TextBox Height="30" Width="200" MaxLength="1"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
                                 <TextBox.Text>
                                     <Binding Path="CurrentWorkTime.Hours">
                                         <Binding.ValidationRules>

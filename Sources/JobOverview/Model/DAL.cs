@@ -489,7 +489,7 @@ namespace JobOverview.Model
                 string query = @"MERGE jo.Travail AS Cible
 	                                USING (SELECT TaskId, WorkingDate, Hours, Productivity FROM @table) AS Source
 	                                ON (Cible.IdTache = Source.TaskId and Cible.DateTravail = Source.WorkingDate)
-                                 WHEN MATCHED AND Source.Productivity = 0 THEN
+                                 WHEN MATCHED AND Source.Productivity = -1 THEN
 	                                delete
                                  WHEN MATCHED THEN
                                     update set Heures = Source.Hours
