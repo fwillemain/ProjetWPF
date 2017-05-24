@@ -61,9 +61,11 @@ namespace JobOverview.ViewModel
         public Entity.Task CurrentTask { get; set; }
         public float RemainingTimeReport
         {
-            get
-            { return _remainingTimeReport; }
-            set { SetProperty(ref _remainingTimeReport, value); }
+            get { return _remainingTimeReport; }
+            set
+            {
+                SetProperty(ref _remainingTimeReport, value);
+            }
         }
         public float SpentTimeReport
         {

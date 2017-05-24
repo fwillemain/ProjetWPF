@@ -63,7 +63,7 @@
 
                         <StackPanel>
                             <Label Content="Activité"/>
-                            <ComboBox Name="cbSortPerActivity" ItemsSource="{Binding CurrentEmployee.Job.ListActivity}" DisplayMemberPath="Code" SelectedIndex="0"/>
+                            <ComboBox Name="cbSortPerActivity" ItemsSource="{Binding CurrentEmployee.Job.ListActivity}" DisplayMemberPath="Label" SelectedIndex="0"/>
                         </StackPanel>
 
                         <Button Name="btnSort" Click="FilterTaskWithSoftwareVersionModuleActivity">
@@ -93,9 +93,10 @@
                             <GridView>
                                 <GridViewColumn Header="Numero" DisplayMemberBinding="{Binding Number}"/>
                                 <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Label}"/>
+                                <GridViewColumn Header="Logiciel" DisplayMemberBinding="{Binding Software.Code}"/>
                                 <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version.Number}"/>
-                                <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Label}"/>
                                 <GridViewColumn Header="Module" DisplayMemberBinding="{Binding Module.Code}"/>
+                                <GridViewColumn Header="Activité" DisplayMemberBinding="{Binding Activity.Label}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
