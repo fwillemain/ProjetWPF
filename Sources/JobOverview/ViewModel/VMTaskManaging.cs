@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows;
+using System.Data.SqlClient;
 
 namespace JobOverview.ViewModel
 {
@@ -250,14 +252,34 @@ namespace JobOverview.ViewModel
         /// </summary>
         private void Save()
         {
-            DAL.UpdateDatabaseTaskListOfEmployee(ListEmployeeWithAddedTasks, ListSuppTasks);
-            foreach (var task in ListEmployeeWithAddedTasks.Where(e => e.Login == VMMain.CurrentEmployee.Login).FirstOrDefault().ListTask)
+            // Si les listes de taches à modifier sont vides, informer l'utilisateur que rien n'est à faire.
+            if (!ListSuppTasks.Any() && ListEmployeeWithAddedTasks.Sum(e => e.ListTask.Count) == 0)
             {
-                VMMain.CurrentEmployee.ListTask.Add(task);
+                MessageBox.Show("Aucune modification à sauvegarder.");
+                return;
             }
-            foreach (var id in ListSuppTasks)
+
+            // Sinon demander confirmation pour l'enregistrement
+            var res = MessageBox.Show("Souhaitez-vous sauvegarder les modifications?", "Enregistrer?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (res == MessageBoxResult.Yes)
             {
-                VMMain.CurrentEmployee.ListTask.Remove(VMMain.CurrentEmployee.ListTask.Where(t => t.Id == id).FirstOrDefault());
+                try
+                {
+                    DAL.UpdateDatabaseTaskListOfEmployee(ListEmployeeWithAddedTasks, ListSuppTasks);
+                    foreach (var task in ListEmployeeWithAddedTasks.Where(e => e.Login == VMMain.CurrentEmployee.Login).FirstOrDefault().ListTask)
+                    {
+                        VMMain.CurrentEmployee.ListTask.Add(task);
+                    }
+                    foreach (var id in ListSuppTasks)
+                    {
+                        VMMain.CurrentEmployee.ListTask.Remove(VMMain.CurrentEmployee.ListTask.Where(t => t.Id == id).FirstOrDefault());
+                    }
+                    MessageBox.Show("La sauvegarde a bien été effectuée.");
+                }
+                catch (SqlException)
+                {
+                    MessageBox.Show("La sauvegarde a échoué.", "Echec", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
+                }
             }
         }
         #endregion
