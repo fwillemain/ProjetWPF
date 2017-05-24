@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace JobOverview.ViewModel
@@ -49,13 +50,17 @@ namespace JobOverview.ViewModel
             get { return _activity ?? ListActivity.FirstOrDefault(); }
             set { SetProperty(ref _activity, value); }
         }
-        public float SelectedPredictedTime
+        public string SelectedPredictedTime
         {
             get
-            { return _selectedPredictedTime; }
+            { return _selectedPredictedTime.ToString(); }
             set
             {
-                SetProperty(ref _selectedPredictedTime, value);
+                float testFloat;
+                if (!string.IsNullOrEmpty(value) && (!float.TryParse(value, out testFloat) || float.Parse(value) < 0))
+                    MessageBox.Show("Vous ne pouvez entrer qu'un temps positif.");
+                else
+                    SetProperty(ref _selectedPredictedTime, float.Parse(value));
             }
         }
         public Employee CurrentEmployee { get; set; }
@@ -117,8 +122,8 @@ namespace JobOverview.ViewModel
                     Software = SelectedSoftware,
                     Version = SelectedVersion,
                     Module = SelectedModule,
-                    PredictedTime = SelectedPredictedTime,
-                    EstimatedRemainingTime = SelectedPredictedTime
+                    PredictedTime = float.Parse(SelectedPredictedTime),
+                    EstimatedRemainingTime = float.Parse(SelectedPredictedTime)
                 };
             }
             CurrentTask.Activity = SelectedActivity;

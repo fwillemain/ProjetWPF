@@ -84,7 +84,7 @@
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                         <DatePicker DisplayDate="01/01/2016" Name="dpDateMin" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
-                        <DatePicker DisplayDate="01/01/2016"  Name="dpDateMax" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
+                        <DatePicker DisplayDate="12/31/2016"  Name="dpDateMax" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
                     </StackPanel>
 
                     <!--Ligne 1-->
@@ -151,14 +151,14 @@
                                 </StackPanel>
                             </DockPanel>
                             <TextBlock Text="Nombre d'heures effectuées"/>
-                            <TextBox Height="30" Width="200" MaxLength="1"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
+                            <TextBox Height="30" Width="200" MaxLength="3"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
                                 <TextBox.Text>
                                     <Binding Path="CurrentWorkTime.Hours">
                                     </Binding>
                                 </TextBox.Text>
                             </TextBox>
                             <TextBlock Text="Nombre d'heures restantes estimées"/>
-                            <TextBox Height="30" Width="200" MaxLength="1"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
+                            <TextBox Height="30" Width="200" MaxLength="6" IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
                                 <TextBox.Text>
                                     <Binding Path="CurrentTask.EstimatedRemainingTime">
                                     </Binding>
@@ -194,7 +194,7 @@
                     </Button>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                         <DatePicker DisplayDate="01/01/2016" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
-                        <DatePicker DisplayDate="01/01/2016" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
+                        <DatePicker DisplayDate="12/31/2016" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
                     </StackPanel>
                     <!-- Ligne 1 -->
                     <ListView Grid.Row="1" ItemsSource="{Binding CurrentEmployeeListTaskAnx}" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding CurrentTask}">
@@ -256,7 +256,7 @@
                                 </StackPanel>
                             </DockPanel>
                             <TextBlock Text="Nombre d'heures effectuées"/>
-                            <TextBox Height="30" Width="200" MaxLength="1"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
+                            <TextBox Height="30" Width="200" MaxLength="3"  IsEnabled="{Binding Path=CurrentModeEdition, Converter={StaticResource ConvModeEditionModifyIsEnabled}}" >
                                 <TextBox.Text>
                                     <Binding Path="CurrentWorkTime.Hours">
                                     </Binding>

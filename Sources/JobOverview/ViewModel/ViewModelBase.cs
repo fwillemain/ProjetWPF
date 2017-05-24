@@ -40,7 +40,11 @@ namespace JobOverview.ViewModel
 
             return true;
         }
-
+        public void RaisePropertyChanged([CallerMemberName] string prop = null)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
 
         /// <summary>
         /// Valide les données de la vue-modèle
