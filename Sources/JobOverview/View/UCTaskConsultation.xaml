@@ -84,7 +84,7 @@
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                         <DatePicker DisplayDate="01/01/2016" Name="dpDateMin" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
-                        <DatePicker DisplayDate="01/01/2016"  Name="dpDateMax" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
+                        <DatePicker DisplayDate="12/31/2016"  Name="dpDateMax" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
                     </StackPanel>
 
                     <!--Ligne 1-->
@@ -194,7 +194,7 @@
                     </Button>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
                         <DatePicker DisplayDate="01/01/2016" SelectedDate="{Binding DateFilterMin}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
-                        <DatePicker DisplayDate="01/01/2016" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
+                        <DatePicker DisplayDate="12/31/2016" SelectedDate="{Binding DateFilterMax}" SelectedDateChanged="FilterWorkTimeWithDateMinMax"/>
                     </StackPanel>
                     <!-- Ligne 1 -->
                     <ListView Grid.Row="1" ItemsSource="{Binding CurrentEmployeeListTaskAnx}" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding CurrentTask}">
