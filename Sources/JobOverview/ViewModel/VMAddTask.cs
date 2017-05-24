@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace JobOverview.ViewModel
 {
-    public class VMAddTask :ViewModelBase
+    public class VMAddTask : ViewModelBase
     {
         #region Champs privés
         private ObservableCollection<Activity> _listActivity;
@@ -18,6 +18,7 @@ namespace JobOverview.ViewModel
         private Entity.Version _selectedVersion;
         private Module _selectedModule;
         private Entity.Task _currentTask;
+        private Activity _activity;
         #endregion
         #region Propriétées publiques
         public List<Software> ListSoftware { get; set; }
@@ -42,36 +43,41 @@ namespace JobOverview.ViewModel
             set
             { SetProperty(ref _selectedModule, value); }
         }
+        public Activity SelectedActivity
+        { get { return _activity ?? ListActivity.FirstOrDefault(); }
+            set {SetProperty(ref _activity, value); } }
+        public float SelectedPredictedTime{ get; set; }
         public Employee CurrentEmployee { get; set; }
         public Entity.Task CurrentTask
         {
-            get {return _currentTask; }
-            set {SetProperty(ref _currentTask, value); }
+            get { return _currentTask; }
+            set { SetProperty(ref _currentTask, value); }
         }
         public ObservableCollection<Activity> ListActivity
         {
             get { return _listActivity; }
-            set {SetProperty(ref _listActivity, value); }
-        } 
+            set { SetProperty(ref _listActivity, value); }
+        }
         #endregion
         public VMAddTask(Employee selectedEmployee)
         {
-            CurrentTask = new Entity.Task() {Id = Guid.NewGuid(), Activity = new Activity(), ListWorkTime = new ObservableCollection<WorkTime>() };
+            SelectedActivity = new Activity();
+            CurrentTask = new Entity.Task() { Id = Guid.NewGuid(), Activity = new Activity(), ListWorkTime = new ObservableCollection<WorkTime>() };
             ListSoftware = DAL.GetListSoftware();
             CurrentEmployee = selectedEmployee;
-            var tempList = CurrentEmployee.Job.ListActivity.Where(a => a.IsAnnex == false).ToList();
+            var tempList = CurrentEmployee.Job.ListActivity.Distinct().ToList();
             foreach (Activity activity in CurrentEmployee.Job.ListActivity.Where(a => a.IsAnnex == true).ToList())
             {
-                foreach (Activity empActivity in CurrentEmployee.ListTask.Select(t => t.Activity).Where(a => a.IsAnnex == true).ToList())
+                if (CurrentEmployee.ListTask.Where(t => t.Activity.Code == activity.Code).Any())
                 {
-                    if (empActivity != activity)
-                    {
-                        // Récupération des activités annexes qui n'ont pas encore de tâches associées.
-                        tempList.Add(activity);
-                    }
+                    tempList.Remove(activity);
                 }
             }
             ListActivity = new ObservableCollection<Activity>(tempList.Distinct().ToList());
+            SelectedActivity = ListActivity.FirstOrDefault();
+            SelectedSoftware = ListSoftware.FirstOrDefault();
+            SelectedVersion = SelectedSoftware.ListVersion.FirstOrDefault();
+            SelectedModule = SelectedSoftware.ListModule.FirstOrDefault();
         }
 
 
@@ -88,12 +94,24 @@ namespace JobOverview.ViewModel
 
         private void AddTask()
         {
-            if (CurrentTask is TaskProd)
+
+            if (!SelectedActivity.IsAnnex)
             {
-                ((TaskProd)CurrentTask).EstimatedRemainingTime = ((TaskProd)CurrentTask).PredictedTime;
+                CurrentTask = new TaskProd()
+                { Id = CurrentTask.Id,
+                    ListWorkTime = new ObservableCollection<WorkTime>(),
+                    Label = CurrentTask.Label,
+                    Description = CurrentTask.Description,
+                    Software = SelectedSoftware,
+                    Version = SelectedVersion,
+                    Module = SelectedModule,
+                    PredictedTime = SelectedPredictedTime,
+                    EstimatedRemainingTime = SelectedPredictedTime
+                };
             }
+            CurrentTask.Activity = SelectedActivity;
             CurrentEmployee.ListTask.Add(CurrentTask);
-            CurrentTask = new Entity.Task() {Id = Guid.NewGuid(), Activity = new Activity(), ListWorkTime = new ObservableCollection<WorkTime>() };
+            CurrentTask = new Entity.Task() { Id = Guid.NewGuid(), Activity = new Activity(), ListWorkTime = new ObservableCollection<WorkTime>() };
         }
     }
 }

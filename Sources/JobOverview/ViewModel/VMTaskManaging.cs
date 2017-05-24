@@ -117,11 +117,11 @@ namespace JobOverview.ViewModel
             ListEmployee = new ObservableCollection<Employee>(VMMain.ListEmployee.Where(e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam));
             SelectedEmployee = ListEmployee.FirstOrDefault();
             // Création d'une copie de la liste des employé
-            ListEmployeeWithAddedTasks = new List<Employee>();
-            //foreach (var item in ListEmployee)
-            //    ListEmployeeWithAddedTasks.Add(item);
-            //foreach (var item in ListEmployeeWithAddedTasks)
-            //    item.ListTask = new ObservableCollection<Entity.Task>();
+            ListEmployeeWithAddedTasks = DAL.GetListEmployeeWithoutTasks().Where(e => e.CodeTeam == VMMain.CurrentEmployee.CodeTeam).ToList();
+            foreach (var item in ListEmployeeWithAddedTasks)
+            {
+                item.ListTask = new ObservableCollection<Entity.Task>();
+            }
             ListSuppTasks = new List<Guid>();
             RemainingTaskVisible = true;
         }
@@ -158,6 +158,16 @@ namespace JobOverview.ViewModel
                 return _cmdSuppTask;
             }
         }
+
+        private ICommand _cmdSave;
+        public ICommand CmdSave
+        { get
+            {
+                if (_cmdSave == null)
+                    _cmdSave = new RelayCommand(Save);
+                return _cmdSave;
+            }
+        }
         #endregion
 
         #region Méthodes privées
@@ -183,7 +193,9 @@ namespace JobOverview.ViewModel
                 RemainingTimeReport = ListTaskProd != null ? ListTaskProd.Where(t => t.Version.Number == SelectedVersion.Number && t.Software.Code == SelectedSoftware.Code).Sum(t => t.EstimatedRemainingTime) : 0;
             }
         }
-
+        /// <summary>
+        /// Ajoute les tâches créée dans la fenêtre de création de tâche dans une liste de tâche à créer qui seront ajouter lors de l'appel de la méthode Save.
+        /// </summary>
         private void AddTask()
         {
             UpdatedEmployee = new Employee() {Login = SelectedEmployee.Login, ListTask = new ObservableCollection<Entity.Task>(), Job = SelectedEmployee.Job };
@@ -205,7 +217,9 @@ namespace JobOverview.ViewModel
                 }
             }
         }
-
+        /// <summary>
+        /// Ajoute la tâche marquée à supprimer dans une liste de tâche qui seront supprimer lors de l'appel de la méthode Save.
+        /// </summary>
         private void SuppTask()
         {
             if (CurrentTask != null && CurrentTask.TotalWorkingTime == 0)
@@ -227,6 +241,13 @@ namespace JobOverview.ViewModel
                 else
                     ListTaskAnnex.Remove(CurrentTask);
             }
+        }
+        /// <summary>
+        /// Sauvegarde les ajout et suppression de tâche dans la base de donnée.
+        /// </summary>
+        private void Save()
+        {
+            DAL.UpdateDatabaseTaskListOfEmployee(ListEmployeeWithAddedTasks, ListSuppTasks); 
         }
         #endregion
     }

@@ -24,7 +24,7 @@ namespace JobOverview.ToolKit
     }
 
 
-    public class ConvModeEditionIsEnabled : IValueConverter
+    public class ConvModeEditionModifyIsEnabled : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -40,11 +40,11 @@ namespace JobOverview.ToolKit
         }
     }
 
-    public class ConvModeEditionIsNotEnabled : IValueConverter
+    public class ConvModeEditionIsEnabled : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (ViewModel.EditionModes)value != ViewModel.EditionModes.Edition;
+            return (ViewModel.EditionModes)value == ViewModel.EditionModes.Edition;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
