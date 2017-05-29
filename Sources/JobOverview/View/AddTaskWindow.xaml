@@ -31,11 +31,11 @@
             <StackPanel >
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Logiciel :"/>
-                    <ComboBox SelectedIndex="0" Name="cbSoftwareSelection" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" SelectedItem="{Binding CurrentTask.Software}" IsSynchronizedWithCurrentItem="True"/>
+                    <ComboBox SelectedIndex="0" Name="cbSoftwareSelection" ItemsSource="{Binding ListSoftware}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedSoftware}" IsSynchronizedWithCurrentItem="True"/>
                     <Label Content="Version :"/>
-                    <ComboBox SelectedIndex="0" Name="cbVersionSelection" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="Number" SelectedItem="{Binding CurrentTask.Version}" IsSynchronizedWithCurrentItem="True"/>
+                    <ComboBox SelectedIndex="0" Name="cbVersionSelection" ItemsSource="{Binding ListSoftware/ListVersion}" DisplayMemberPath="Number" SelectedItem="{Binding SelectedVersion}" IsSynchronizedWithCurrentItem="True"/>
                     <Label Content="Module :"/>
-                    <ComboBox SelectedIndex="0" Name="cbModuleSelection" ItemsSource="{Binding ListSoftware/ListModule}" DisplayMemberPath="Label" SelectedItem="{Binding CurrentTask.Module}" IsSynchronizedWithCurrentItem="True"/>
+                    <ComboBox SelectedIndex="0" Name="cbModuleSelection" ItemsSource="{Binding ListSoftware/ListModule}" DisplayMemberPath="Label" SelectedItem="{Binding SelectedModule}" IsSynchronizedWithCurrentItem="True"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Temps prévu"/>

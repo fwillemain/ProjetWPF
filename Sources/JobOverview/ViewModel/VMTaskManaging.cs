@@ -184,6 +184,7 @@ namespace JobOverview.ViewModel
         {
             if (SelectedSoftware != null && SelectedVersion != null)
             {
+                ListTaskProd = null;
                 ListTaskProd = new ObservableCollection<TaskProd>(SelectedEmployee.ListTask.OfType<TaskProd>()
                     .Where(t => t.Software.Code == SelectedSoftware.Code &&
                      t.Version.Number == SelectedVersion.Number &&
@@ -215,6 +216,7 @@ namespace JobOverview.ViewModel
                 foreach (var task in UpdatedEmployee.ListTask)
                 {
                     ListEmployeeWithAddedTasks.Where(e => e.Login == UpdatedEmployee.Login).FirstOrDefault().ListTask.Add(task);
+                    ListEmployee.Where(e => e.Login == SelectedEmployee.Login).First().ListTask.Add(task);
                     if (task is TaskProd)
                         ListTaskProd.Add((TaskProd)task);
                     else
