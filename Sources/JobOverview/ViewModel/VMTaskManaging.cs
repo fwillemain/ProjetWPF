@@ -217,10 +217,10 @@ namespace JobOverview.ViewModel
                 {
                     ListEmployeeWithAddedTasks.Where(e => e.Login == UpdatedEmployee.Login).FirstOrDefault().ListTask.Add(task);
                     ListEmployee.Where(e => e.Login == SelectedEmployee.Login).First().ListTask.Add(task);
-                    //if (task is TaskProd)
-                    //    ListTaskProd.Add((TaskProd)task);
-                    //else
-                    //    ListTaskAnnex.Add(task);
+                    if (task is TaskProd)
+                        ;// ListTaskProd.Add((TaskProd)task);
+                    else
+                        ListTaskAnnex.Add(task);
                 }
             }
         }
@@ -280,7 +280,7 @@ namespace JobOverview.ViewModel
                     ListEmployeeWithAddedTasks.ForEach(e => e.ListTask.Clear());
                     ListSuppTasks.Clear();
                 }
-                catch (SqlException)
+                catch (SqlException e)
                 {
                     MessageBox.Show("La sauvegarde a échoué.", "Echec", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
                 }
