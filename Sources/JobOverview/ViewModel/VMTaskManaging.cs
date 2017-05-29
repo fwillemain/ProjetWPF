@@ -184,6 +184,7 @@ namespace JobOverview.ViewModel
         {
             if (SelectedSoftware != null && SelectedVersion != null)
             {
+                ListTaskProd = null;
                 ListTaskProd = new ObservableCollection<TaskProd>(SelectedEmployee.ListTask.OfType<TaskProd>()
                     .Where(t => t.Software.Code == SelectedSoftware.Code &&
                      t.Version.Number == SelectedVersion.Number &&
@@ -215,10 +216,11 @@ namespace JobOverview.ViewModel
                 foreach (var task in UpdatedEmployee.ListTask)
                 {
                     ListEmployeeWithAddedTasks.Where(e => e.Login == UpdatedEmployee.Login).FirstOrDefault().ListTask.Add(task);
-                    if (task is TaskProd)
-                        ListTaskProd.Add((TaskProd)task);
-                    else
-                        ListTaskAnnex.Add(task);
+                    ListEmployee.Where(e => e.Login == SelectedEmployee.Login).First().ListTask.Add(task);
+                    //if (task is TaskProd)
+                    //    ListTaskProd.Add((TaskProd)task);
+                    //else
+                    //    ListTaskAnnex.Add(task);
                 }
             }
         }
@@ -266,15 +268,17 @@ namespace JobOverview.ViewModel
                 try
                 {
                     DAL.UpdateDatabaseTaskListOfEmployee(ListEmployeeWithAddedTasks, ListSuppTasks);
-                    foreach (var task in ListEmployeeWithAddedTasks.Where(e => e.Login == VMMain.CurrentEmployee.Login).FirstOrDefault().ListTask)
-                    {
-                        VMMain.CurrentEmployee.ListTask.Add(task);
-                    }
+                    //foreach (var task in ListEmployeeWithAddedTasks.Where(e => e.Login == SelectedEmployee.Login).FirstOrDefault().ListTask)
+                    //{
+                    //    VMMain.CurrentEmployee.ListTask.Add(task);
+                    //}
                     foreach (var id in ListSuppTasks)
                     {
-                        VMMain.CurrentEmployee.ListTask.Remove(VMMain.CurrentEmployee.ListTask.Where(t => t.Id == id).FirstOrDefault());
+                        VMMain.CurrentEmployee.ListTask.Remove(SelectedEmployee.ListTask.Where(t => t.Id == id).FirstOrDefault());
                     }
                     MessageBox.Show("La sauvegarde a bien été effectuée.");
+                    ListEmployeeWithAddedTasks.ForEach(e => e.ListTask.Clear());
+                    ListSuppTasks.Clear();
                 }
                 catch (SqlException)
                 {
